@@ -40,16 +40,16 @@ export async function generateMetadata({ searchParams }: Props): Promise<Metadat
   const desc = `Baca ${title}${source ? ` (${source})` : ""} gratis tanpa iklan mengganggu di aplikasi KonMik!`;
 
   // Use our specialized JPEG proxy endpoint so WhatsApp and social platforms always get a valid <300KB JPEG
-  const ogImageUrl = `https://konmik-web.vercel.app/api/og-image?cover=${encodeURIComponent(cover)}`;
+  const ogImageUrl = `https://konmik.konkon.id/api/og-image?cover=${encodeURIComponent(cover)}`;
 
   return {
-    metadataBase: new URL("https://konmik-web.vercel.app"),
+    metadataBase: new URL("https://konmik.konkon.id"),
     title: `${title} - Baca di KonMik`,
     description: desc,
     openGraph: {
       title: `${title} | KonMik`,
       description: desc,
-      url: `https://konmik-web.vercel.app/share`,
+      url: `https://konmik.konkon.id/share`,
       siteName: "KonMik",
       locale: "id_ID",
       type: "website",
