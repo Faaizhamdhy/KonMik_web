@@ -24,9 +24,15 @@ const APP_LINKS = [
     external: true,
   },
   {
-    href: "https://github.com/Faaizhamdhy/KonMik",
-    label: "GitHub Repository",
+    href: "https://github.com/Faaizhamdhy/KonMik-Release",
+    label: "GitHub KonMik (Public)",
     icon: GithubIcon,
+    external: true,
+  },
+  {
+    href: "https://gist.github.com/Faaizhamdhy/ef1a3bc0bad4dfa24ceeaf8a0eb1af9b",
+    label: "Template Gist Ekstensi",
+    icon: ExternalLink,
     external: true,
   },
 ];

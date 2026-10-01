@@ -65,7 +65,7 @@ export default function Navbar() {
             </Link>
           ))}
           <a
-            href="https://github.com/Faaizhamdhy/KonMik"
+            href="https://github.com/Faaizhamdhy/KonMik-Release"
             target="_blank"
             rel="noopener noreferrer"
             className="flex items-center gap-1.5 px-3.5 py-2 rounded-lg text-sm font-medium text-[#a89282] hover:text-[#f5ede4] hover:bg-[#18120e] transition-all duration-150"
@@ -115,7 +115,7 @@ export default function Navbar() {
             </Link>
           ))}
           <a
-            href="https://github.com/Faaizhamdhy/KonMik"
+            href="https://github.com/Faaizhamdhy/KonMik-Release"
             target="_blank"
             rel="noopener noreferrer"
             onClick={() => setMobileMenuOpen(false)}

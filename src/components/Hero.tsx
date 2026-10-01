@@ -173,45 +173,38 @@ export default function Hero() {
                       filter: "drop-shadow(0 10px 30px rgba(255, 122, 0, 0.55))",
                     }}
                   />
-                  {/* Floating mascot bubble badge */}
-                  <div className="absolute top-10 -right-2 px-3 py-1 rounded-full bg-[#18120e]/90 border border-[rgba(255,122,0,0.5)] shadow-[0_4px_20px_rgba(0,0,0,0.6)] backdrop-blur-md text-[10px] font-bold text-[#ff7a00] flex items-center gap-1.5 animate-bounce">
-                    <Sparkles className="w-3 h-3 text-[#ff7a00]" />
-                    <span>Adik Rubahmu ✨</span>
-                  </div>
                 </div>
               </div>
             </div>
 
-            {/* Mobile Layout (Pop-out character bursting out of the top center of card) */}
-            <div className="lg:hidden relative pt-24 sm:pt-28 text-center">
+            {/* Mobile Layout (Pop-out character bursting out through the top, text strictly underneath) */}
+            <div className="lg:hidden relative flex flex-col items-center text-center">
               
-              {/* Character BURSTING OUT through the top of the card */}
-              <div className="absolute -top-24 sm:-top-28 left-1/2 -translate-x-1/2 w-52 sm:w-60 h-64 sm:h-76 pointer-events-none select-none z-20">
+              {/* Character stage bursting through top border with natural height flow */}
+              <div className="relative -mt-20 sm:-mt-24 w-52 sm:w-60 h-64 sm:h-72 pointer-events-none select-none flex items-end justify-center mb-3">
                 {/* Stage floor glow */}
-                <div className="absolute bottom-3 left-1/2 -translate-x-1/2 w-36 h-8 bg-[rgba(255,122,0,0.4)] blur-xl rounded-full" />
-                <Image
-                  src={`${CDN}/CitsunePose1.png`}
-                  alt="Citsune Character"
-                  fill
-                  unoptimized
-                  className="object-contain object-bottom"
-                  style={{
-                    filter: "drop-shadow(0 8px 24px rgba(255, 122, 0, 0.6))",
-                  }}
-                />
-                {/* Floating badge */}
-                <div className="absolute top-8 right-0 px-2.5 py-0.5 rounded-full bg-[#18120e]/95 border border-[rgba(255,122,0,0.5)] shadow-md text-[9px] font-bold text-[#ff7a00] flex items-center gap-1">
-                  <span>Adik Rubahmu 🦊</span>
+                <div className="absolute bottom-2 left-1/2 -translate-x-1/2 w-40 h-8 bg-[rgba(255,122,0,0.35)] blur-xl rounded-full" />
+                <div className="relative w-full h-full">
+                  <Image
+                    src={`${CDN}/CitsunePose1.png`}
+                    alt="Citsune Character"
+                    fill
+                    unoptimized
+                    className="object-contain object-bottom"
+                    style={{
+                      filter: "drop-shadow(0 10px 24px rgba(255, 122, 0, 0.55))",
+                    }}
+                  />
                 </div>
               </div>
 
-              {/* Text content under the character */}
-              <div className="relative z-10 space-y-4">
+              {/* Text content strictly under the character feet — zero overlapping or covered text */}
+              <div className="relative z-10 space-y-4 w-full px-2">
                 <div>
-                  <div className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-[rgba(255,122,0,0.12)] border border-[rgba(255,122,0,0.3)] text-[10px] font-bold uppercase tracking-wider text-[#ff7a00] mb-2">
+                  <div className="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-[rgba(255,122,0,0.12)] border border-[rgba(255,122,0,0.3)] text-[10px] font-bold uppercase tracking-wider text-[#ff7a00] mb-2.5">
                     Maskot Resmi KonMik
                   </div>
-                  <h3 className="text-xl sm:text-2xl font-bold text-[#f5ede4]">
+                  <h3 className="text-xl sm:text-2xl font-extrabold text-[#f5ede4]">
                     Temui Citsune, Adik Rubahmu!
                   </h3>
                 </div>
@@ -230,7 +223,7 @@ export default function Hero() {
                   ].map(({ t, c }) => (
                     <div key={t} className="flex items-center gap-2 p-2 rounded-xl bg-[#110d09]/80 border border-[#2a1d14]">
                       <div className={`w-1.5 h-1.5 rounded-full shrink-0 ${c}`} />
-                      <span className="text-[11px] text-[#a89282] truncate">{t}</span>
+                      <span className="text-[11px] text-[#a89282] truncate font-medium">{t}</span>
                     </div>
                   ))}
                 </div>

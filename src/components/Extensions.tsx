@@ -4,7 +4,9 @@ import { useState } from "react";
 import {
   Puzzle, Download, Copy, Check, ShieldCheck, Lock,
   MessageCircle, X, HelpCircle, Layers, Sparkles, ChevronDown,
+  Code2, ExternalLink, FileCode, BookOpen,
 } from "lucide-react";
+import GithubIcon from "./GithubIcon";
 
 const WEBTOON_URL =
   "https://gist.githubusercontent.com/Faaizhamdhy/ef1a3bc0bad4dfa24ceeaf8a0eb1af9b/raw/01647278aeffb3805bd7d264114cd465d5f2d477/webtoon.js";
@@ -24,6 +26,7 @@ export default function Extensions() {
   const [copiedId, setCopiedId] = useState<string | null>(null);
   const [showAdminModal, setShowAdminModal] = useState(false);
   const [showGuide, setShowGuide] = useState(false);
+  const [showDevDoc, setShowDevDoc] = useState(false);
 
   const copyUrl = (id: string, url: string) => {
     navigator.clipboard.writeText(url).catch(() => {});
@@ -258,6 +261,106 @@ export default function Extensions() {
               {" "}dan berbagai katalog lainnya sudah terintegrasi langsung di dalam KonMik — siap dibaca tanpa setup tambahan.
             </p>
           </div>
+        </div>
+
+        {/* Developer Guide Callout: Cara Pembuatan Gist Extension */}
+        <div className="max-w-4xl mx-auto mt-6 p-5 sm:p-6 rounded-3xl bg-gradient-to-r from-[#1c1510] to-[#140e0a] border border-[rgba(255,122,0,0.25)] shadow-[0_10px_35px_rgba(0,0,0,0.4)]">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+            <div className="flex items-start gap-3.5">
+              <div className="w-10 h-10 rounded-2xl bg-[rgba(255,122,0,0.12)] border border-[rgba(255,122,0,0.3)] text-[#ff7a00] flex items-center justify-center shrink-0 mt-0.5">
+                <Code2 className="w-5 h-5" />
+              </div>
+              <div>
+                <h4 className="font-bold text-sm sm:text-base text-[#f5ede4] mb-1 flex flex-wrap items-center gap-2">
+                  <span>Ingin Buat Ekstensi Komik Sendiri?</span>
+                  <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-[#ff7a00]/20 text-[#ff7a00] border border-[#ff7a00]/30">
+                    Developer & Komunitas
+                  </span>
+                </h4>
+                <p className="text-xs sm:text-sm text-[#a89282] leading-relaxed max-w-xl">
+                  KonMik menggunakan engine JavaScript ringan. Siapa saja dapat menyusun ekstensi menggunakan GitHub Gist publik dan membagikannya ke pembaca lain.
+                </p>
+              </div>
+            </div>
+
+            <div className="flex flex-wrap items-center gap-2.5 shrink-0 w-full sm:w-auto">
+              <button
+                onClick={() => setShowDevDoc(!showDevDoc)}
+                className="flex-1 sm:flex-none inline-flex items-center justify-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-semibold bg-[#18120e] hover:bg-[#221a13] text-[#f5ede4] border border-[#2a1d14] hover:border-[rgba(255,122,0,0.3)] transition-all"
+              >
+                <BookOpen className="w-3.5 h-3.5 text-[#ff7a00]" />
+                <span>{showDevDoc ? "Tutup Panduan" : "Panduan Format JS"}</span>
+                <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-200 ${showDevDoc ? "rotate-180" : ""}`} />
+              </button>
+
+              <a
+                href="https://gist.github.com/Faaizhamdhy/ef1a3bc0bad4dfa24ceeaf8a0eb1af9b"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex-1 sm:flex-none inline-flex items-center justify-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-semibold bg-[#ff7a00] hover:bg-[#e86e00] text-white transition-all shadow-[0_0_15px_rgba(255,122,0,0.3)]"
+              >
+                <FileCode className="w-3.5 h-3.5" />
+                <span>Template Gist Resmi</span>
+                <ExternalLink className="w-3 h-3 opacity-80" />
+              </a>
+
+              <a
+                href="https://github.com/Faaizhamdhy/KonMik-Release"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex-1 sm:flex-none inline-flex items-center justify-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-semibold bg-[#18120e] hover:bg-[#221a13] text-[#a89282] hover:text-[#f5ede4] border border-[#2a1d14] transition-all"
+              >
+                <GithubIcon className="w-3.5 h-3.5" />
+                <span>Repo Publik</span>
+              </a>
+            </div>
+          </div>
+
+          {/* Expandable Developer Documentation Drawer */}
+          {showDevDoc && (
+            <div className="mt-6 pt-5 border-t border-[#2a1d14] space-y-4 animate-in fade-in slide-in-from-top-2 duration-200">
+              <h5 className="font-bold text-sm text-[#f5ede4] flex items-center gap-2">
+                <FileCode className="w-4 h-4 text-[#ff7a00]" />
+                Spesifikasi Format File Ekstensi JavaScript (.js)
+              </h5>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
+                <div className="p-3.5 rounded-2xl bg-[#110d09] border border-[#2a1d14]">
+                  <p className="font-bold text-[#ff7a00] mb-2">1. Header Metadata Wajib (Komentar Paling Atas)</p>
+                  <pre className="p-2.5 rounded-xl bg-black/60 font-mono text-[11px] text-[#a89282] overflow-x-auto leading-relaxed">
+{`// ID: ext_namasource
+// NAME: Nama Sumber Komik
+// VERSION: 1.0.0
+// COLOR: #00D564
+// ICON: https://domain.com/favicon.ico
+// REFERER: https://domain.com/`}
+                  </pre>
+                  <p className="text-[10px] text-[#6b5244] mt-2">
+                    *ID wajib diawali dengan prefix <code className="text-[#a89282]">ext_</code> tanpa spasi.
+                  </p>
+                </div>
+
+                <div className="p-3.5 rounded-2xl bg-[#110d09] border border-[#2a1d14]">
+                  <p className="font-bold text-[#ff7a00] mb-2">2. Kontrak Objek KonmikExtension</p>
+                  <pre className="p-2.5 rounded-xl bg-black/60 font-mono text-[11px] text-[#a89282] overflow-x-auto leading-relaxed">
+{`const KonmikExtension = {
+  // Ambil list komik (halaman, query cari, filter)
+  async getList(page, query, filters) { ... },
+  
+  // Ambil detail komik & chapter
+  async getDetail(slug) { ... },
+  
+  // Ambil daftar URL gambar chapter
+  async getChapterImages(chapterId) { ... }
+};`}
+                  </pre>
+                  <p className="text-[10px] text-[#6b5244] mt-2">
+                    *Buka <a href="https://gist.github.com/Faaizhamdhy/ef1a3bc0bad4dfa24ceeaf8a0eb1af9b" target="_blank" rel="noopener noreferrer" className="text-[#ff7a00] hover:underline">Gist Webtoon Resmi</a> untuk contoh implementasi lengkap.
+                  </p>
+                </div>
+              </div>
+            </div>
+          )}
         </div>
       </div>
 
