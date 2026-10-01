@@ -62,8 +62,8 @@ export default async function Hero() {
         {/* Fade sides */}
         <div className="absolute inset-y-0 left-0 w-1/4 bg-gradient-to-r from-[#0c0906] to-transparent" />
         <div className="absolute inset-y-0 right-0 w-1/4 bg-gradient-to-l from-[#0c0906] to-transparent" />
-        {/* Dark overlay — cukup gelap agar teks tetap terbaca */}
-        <div className="absolute inset-0 bg-[#0c0906]/55 sm:bg-[#0c0906]/40" />
+        {/* Dark overlay — seimbang antara terlihat & teks terbaca */}
+        <div className="absolute inset-0 bg-[#0c0906]/35 sm:bg-[#0c0906]/25" />
       </div>
 
       <div className="container mx-auto px-4 sm:px-6 max-w-6xl pt-16 pb-20 md:pt-24 md:pb-28">
