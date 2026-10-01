@@ -1,26 +1,12 @@
 import { Download, ChevronRight, Sparkles, Smartphone, ShieldCheck, Zap, Star } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { getLatestVersion } from "@/lib/version";
 
 const CDN = "https://api.konkon.id/static/assets";
 
-async function getLatestVersion(): Promise<string> {
-  try {
-    const res = await fetch(
-      "https://api.github.com/repos/Faaizhamdhy/KonMik-Release/releases/latest",
-      { next: { revalidate: 3600 } } // cache 1 jam
-    );
-    if (!res.ok) return "1.6.2";
-    const data = await res.json();
-    // tag_name biasanya "v1.6.2" → strip "v"
-    return (data.tag_name as string).replace(/^v/, "") ?? "1.6.2";
-  } catch {
-    return "1.6.2";
-  }
-}
-
-export default async function Hero() {
-  const version = await getLatestVersion();
+export default async function Hero({ version: propVersion }: { version?: string } = {}) {
+  const version = propVersion ?? (await getLatestVersion());
   const downloadUrl =
     "https://github.com/Faaizhamdhy/KonMik-Release/releases/latest/download/KonMik.apk";
 

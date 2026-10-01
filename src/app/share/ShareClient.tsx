@@ -11,6 +11,7 @@ interface ShareClientProps {
   source: string;
   id: string;
   endpoint: string;
+  version?: string;
 }
 
 export default function ShareClient({
@@ -19,6 +20,7 @@ export default function ShareClient({
   source,
   id,
   endpoint,
+  version = "1.6.2",
 }: ShareClientProps) {
   const [deepLink, setDeepLink] = useState("");
   const [imageError, setImageError] = useState(false);
@@ -96,7 +98,7 @@ export default function ShareClient({
             className="w-full py-3 px-4 bg-[#110d09] hover:bg-[#221a13] border border-[#2a1d14] text-[#f5ede4] font-medium rounded-xl transition-all flex items-center justify-center gap-2 text-xs sm:text-sm"
           >
             <Download className="w-4 h-4 text-[#ff7a00]" />
-            <span>Belum Punya? Download APK (v1.6.2)</span>
+            <span>Belum Punya? Download APK (v{version})</span>
           </a>
 
           <Link

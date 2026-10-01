@@ -64,7 +64,7 @@ const HIGHLIGHTS = [
   { icon: Zap, label: "Ringan & cepat", sub: "Tanpa lag" },
 ];
 
-export default function Features() {
+export default function Features({ version = "1.6.2" }: { version?: string }) {
   return (
     <section id="features" className="py-24 relative overflow-hidden">
       {/* Background */}
@@ -158,7 +158,7 @@ export default function Features() {
               className="inline-flex items-center gap-2 text-xs font-semibold text-[#a89282] hover:text-[#ff7a00] transition-colors"
             >
               <Zap className="w-3.5 h-3.5 text-[#ff7a00]" />
-              <span>Atau Download Langsung APK KonMik v1.6.2 (Gratis) &rarr;</span>
+              <span>Atau Download Langsung APK KonMik v{version} (Gratis) &rarr;</span>
             </a>
           </div>
         </div>

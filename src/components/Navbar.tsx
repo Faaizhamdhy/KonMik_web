@@ -8,7 +8,7 @@ import GithubIcon from "./GithubIcon";
 import DiscordIcon from "./DiscordIcon";
 import WhatsAppIcon from "./WhatsAppIcon";
 
-export default function Navbar() {
+export default function Navbar({ version = "1.6.2" }: { version?: string }) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
@@ -49,7 +49,7 @@ export default function Navbar() {
               KonMik
             </span>
             <span className="text-[9px] font-bold px-1.5 py-0.5 rounded-full bg-[rgba(255,122,0,0.15)] text-[#ff7a00] border border-[rgba(255,122,0,0.3)] leading-none">
-              v1.6.2
+              v{version}
             </span>
           </div>
         </Link>
@@ -172,7 +172,7 @@ export default function Navbar() {
               className="flex items-center justify-center gap-2 w-full py-3 rounded-xl text-sm font-bold bg-[#ff7a00] hover:bg-[#e86e00] text-white transition-all shadow-[0_0_20px_rgba(255,122,0,0.3)] active:scale-[0.98]"
             >
               <Download className="w-4 h-4" aria-hidden="true" />
-              Download APK v1.6.2 (~31 MB)
+              Download APK v{version} (~31 MB)
             </a>
           </div>
         </div>

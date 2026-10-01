@@ -2,6 +2,7 @@ import { Metadata } from "next";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import Extensions from "@/components/Extensions";
+import { getLatestVersion } from "@/lib/version";
 
 export const metadata: Metadata = {
   title: "Katalog Ekstensi Komik KonMik - Line Webtoon & DoujinDesu",
@@ -15,14 +16,16 @@ export const metadata: Metadata = {
   },
 };
 
-export default function ExtensionsPage() {
+export default async function ExtensionsPage() {
+  const version = await getLatestVersion();
+
   return (
     <div className="min-h-screen flex flex-col font-sans">
-      <Navbar />
+      <Navbar version={version} />
       <main className="flex-1 pt-8">
         <Extensions />
       </main>
-      <Footer />
+      <Footer version={version} />
     </div>
   );
 }

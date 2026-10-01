@@ -12,10 +12,10 @@ const NAV_LINKS = [
   { href: "/#features", label: "Fitur Komunitas" },
 ];
 
-const APP_LINKS = [
+const getAppLinks = (version: string) => [
   {
     href: "https://github.com/Faaizhamdhy/KonMik-Release/releases/latest/download/KonMik.apk",
-    label: "Download APK (v1.6.2)",
+    label: `Download APK (v${version})`,
     icon: Download,
     external: false,
   },
@@ -38,15 +38,16 @@ const APP_LINKS = [
     external: true,
   },
   {
-    href: "https://gist.github.com/Faaizhamdhy/ef1a3bc0bad4dfa24ceeaf8a0eb1af9b",
-    label: "Template Gist Ekstensi",
+    href: "https://github.com/Faaizhamdhy/KonMIk-Extension-",
+    label: "Repo Ekstensi KonMik",
     icon: ExternalLink,
     external: true,
   },
 ];
 
-export default function Footer() {
+export default function Footer({ version = "1.6.2" }: { version?: string }) {
   const year = new Date().getFullYear();
+  const appLinks = getAppLinks(version);
 
   return (
     <footer className="relative overflow-hidden border-t border-[#2a1d14]">
@@ -85,7 +86,7 @@ export default function Footer() {
               className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs font-bold text-white bg-[#ff7a00] hover:bg-[#e86e00] transition-all duration-200 shadow-[0_0_16px_rgba(255,122,0,0.3)] hover:shadow-[0_0_24px_rgba(255,122,0,0.45)] active:scale-[0.97]"
             >
               <Download className="w-3.5 h-3.5" aria-hidden="true" />
-              Download APK v1.6.2 (~31 MB)
+              Download APK v{version} (~31 MB)
             </a>
 
             <div className="pt-1">
@@ -117,7 +118,7 @@ export default function Footer() {
           <div>
             <h4 className="font-bold text-[#f5ede4] text-sm mb-4">Aplikasi & Komunitas</h4>
             <ul className="space-y-2.5">
-              {APP_LINKS.map(({ href, label, icon: Icon, external }) => (
+              {appLinks.map(({ href, label, icon: Icon, external }) => (
                 <li key={href}>
                   <a
                     href={href}

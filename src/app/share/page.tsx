@@ -1,5 +1,6 @@
 import { Metadata } from "next";
 import ShareClient from "./ShareClient";
+import { getLatestVersion } from "@/lib/version";
 
 type Props = {
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
@@ -74,7 +75,7 @@ export async function generateMetadata({ searchParams }: Props): Promise<Metadat
 }
 
 export default async function SharePage({ searchParams }: Props) {
-  const params = await searchParams;
+  const [params, version] = await Promise.all([searchParams, getLatestVersion()]);
 
   const title = typeof params.title === "string" ? decodeURIComponent(params.title) : "Komik Pilihan";
   const cover = reconstructCoverUrl(params);
@@ -89,6 +90,7 @@ export default async function SharePage({ searchParams }: Props) {
       source={source}
       id={id}
       endpoint={endpoint}
+      version={version}
     />
   );
 }
