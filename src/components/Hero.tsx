@@ -1,99 +1,151 @@
-import { Download, ChevronRight, Sparkles, Smartphone, ShieldCheck, Zap } from "lucide-react";
+import { Download, ChevronRight, Sparkles, Smartphone, ShieldCheck, Zap, Star } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+
+const CDN = "https://api.konkon.id/static/assets";
 
 export default function Hero() {
   const downloadUrl =
     "https://github.com/Faaizhamdhy/KonMik-Release/releases/latest/download/KonMik.apk";
 
-  return (
-    <section className="relative overflow-hidden pt-16 pb-24 md:pt-24 md:pb-32">
-      {/* Background warm kitsune orange glow */}
-      <div className="absolute inset-0 -z-10 bg-[radial-gradient(ellipse_80%_70%_at_50%_-15%,rgba(255,122,0,0.22),rgba(18,14,11,0))]"></div>
+  const stats = [
+    { icon: Smartphone, label: "Android 7.0+", sub: "ARM64 & 32-bit", color: "text-[#ff7a00]" },
+    { icon: ShieldCheck, label: "100% Ad-Free", sub: "Tanpa pop-up", color: "text-emerald-400" },
+    { icon: Zap, label: "Citsune AI", sub: "Teman baca cerdas", color: "text-amber-400" },
+    { icon: Star, label: "Multi-Source", sub: "Ribuan komik", color: "text-purple-400" },
+  ];
 
-      <div className="container mx-auto px-4 text-center">
-        {/* Release Pill Badge */}
-        <div className="inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-4 py-1.5 text-xs md:text-sm font-medium text-primary mb-8 shadow-inner animate-in fade-in duration-500">
-          <Sparkles className="w-4 h-4 text-primary" />
-          <span>KonMik v1.6.2 &bull; Update Terbaru</span>
-          <span className="w-1.5 h-1.5 rounded-full bg-primary/60"></span>
-          <span className="text-foreground/80">Tema Citsune &bull; ~31 MB</span>
+  return (
+    <section className="relative overflow-hidden">
+      {/* ── Multi-layer background ── */}
+      {/* Top radial glow */}
+      <div className="absolute inset-0 -z-20 bg-[#0c0906]" />
+      <div className="absolute -z-10 top-0 left-1/2 -translate-x-1/2 w-[900px] h-[500px] bg-[radial-gradient(ellipse_at_top,rgba(255,122,0,0.14)_0%,transparent_65%)]" />
+      {/* Bottom fade to next section */}
+      <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-b from-transparent to-[#0c0906] -z-10 pointer-events-none" />
+      {/* Subtle grid pattern */}
+      <div
+        className="absolute inset-0 -z-10 opacity-[0.025]"
+        style={{
+          backgroundImage: `linear-gradient(rgba(255,122,0,0.6) 1px, transparent 1px), linear-gradient(90deg, rgba(255,122,0,0.6) 1px, transparent 1px)`,
+          backgroundSize: "60px 60px",
+        }}
+      />
+
+      <div className="container mx-auto px-4 sm:px-6 max-w-6xl pt-20 pb-28 md:pt-28 md:pb-36">
+        {/* ── Badge ── */}
+        <div className="flex justify-center mb-8 animate-fade-up">
+          <div className="inline-flex items-center gap-2 rounded-full border border-[rgba(255,122,0,0.3)] bg-[rgba(255,122,0,0.08)] px-4 py-1.5 text-xs sm:text-sm font-semibold text-[#ff7a00] backdrop-blur-sm">
+            <Sparkles className="w-3.5 h-3.5" aria-hidden="true" />
+            <span>KonMik v1.6.2 — Tema Citsune</span>
+            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+            <span className="text-[#f5ede4]/70 font-normal">Rilis Terbaru</span>
+          </div>
         </div>
 
-        {/* Main Heading */}
-        <h1 className="text-4xl sm:text-5xl md:text-7xl font-extrabold tracking-tight mb-6 max-w-4xl mx-auto leading-[1.12]">
-          Baca Manga, Manhwa & Webtoon{" "}
-          <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-orange-400 to-amber-300">
-            Bebas Iklan
-          </span>
+        {/* ── Headline ── */}
+        <h1 className="text-center text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tight leading-[1.1] mb-6 max-w-4xl mx-auto animate-fade-up-delay-1">
+          Baca Manga, Manhwa &{" "}
+          <br className="hidden sm:block" />
+          Webtoon{" "}
+          <span className="shimmer-text">Bebas Iklan</span>
         </h1>
 
-        {/* Subtitle */}
-        <p className="text-base sm:text-lg md:text-xl text-foreground/75 mb-10 max-w-2xl mx-auto leading-relaxed">
-          Platform baca komik bertema rubah **Citsune** dengan ribuan judul komik bawaan, ekstensi modular, mode baca vertikal mulus, klan, dan teman AI cerdas.
+        {/* ── Subtitle ── */}
+        <p className="text-center text-base sm:text-lg md:text-xl text-[#a89282] mb-10 max-w-2xl mx-auto leading-relaxed animate-fade-up-delay-2">
+          Platform baca komik bertema rubah <strong className="text-[#f5ede4] font-semibold">Citsune</strong>{" "}
+          dengan ribuan judul bawaan, ekstensi modular, klan komunitas, dan teman AI cerdas.
         </p>
 
-        {/* Call to Actions */}
-        <div id="download" className="flex flex-col sm:flex-row justify-center items-center gap-4 max-w-md mx-auto mb-10">
+        {/* ── CTAs ── */}
+        <div className="flex flex-col sm:flex-row justify-center items-stretch sm:items-center gap-3 max-w-sm sm:max-w-none mx-auto mb-12 animate-fade-up-delay-3">
           <a
             href={downloadUrl}
-            className="w-full sm:w-auto px-8 py-4 rounded-2xl font-bold text-white bg-primary hover:bg-primary-hover shadow-[0_0_30px_rgba(255,122,0,0.4)] transition-all flex items-center justify-center gap-2.5 active:scale-[0.98] group"
+            className="group relative inline-flex items-center justify-center gap-2.5 px-8 py-4 rounded-2xl font-bold text-white text-base bg-[#ff7a00] hover:bg-[#e86e00] transition-all duration-200 shadow-[0_0_32px_rgba(255,122,0,0.4)] hover:shadow-[0_0_48px_rgba(255,122,0,0.55)] active:scale-[0.97] overflow-hidden"
           >
-            <Download className="w-5 h-5 group-hover:translate-y-0.5 transition-transform" />
+            {/* Shimmer sweep on hover */}
+            <span className="absolute inset-0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700 bg-[linear-gradient(90deg,transparent,rgba(255,255,255,0.15),transparent)]" />
+            <Download className="w-5 h-5 group-hover:translate-y-0.5 transition-transform duration-200" aria-hidden="true" />
             <span>Download KonMik APK</span>
           </a>
 
           <Link
             href="#screenshots"
-            className="w-full sm:w-auto px-7 py-4 rounded-2xl font-semibold text-foreground bg-card border border-border hover:border-primary/50 hover:bg-card/80 transition-all flex items-center justify-center gap-2"
+            className="inline-flex items-center justify-center gap-2 px-7 py-4 rounded-2xl font-semibold text-[#f5ede4] text-base bg-[#18120e] border border-[#2a1d14] hover:border-[rgba(255,122,0,0.4)] hover:bg-[#221a13] transition-all duration-200"
           >
-            <span>Preview Aplikasi</span>
-            <ChevronRight className="w-4 h-4 text-foreground/60" />
+            Preview Aplikasi
+            <ChevronRight className="w-4 h-4 text-[#6b5244]" aria-hidden="true" />
           </Link>
         </div>
 
-        {/* Highlight Badges */}
-        <div className="flex flex-wrap justify-center items-center gap-6 text-xs md:text-sm text-foreground/60 max-w-xl mx-auto pt-2">
-          <div className="flex items-center gap-2">
-            <Smartphone className="w-4 h-4 text-primary" />
-            <span>Android 7.0+ (ARM64 & 32-bit)</span>
-          </div>
-          <div className="flex items-center gap-2">
-            <ShieldCheck className="w-4 h-4 text-emerald-400" />
-            <span>100% Bebas Iklan Pop-up</span>
-          </div>
-          <div className="flex items-center gap-2">
-            <Zap className="w-4 h-4 text-amber-400" />
-            <span>Citsune AI Mascot</span>
-          </div>
+        {/* ── Stats / Badges ── */}
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 max-w-2xl mx-auto mb-16 animate-fade-up-delay-4">
+          {stats.map(({ icon: Icon, label, sub, color }) => (
+            <div
+              key={label}
+              className="flex flex-col items-center gap-1.5 p-3 rounded-xl bg-[#18120e] border border-[#2a1d14] text-center"
+            >
+              <Icon className={`w-5 h-5 ${color}`} aria-hidden="true" />
+              <span className="text-xs font-semibold text-[#f5ede4]">{label}</span>
+              <span className="text-[10px] text-[#a89282]">{sub}</span>
+            </div>
+          ))}
         </div>
 
-        {/* Mascot Banner Card with Citsune CDN Asset (citsune.jpg) */}
-        <div className="mt-14 max-w-3xl mx-auto relative group">
-          <div className="absolute -inset-1 bg-gradient-to-r from-primary/30 to-amber-500/20 rounded-3xl blur-xl opacity-30 group-hover:opacity-50 transition duration-700"></div>
-          
-          <div className="relative rounded-3xl border border-border/80 bg-card/70 backdrop-blur-xl p-6 sm:p-8 shadow-2xl flex flex-col sm:flex-row items-center gap-6 text-left">
-            {/* Citsune Mascot Image from CDN (citsune.jpg) */}
-            <div className="relative w-24 h-24 sm:w-32 sm:h-32 shrink-0 rounded-2xl overflow-hidden border-2 border-primary/40 shadow-[0_10px_25px_rgba(255,122,0,0.3)] group-hover:scale-105 transition-transform duration-300 bg-[#241a14]">
-              <Image
-                src="https://api.konkon.id/static/assets/citsune.jpg"
-                alt="Citsune Fox Mascot"
-                fill
-                unoptimized
-                className="object-cover"
-              />
+        {/* ── Hero Visual: Dual CDN asset card ── */}
+        <div className="relative max-w-4xl mx-auto">
+          {/* Outer glow */}
+          <div className="absolute -inset-4 bg-[radial-gradient(ellipse,rgba(255,122,0,0.12)_0%,transparent_70%)] pointer-events-none" />
+
+          <div className="relative grid grid-cols-1 lg:grid-cols-2 gap-4">
+            {/* Left: Citsune mascot card */}
+            <div className="gradient-border p-5 sm:p-6 flex items-center gap-5 group hover:shadow-[0_12px_40px_rgba(0,0,0,0.5)] transition-shadow duration-300">
+              <div className="relative w-20 h-20 sm:w-24 sm:h-24 shrink-0 rounded-2xl overflow-hidden border-2 border-[rgba(255,122,0,0.4)] shadow-[0_8px_24px_rgba(255,122,0,0.25)] group-hover:scale-105 transition-transform duration-300 bg-[#1a1109] animate-float">
+                <Image
+                  src={`${CDN}/citsune.jpg`}
+                  alt="Citsune Fox AI Mascot"
+                  fill
+                  unoptimized
+                  className="object-cover"
+                />
+              </div>
+              <div className="min-w-0">
+                <div className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-[rgba(255,122,0,0.12)] border border-[rgba(255,122,0,0.25)] text-[#ff7a00] text-[10px] font-bold uppercase tracking-wider mb-2">
+                  Maskot Resmi
+                </div>
+                <h3 className="text-base sm:text-lg font-bold text-[#f5ede4] leading-snug mb-1">
+                  Temui Citsune!
+                </h3>
+                <p className="text-xs sm:text-sm text-[#a89282] leading-relaxed">
+                  Adik rubahmu yang cerdas — siap rekomendasikan komik, rekap alur, dan menemani baca.
+                </p>
+              </div>
             </div>
 
-            <div className="space-y-2">
-              <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-primary/15 text-primary text-[11px] font-bold uppercase tracking-wider border border-primary/25">
-                Maskot Resmi KonMik
+            {/* Right: Pose 2 + feature highlights */}
+            <div className="relative overflow-hidden rounded-[24px] bg-[#18120e] border border-[#2a1d14] p-5 sm:p-6 flex items-center gap-5 group hover:border-[rgba(255,122,0,0.3)] transition-all duration-300">
+              <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_right,rgba(255,122,0,0.06),transparent_65%)] pointer-events-none" />
+              <div className="relative w-20 h-20 sm:w-24 sm:h-24 shrink-0 rounded-2xl overflow-hidden border border-[#3d2918] group-hover:scale-105 transition-transform duration-300 bg-[#1a1109]">
+                <Image
+                  src={`${CDN}/CitsunePose1.png`}
+                  alt="Citsune Pose"
+                  fill
+                  unoptimized
+                  className="object-cover object-top"
+                />
               </div>
-              <h3 className="text-xl sm:text-2xl font-bold text-foreground">
-                Temui Citsune, Adik Rubah Teman Membacamu!
-              </h3>
-              <p className="text-xs sm:text-sm text-foreground/75 leading-relaxed">
-                Butuh rekomendasi komik seru tanpa drama? Mau rekap alur bab sebelumnya? Citsune hadir langsung di dalam aplikasi untuk memandu petualangan membacamu setiap hari.
-              </p>
+              <div className="relative min-w-0 space-y-2.5">
+                {[
+                  "Multi-sumber dengan ekstensi modular JS",
+                  "Reader Ultra HD + scroll berbasis rubah",
+                  "Klan, leaderboard, & obrolan komunitas",
+                ].map((feat) => (
+                  <div key={feat} className="flex items-start gap-2">
+                    <div className="w-1.5 h-1.5 rounded-full bg-[#ff7a00] mt-1.5 shrink-0" />
+                    <span className="text-xs sm:text-sm text-[#a89282]">{feat}</span>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         </div>

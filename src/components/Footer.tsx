@@ -1,113 +1,136 @@
 import Link from "next/link";
 import Image from "next/image";
-import { Download, Heart } from "lucide-react";
+import { Download, Heart, ExternalLink } from "lucide-react";
 import GithubIcon from "./GithubIcon";
 
+const NAV_LINKS = [
+  { href: "/", label: "Beranda" },
+  { href: "/#screenshots", label: "Preview Aplikasi" },
+  { href: "/#extensions", label: "Katalog Ekstensi" },
+  { href: "/#features", label: "Fitur Komunitas" },
+];
+
+const APP_LINKS = [
+  {
+    href: "https://github.com/Faaizhamdhy/KonMik-Release/releases/latest/download/KonMik.apk",
+    label: "Download APK (v1.6.2)",
+    icon: Download,
+    external: false,
+  },
+  {
+    href: "https://github.com/Faaizhamdhy/KonMik-Release/releases",
+    label: "Semua Rilis & Changelog",
+    icon: ExternalLink,
+    external: true,
+  },
+  {
+    href: "https://github.com/Faaizhamdhy/KonMik",
+    label: "GitHub Repository",
+    icon: GithubIcon,
+    external: true,
+  },
+];
+
 export default function Footer() {
-  const currentYear = new Date().getFullYear();
+  const year = new Date().getFullYear();
 
   return (
-    <footer className="border-t border-border/80 bg-card/60 backdrop-blur-sm text-foreground/75">
-      <div className="container mx-auto px-4 py-14">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
-          {/* Brand Col */}
-          <div className="md:col-span-2 space-y-4">
-            <div className="flex items-center gap-2.5">
-              <div className="relative w-8 h-8 rounded-lg overflow-hidden border border-primary/40 shadow-sm">
+    <footer className="relative overflow-hidden border-t border-[#2a1d14]">
+      {/* Background */}
+      <div className="absolute inset-0 bg-[#0a0704] -z-10" />
+      <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-[rgba(255,122,0,0.2)] to-transparent" />
+      {/* Subtle glow at top */}
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[200px] bg-[radial-gradient(ellipse,rgba(255,122,0,0.04),transparent_65%)] pointer-events-none" />
+
+      <div className="container mx-auto px-4 sm:px-6 max-w-6xl pt-14 pb-8">
+        {/* Main grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 mb-12">
+          {/* Brand col */}
+          <div className="sm:col-span-2 space-y-4">
+            <Link href="/" className="flex items-center gap-2.5 group w-fit">
+              <div className="relative w-9 h-9 rounded-xl overflow-hidden border border-[rgba(255,122,0,0.3)] shadow-[0_0_12px_rgba(255,122,0,0.2)] group-hover:shadow-[0_0_20px_rgba(255,122,0,0.35)] transition-all duration-200 bg-[#1a1109]">
                 <Image
                   src="https://api.konkon.id/static/assets/citsune.jpg"
-                  alt="KonMik Citsune Logo"
+                  alt="KonMik Logo"
                   fill
                   unoptimized
                   className="object-cover"
                 />
               </div>
-              <span className="font-extrabold text-xl tracking-tight text-foreground">
-                KonMik
-              </span>
-            </div>
-            <p className="text-sm text-foreground/70 max-w-sm leading-relaxed">
-              Platform pembaca komik, manga, manhwa, dan webtoon gratis untuk Android bertema rubah **Citsune** tanpa iklan pop-up mengganggu.
+              <span className="font-extrabold text-xl tracking-tight text-[#f5ede4]">KonMik</span>
+            </Link>
+
+            <p className="text-sm text-[#a89282] max-w-xs leading-relaxed">
+              Platform pembaca komik, manga, manhwa, dan webtoon gratis untuk Android bertema rubah{" "}
+              <strong className="text-[#f5ede4] font-semibold">Citsune</strong> — tanpa iklan pop-up mengganggu.
             </p>
-            <div className="pt-2">
-              <span className="text-xs px-2.5 py-1 rounded-md bg-background border border-border text-foreground/70">
-                Official Domain: <strong className="text-foreground">konmik.konkon.id</strong>
+
+            {/* Download CTA */}
+            <a
+              href="https://github.com/Faaizhamdhy/KonMik-Release/releases/latest/download/KonMik.apk"
+              className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs font-bold text-white bg-[#ff7a00] hover:bg-[#e86e00] transition-all duration-200 shadow-[0_0_16px_rgba(255,122,0,0.3)] hover:shadow-[0_0_24px_rgba(255,122,0,0.45)] active:scale-[0.97]"
+            >
+              <Download className="w-3.5 h-3.5" aria-hidden="true" />
+              Download APK v1.6.2 (~31 MB)
+            </a>
+
+            <div className="pt-1">
+              <span className="text-[10px] px-2.5 py-1 rounded-md bg-[#18120e] border border-[#2a1d14] text-[#6b5244]">
+                Domain resmi:{" "}
+                <strong className="text-[#a89282]">konmik.konkon.id</strong>
               </span>
             </div>
           </div>
 
-          {/* Quick Links */}
+          {/* Nav links */}
           <div>
-            <h4 className="font-bold text-foreground text-sm mb-4">Navigasi</h4>
-            <ul className="space-y-2.5 text-sm">
-              <li>
-                <Link href="/" className="hover:text-primary transition-colors">
-                  Beranda
-                </Link>
-              </li>
-              <li>
-                <Link href="/#screenshots" className="hover:text-primary transition-colors">
-                  Preview Aplikasi
-                </Link>
-              </li>
-              <li>
-                <Link href="/#extensions" className="hover:text-primary transition-colors">
-                  Katalog Ekstensi
-                </Link>
-              </li>
-              <li>
-                <Link href="/#features" className="hover:text-primary transition-colors">
-                  Fitur Komunitas
-                </Link>
-              </li>
+            <h4 className="font-bold text-[#f5ede4] text-sm mb-4">Navigasi</h4>
+            <ul className="space-y-2.5">
+              {NAV_LINKS.map(({ href, label }) => (
+                <li key={href}>
+                  <Link
+                    href={href}
+                    className="text-sm text-[#a89282] hover:text-[#ff7a00] transition-colors duration-150"
+                  >
+                    {label}
+                  </Link>
+                </li>
+              ))}
             </ul>
           </div>
 
-          {/* Download & Repo */}
+          {/* App links */}
           <div>
-            <h4 className="font-bold text-foreground text-sm mb-4">Aplikasi & Komunitas</h4>
-            <ul className="space-y-2.5 text-sm">
-              <li>
-                <a
-                  href="https://github.com/Faaizhamdhy/KonMik-Release/releases/latest/download/KonMik.apk"
-                  className="hover:text-primary transition-colors flex items-center gap-1.5"
-                >
-                  <Download className="w-4 h-4 text-primary" />
-                  <span>Download APK (v1.6.2)</span>
-                </a>
-              </li>
-              <li>
-                <a
-                  href="https://github.com/Faaizhamdhy/KonMik-Release/releases"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="hover:text-primary transition-colors"
-                >
-                  Semua Rilis & Changelog
-                </a>
-              </li>
-              <li>
-                <a
-                  href="https://github.com/Faaizhamdhy/KonMik"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="hover:text-primary transition-colors flex items-center gap-1.5"
-                >
-                  <GithubIcon className="w-4 h-4" />
-                  <span>GitHub Repository</span>
-                </a>
-              </li>
+            <h4 className="font-bold text-[#f5ede4] text-sm mb-4">Aplikasi & Komunitas</h4>
+            <ul className="space-y-2.5">
+              {APP_LINKS.map(({ href, label, icon: Icon, external }) => (
+                <li key={href}>
+                  <a
+                    href={href}
+                    {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+                    className="flex items-center gap-1.5 text-sm text-[#a89282] hover:text-[#ff7a00] transition-colors duration-150 group/link"
+                  >
+                    <Icon className="w-3.5 h-3.5 shrink-0 text-[#6b5244] group-hover/link:text-[#ff7a00] transition-colors" aria-hidden="true" />
+                    {label}
+                  </a>
+                </li>
+              ))}
             </ul>
           </div>
         </div>
 
-        {/* Bottom Bar */}
-        <div className="pt-8 border-t border-border/60 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-foreground/50">
+        {/* Divider */}
+        <div className="h-px bg-gradient-to-r from-transparent via-[#2a1d14] to-transparent mb-6" />
+
+        {/* Bottom bar */}
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-[#6b5244]">
           <p>
-            &copy; {currentYear} KonMik &bull; Dikembangkan bersama Citsune untuk pembaca komik Indonesia.
+            &copy; {year} KonMik &bull; Dikembangkan bersama Citsune untuk pembaca komik Indonesia.
           </p>
-          <p className="flex items-center gap-1">
-            Dibuat dengan <Heart className="w-3.5 h-3.5 text-primary fill-primary" /> &bull; Bebas Iklan Pop-up
+          <p className="flex items-center gap-1.5">
+            Dibuat dengan
+            <Heart className="w-3 h-3 text-[#ff7a00] fill-[#ff7a00]" aria-hidden="true" />
+            &bull; 100% Bebas Iklan Pop-up
           </p>
         </div>
       </div>
