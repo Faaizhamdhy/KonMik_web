@@ -13,12 +13,13 @@ export async function generateMetadata({ searchParams }: Props): Promise<Metadat
   const rawCover = typeof params.cover === "string" ? params.cover : "";
   const cover = rawCover
     ? decodeURIComponent(rawCover)
-    : "https://konmik.konkon.id/favicon.ico";
+    : "https://api.konkon.id/static/assets/citsune.jpg";
 
   const source = typeof params.source === "string" ? params.source : "";
   const desc = `Baca ${title}${source ? ` (${source})` : ""} gratis tanpa iklan mengganggu di aplikasi KonMik!`;
 
   return {
+    metadataBase: new URL("https://konmik-web.vercel.app"),
     title: `${title} - Baca di KonMik`,
     description: desc,
     openGraph: {

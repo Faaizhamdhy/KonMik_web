@@ -29,7 +29,7 @@ export default function ShareClient({
       const appLink = "konmik://share" + search;
       setDeepLink(appLink);
 
-      // Attempt automatic redirect on mobile devices
+      // Attempt automatic redirect on mobile devices to open KonMik app directly
       const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
       if (isMobile) {
         window.location.href = appLink;
@@ -38,19 +38,19 @@ export default function ShareClient({
   }, []);
 
   return (
-    <div className="min-h-screen bg-background text-foreground flex flex-col items-center justify-center p-4 selection:bg-primary selection:text-white">
+    <div className="min-h-screen bg-[#0c0906] text-[#f5ede4] flex flex-col items-center justify-center p-4 selection:bg-[#ff7a00] selection:text-white relative overflow-hidden">
       {/* Background Glow */}
-      <div className="fixed inset-0 -z-10 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-primary/15 via-background to-background pointer-events-none"></div>
+      <div className="fixed inset-0 -z-10 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-[rgba(255,122,0,0.12)] via-[#0c0906] to-[#0c0906] pointer-events-none" />
 
-      <div className="w-full max-w-md bg-card/80 backdrop-blur-xl border border-border/80 rounded-3xl p-6 sm:p-8 shadow-2xl text-center relative overflow-hidden">
+      <div className="w-full max-w-md bg-[#18120e]/95 backdrop-blur-xl border border-[#2a1d14] rounded-3xl p-6 sm:p-8 shadow-[0_20px_60px_rgba(0,0,0,0.7)] text-center relative overflow-hidden">
         {/* Top badge */}
-        <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-primary/10 border border-primary/25 text-primary text-xs font-semibold mb-6">
+        <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[rgba(255,122,0,0.12)] border border-[rgba(255,122,0,0.3)] text-[#ff7a00] text-xs font-semibold mb-6">
           <Sparkles className="w-3.5 h-3.5" />
-          <span>Rekomendasi Komik KonMik</span>
+          <span>Rekomendasi Komik &bull; KonMik</span>
         </div>
 
         {/* Cover Image */}
-        <div className="relative mx-auto w-48 h-64 rounded-2xl overflow-hidden shadow-2xl border-2 border-border/60 mb-6 bg-slate-800">
+        <div className="relative mx-auto w-44 sm:w-48 h-60 sm:h-64 rounded-2xl overflow-hidden shadow-2xl border-2 border-[#3d2918] mb-6 bg-[#1a1109]">
           {cover && !imageError ? (
             <Image
               src={cover}
@@ -61,55 +61,55 @@ export default function ShareClient({
               onError={() => setImageError(true)}
             />
           ) : (
-            <div className="w-full h-full flex flex-col items-center justify-center text-foreground/40 p-4">
+            <div className="w-full h-full flex flex-col items-center justify-center text-[#6b5244] p-4">
               <BookOpen className="w-12 h-12 mb-2 stroke-[1.5]" />
               <span className="text-xs">Gambar Komik</span>
             </div>
           )}
           {source && (
-            <div className="absolute top-2.5 right-2.5 bg-black/75 backdrop-blur-md px-2.5 py-0.5 rounded-full text-[11px] font-semibold text-white uppercase tracking-wider border border-white/10">
+            <div className="absolute top-2.5 right-2.5 bg-black/80 backdrop-blur-md px-2.5 py-0.5 rounded-full text-[11px] font-semibold text-white uppercase tracking-wider border border-[rgba(255,122,0,0.3)]">
               {source}
             </div>
           )}
         </div>
 
         {/* Comic Info */}
-        <h1 className="text-xl sm:text-2xl font-bold leading-snug mb-2 line-clamp-2 text-foreground">
+        <h1 className="text-lg sm:text-xl font-extrabold leading-snug mb-2 line-clamp-2 text-[#f5ede4]">
           {title}
         </h1>
-        <p className="text-sm text-foreground/60 mb-6">
-          Buka langsung di aplikasi KonMik untuk membaca tanpa iklan mengganggu dan fitur lengkap lainnya.
+        <p className="text-xs sm:text-sm text-[#a89282] mb-6 leading-relaxed">
+          Buka langsung di aplikasi KonMik untuk membaca bab lengkap dengan mode Ultra HD tanpa iklan mengganggu.
         </p>
 
         {/* Action Buttons */}
         <div className="flex flex-col gap-3">
           <a
             href={deepLink || "#"}
-            className="w-full py-3.5 px-4 bg-primary hover:bg-primary-hover text-white font-semibold rounded-xl transition-all shadow-[0_0_20px_rgba(139,92,246,0.35)] flex items-center justify-center gap-2 active:scale-[0.98]"
+            className="w-full py-3.5 px-4 bg-[#ff7a00] hover:bg-[#e86e00] text-white font-bold rounded-xl transition-all shadow-[0_0_24px_rgba(255,122,0,0.35)] hover:shadow-[0_0_35px_rgba(255,122,0,0.5)] flex items-center justify-center gap-2 active:scale-[0.98] text-sm"
           >
             <ExternalLink className="w-4 h-4" />
-            Buka di Aplikasi KonMik
+            <span>Buka di Aplikasi KonMik</span>
           </a>
 
           <a
             href="https://github.com/Faaizhamdhy/KonMik-Release/releases/latest/download/KonMik.apk"
-            className="w-full py-3 px-4 bg-slate-800/80 hover:bg-slate-700/80 border border-border text-foreground font-medium rounded-xl transition-all flex items-center justify-center gap-2 text-sm"
+            className="w-full py-3 px-4 bg-[#110d09] hover:bg-[#221a13] border border-[#2a1d14] text-[#f5ede4] font-medium rounded-xl transition-all flex items-center justify-center gap-2 text-xs sm:text-sm"
           >
-            <Download className="w-4 h-4 text-primary" />
-            Belum Punya? Download APK (v1.6.2)
+            <Download className="w-4 h-4 text-[#ff7a00]" />
+            <span>Belum Punya? Download APK (v1.6.2)</span>
           </a>
 
           <Link
             href="/"
-            className="mt-2 text-xs text-foreground/50 hover:text-foreground/80 transition-colors flex items-center justify-center gap-1"
+            className="mt-2 text-xs text-[#a89282] hover:text-[#ff7a00] transition-colors flex items-center justify-center gap-1"
           >
             <ArrowLeft className="w-3.5 h-3.5" />
-            Kembali ke Beranda Web
+            <span>Kunjungi Beranda Web</span>
           </Link>
         </div>
       </div>
 
-      <footer className="mt-8 text-xs text-foreground/40 text-center">
+      <footer className="mt-8 text-xs text-[#6b5244] text-center">
         KonMik &copy; {new Date().getFullYear()} &bull; Platform Komik Bebas Iklan
       </footer>
     </div>
