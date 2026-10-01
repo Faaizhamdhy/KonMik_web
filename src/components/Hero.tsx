@@ -68,19 +68,19 @@ export default function Hero() {
           </div>
         </div>
 
-        {/* Mascot Banner Card with Citsune CDN Asset */}
+        {/* Mascot Banner Card with Citsune CDN Asset (citsune.jpg) */}
         <div className="mt-14 max-w-3xl mx-auto relative group">
           <div className="absolute -inset-1 bg-gradient-to-r from-primary/30 to-amber-500/20 rounded-3xl blur-xl opacity-30 group-hover:opacity-50 transition duration-700"></div>
           
           <div className="relative rounded-3xl border border-border/80 bg-card/70 backdrop-blur-xl p-6 sm:p-8 shadow-2xl flex flex-col sm:flex-row items-center gap-6 text-left">
-            {/* Citsune Mascot Image from CDN */}
-            <div className="relative w-28 h-28 sm:w-36 sm:h-36 shrink-0 flex items-center justify-center">
+            {/* Citsune Mascot Image from CDN (citsune.jpg) */}
+            <div className="relative w-24 h-24 sm:w-32 sm:h-32 shrink-0 rounded-2xl overflow-hidden border-2 border-primary/40 shadow-[0_10px_25px_rgba(255,122,0,0.3)] group-hover:scale-105 transition-transform duration-300 bg-[#241a14]">
               <Image
-                src="https://api.konkon.id/static/assets/CitsunePose1.png"
+                src="https://api.konkon.id/static/assets/citsune.jpg"
                 alt="Citsune Fox Mascot"
                 fill
                 unoptimized
-                className="object-contain drop-shadow-[0_10px_25px_rgba(255,122,0,0.35)] group-hover:scale-105 transition-transform duration-300"
+                className="object-cover"
               />
             </div>
 

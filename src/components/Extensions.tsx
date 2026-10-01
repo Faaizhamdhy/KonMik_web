@@ -6,7 +6,6 @@ import {
   Download,
   Copy,
   Check,
-  QrCode,
   ShieldCheck,
   Lock,
   MessageCircle,
@@ -18,7 +17,6 @@ import {
 
 export default function Extensions() {
   const [copiedId, setCopiedId] = useState<string | null>(null);
-  const [activeQr, setActiveQr] = useState<{ name: string; url: string } | null>(null);
   const [showAdminModal, setShowAdminModal] = useState(false);
   const [showGuide, setShowGuide] = useState(false);
 
@@ -47,7 +45,7 @@ export default function Extensions() {
             Ekstensi Modular KonMik
           </h2>
           <p className="text-foreground/75 text-base md:text-lg leading-relaxed">
-            Pasang sumber komik tambahan di luar sumber bawaan aplikasi melalui modul JavaScript yang fleksibel.
+            Pasang sumber komik tambahan di luar katalog bawaan aplikasi melalui modul JavaScript yang fleksibel.
           </p>
 
           <div className="mt-4 flex items-center justify-center gap-2">
@@ -56,7 +54,7 @@ export default function Extensions() {
               className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-card border border-primary/40 text-primary text-xs font-semibold hover:bg-primary/10 transition-colors shadow-sm"
             >
               <HelpCircle className="w-3.5 h-3.5" />
-              <span>Cara Pasang Ekstensi di Aplikasi</span>
+              <span>Petunjuk Pemasangan</span>
             </button>
           </div>
         </div>
@@ -79,17 +77,17 @@ export default function Extensions() {
                 <X className="w-4 h-4" />
               </button>
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs md:text-sm text-foreground/80">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs md:text-sm text-foreground/80">
               <div className="p-4 rounded-2xl bg-background/60 border border-border">
                 <span className="inline-block w-6 h-6 rounded-full bg-primary/20 text-primary font-bold text-center leading-6 mb-2">
                   1
                 </span>
                 <p className="font-semibold text-foreground mb-1">
-                  1-Click Pasang di HP
+                  1-Click Pasang Langsung di HP
                 </p>
                 <p className="text-foreground/60 text-xs leading-relaxed">
                   Buka website ini dari browser HP Anda, lalu klik tombol{" "}
-                  <strong>Pasang di KonMik</strong>. Aplikasi otomatis terbuka dan memasang ekstensi.
+                  <strong className="text-foreground">Pasang di KonMik</strong>. Aplikasi otomatis terbuka dan memasang ekstensi ke daftar sumber.
                 </p>
               </div>
 
@@ -98,22 +96,10 @@ export default function Extensions() {
                   2
                 </span>
                 <p className="font-semibold text-foreground mb-1">
-                  Scan QR Code via PC
+                  Salin Link Gist Manual
                 </p>
                 <p className="text-foreground/60 text-xs leading-relaxed">
-                  Jika membuka dari laptop/PC, klik tombol <strong>QR Code</strong>, lalu scan barcode menggunakan kamera atau fitur Scanner di KonMik.
-                </p>
-              </div>
-
-              <div className="p-4 rounded-2xl bg-background/60 border border-border">
-                <span className="inline-block w-6 h-6 rounded-full bg-primary/20 text-primary font-bold text-center leading-6 mb-2">
-                  3
-                </span>
-                <p className="font-semibold text-foreground mb-1">
-                  Salin URL Manual
-                </p>
-                <p className="text-foreground/60 text-xs leading-relaxed">
-                  Klik <strong>Salin Link</strong> ➡️ Masuk menu Profile ➡️ Source Settings ➡️ Ikon (+) ➡️ Tempelkan link Gist lalu Simpan.
+                  Klik tombol <strong className="text-foreground">Salin Link Gist</strong> ➡️ Buka aplikasi KonMik ➡️ Masuk menu Profile ➡️ Source Settings ➡️ Klik ikon (+) ➡️ Tempelkan link URL lalu klik Simpan.
                 </p>
               </div>
             </div>
@@ -165,43 +151,28 @@ export default function Extensions() {
             <div className="space-y-2.5 pt-5 border-t border-border/60">
               <a
                 href={`konmik://extension/install?url=${encodeURIComponent(webtoonUrl)}`}
-                className="w-full py-3 px-4 bg-primary hover:bg-primary-hover text-white font-semibold rounded-xl transition-all shadow-[0_0_20px_rgba(255,122,0,0.3)] flex items-center justify-center gap-2 text-sm active:scale-[0.98]"
+                className="w-full py-3.5 px-4 bg-primary hover:bg-primary-hover text-white font-bold rounded-xl transition-all shadow-[0_0_20px_rgba(255,122,0,0.3)] flex items-center justify-center gap-2 text-sm active:scale-[0.98]"
               >
                 <Download className="w-4 h-4" />
                 <span>Pasang di KonMik</span>
               </a>
 
-              <div className="grid grid-cols-2 gap-2">
-                <button
-                  onClick={() => copyUrl("webtoon", webtoonUrl)}
-                  className="py-2.5 px-3 rounded-xl bg-background hover:bg-border/40 border border-border text-foreground/80 hover:text-foreground text-xs font-medium transition-colors flex items-center justify-center gap-1.5"
-                >
-                  {copiedId === "webtoon" ? (
-                    <>
-                      <Check className="w-3.5 h-3.5 text-green-400" />
-                      <span className="text-green-400 font-semibold">Tersalin!</span>
-                    </>
-                  ) : (
-                    <>
-                      <Copy className="w-3.5 h-3.5" />
-                      <span>Salin Link Gist</span>
-                    </>
-                  )}
-                </button>
-
-                <button
-                  onClick={() =>
-                    setActiveQr({
-                      name: "Line Webtoon",
-                      url: `konmik://extension/install?url=${encodeURIComponent(webtoonUrl)}`,
-                    })
-                  }
-                  className="py-2.5 px-3 rounded-xl bg-background hover:bg-border/40 border border-border text-foreground/80 hover:text-foreground text-xs font-medium transition-colors flex items-center justify-center gap-1.5"
-                >
-                  <QrCode className="w-3.5 h-3.5" />
-                  <span>Scan QR Code</span>
-                </button>
-              </div>
+              <button
+                onClick={() => copyUrl("webtoon", webtoonUrl)}
+                className="w-full py-2.5 px-3 rounded-xl bg-background hover:bg-border/40 border border-border text-foreground/80 hover:text-foreground text-xs font-medium transition-colors flex items-center justify-center gap-1.5"
+              >
+                {copiedId === "webtoon" ? (
+                  <>
+                    <Check className="w-3.5 h-3.5 text-green-400" />
+                    <span className="text-green-400 font-semibold">Link Gist Berhasil Disalin!</span>
+                  </>
+                ) : (
+                  <>
+                    <Copy className="w-3.5 h-3.5" />
+                    <span>Salin Link Gist Ekstensi</span>
+                  </>
+                )}
+              </button>
             </div>
           </div>
 
@@ -248,7 +219,7 @@ export default function Extensions() {
             <div className="space-y-2.5 pt-5 border-t border-border/60">
               <button
                 onClick={() => setShowAdminModal(true)}
-                className="w-full py-3 px-4 bg-gradient-to-r from-pink-600 to-rose-600 hover:from-pink-500 hover:to-rose-500 text-white font-semibold rounded-xl transition-all shadow-[0_0_20px_rgba(236,72,153,0.3)] flex items-center justify-center gap-2 text-sm active:scale-[0.98]"
+                className="w-full py-3.5 px-4 bg-gradient-to-r from-pink-600 to-rose-600 hover:from-pink-500 hover:to-rose-500 text-white font-bold rounded-xl transition-all shadow-[0_0_20px_rgba(236,72,153,0.3)] flex items-center justify-center gap-2 text-sm active:scale-[0.98]"
               >
                 <MessageCircle className="w-4 h-4" />
                 <span>Minta Akses ke Admin</span>
@@ -281,63 +252,6 @@ export default function Extensions() {
         </div>
       </div>
 
-      {/* QR Code Modal */}
-      {activeQr && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/75 backdrop-blur-sm p-4">
-          <div className="bg-card border border-border rounded-3xl p-6 sm:p-8 max-w-sm w-full text-center relative shadow-2xl animate-in zoom-in-95 duration-200">
-            <button
-              onClick={() => setActiveQr(null)}
-              className="absolute top-4 right-4 text-foreground/50 hover:text-foreground p-1 rounded-full bg-background border border-border"
-              aria-label="Tutup Modal"
-            >
-              <X className="w-4 h-4" />
-            </button>
-
-            <div className="mb-4">
-              <span className="text-xs font-semibold px-2.5 py-1 rounded-full bg-primary/20 text-primary border border-primary/30 uppercase tracking-wider">
-                Scan via HP
-              </span>
-              <h3 className="font-bold text-xl mt-2 text-foreground">
-                {activeQr.name}
-              </h3>
-              <p className="text-xs text-foreground/60 mt-1">
-                Scan barcode ini menggunakan kamera atau pemindai di aplikasi KonMik.
-              </p>
-            </div>
-
-            <div className="bg-white p-4 rounded-2xl mx-auto w-56 h-56 flex items-center justify-center shadow-lg border border-slate-200">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src={`https://api.qrserver.com/v1/create-qr-code/?size=220x220&data=${encodeURIComponent(
-                  activeQr.url
-                )}`}
-                alt={`QR Code ${activeQr.name}`}
-                className="w-full h-full object-contain"
-              />
-            </div>
-
-            <div className="mt-6">
-              <button
-                onClick={() => copyUrl("modal", webtoonUrl)}
-                className="w-full py-2.5 px-4 bg-background border border-border hover:bg-border/40 text-foreground text-xs font-semibold rounded-xl transition-colors flex items-center justify-center gap-1.5"
-              >
-                {copiedId === "modal" ? (
-                  <>
-                    <Check className="w-3.5 h-3.5 text-green-400" />
-                    <span className="text-green-400">Link Berhasil Disalin!</span>
-                  </>
-                ) : (
-                  <>
-                    <Copy className="w-3.5 h-3.5" />
-                    <span>Salin URL Ekstensi</span>
-                  </>
-                )}
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
-
       {/* Admin Request Modal for DoujinDesu */}
       {showAdminModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/75 backdrop-blur-sm p-4">
@@ -358,7 +272,7 @@ export default function Extensions() {
               Akses Ekstensi DoujinDesu (Private)
             </h3>
             <p className="text-xs sm:text-sm text-foreground/70 leading-relaxed mb-6">
-              Ekstensi ini memuat konten dewasa (18+) dan dibatasi secara privat. Untuk mendapatkan tautan script instalasi resmi, silakan hubungi admin komunitas KonMik di Discord atau Telegram.
+              Ekstensi ini memuat konten dewasa (18+) dan dibatasi secara privat. Untuk mendapatkan tautan script instalasi resmi, silakan hubungi admin komunitas KonMik di Discord atau grup resmi kami.
             </p>
 
             <div className="space-y-3">
@@ -366,7 +280,7 @@ export default function Extensions() {
                 href="https://discord.gg/CgJbZkv89U"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-full py-3 px-4 bg-[#5865F2] hover:bg-[#4752C4] text-white font-semibold rounded-xl transition-all flex items-center justify-center gap-2 text-sm"
+                className="w-full py-3 px-4 bg-[#5865F2] hover:bg-[#4752C4] text-white font-semibold rounded-xl transition-all flex items-center justify-center gap-2 text-sm shadow-md"
               >
                 <span>Hubungi Admin di Discord</span>
               </a>

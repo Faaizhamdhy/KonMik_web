@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Image from "next/image";
-import { Sparkles, Eye, Trophy, BookOpen, Bot, User, ChevronLeft, ChevronRight } from "lucide-react";
+import { Sparkles, Eye, Trophy, BookOpen, Bot, User, BookMarked, Smartphone, ChevronLeft, ChevronRight } from "lucide-react";
 
 interface ScreenshotItem {
   id: string;
@@ -15,10 +15,26 @@ interface ScreenshotItem {
 
 const SCREENSHOTS: ScreenshotItem[] = [
   {
+    id: "reader",
+    title: "Mode Baca Ultra HD",
+    tagline: "Pengalaman Membaca Terbaik dengan Floating Citsune",
+    desc: "Mendukung resolusi Ultra HD, progress status baterai, estimasi waktu baca, kontrol scroll bertelinga rubah, dan asisten mini Citsune yang setia menemani.",
+    image: "/screenshots/ss_reader.jpg",
+    icon: Smartphone,
+  },
+  {
+    id: "detail",
+    title: "Detail & Info Komik",
+    tagline: "Informasi Lengkap, Sinopsis & Multi-Source",
+    desc: "Lengkap dengan rating, total bab, ganti sumber komik secara instan, unduh chapter, pelacak progres membaca, dan tombol Mulai Membaca bertelinga rubah.",
+    image: "/screenshots/ss_detail.jpg",
+    icon: BookMarked,
+  },
+  {
     id: "home",
     title: "Beranda Interaktif",
     tagline: "Navigasi Rubah yang Menggemaskan",
-    desc: "Dilengkapi navigasi bertelinga rubah, rekomendasi komik terpopuler, carousel chapter terbaru, dan mini player chapter.",
+    desc: "Dilengkapi navigasi bertelinga rubah khas Citsune, filter genre (Action, Manhwa, Manga), carousel komik terpopuler, dan mini audio player chapter.",
     image: "/screenshots/ss_home.jpg",
     icon: Sparkles,
   },
@@ -26,15 +42,15 @@ const SCREENSHOTS: ScreenshotItem[] = [
     id: "citsune",
     title: "Citsune AI Companion",
     tagline: "Teman Baca Cerdas Pribadimu",
-    desc: "Ngobrol santai dengan adik rubah Citsune untuk minta rekomendasi komik seru, rekap alur cerita, atau roasting menit bacamu.",
+    desc: "Ngobrol santai dengan adik rubah Citsune untuk minta rekomendasi komik seru, rekap alur cerita bab sebelumnya, atau roasting menit bacamu.",
     image: "/screenshots/ss_citsune.jpg",
     icon: Bot,
   },
   {
     id: "collection",
     title: "Koleksi & Rak Bookmark",
-    tagline: "Manajemen Bacaan Tanpa Batas",
-    desc: "Kelompokkan komik ke dalam grup/rak custom, sinkronisasi otomatis ke cloud, lacak riwayat baca, dan unduh chapter untuk offline.",
+    tagline: "Manajemen Bacaan Rapi & Fleksibel",
+    desc: "Kelompokkan komik ke dalam grup/rak custom, sinkronisasi otomatis ke cloud, lacak riwayat baca, dan unduh chapter untuk dibaca offline.",
     image: "/screenshots/ss_collection.jpg",
     icon: BookOpen,
   },
@@ -42,7 +58,7 @@ const SCREENSHOTS: ScreenshotItem[] = [
     id: "leaderboard",
     title: "Papan Peringkat",
     tagline: "Bersaing dengan Seluruh Pembaca",
-    desc: "Pamerkan jam terbang dan jumlah bab yang kamu selesaikan. Raih peringkat teratas mingguan, bulanan, atau selamanya.",
+    desc: "Pamerkan jam terbang dan jumlah bab yang kamu selesaikan. Raih peringkat teratas mingguan, bulanan, atau selamanya dengan border avatar bercahaya.",
     image: "/screenshots/ss_leaderboard.jpg",
     icon: Trophy,
   },
@@ -50,7 +66,7 @@ const SCREENSHOTS: ScreenshotItem[] = [
     id: "profile",
     title: "Profil & Border Gacha",
     tagline: "Ekspresikan Identitas Komunitasmu",
-    desc: "Gunakan KonPoin (KP) hasil membaca untuk gacha border avatar spesial, gelar bangsawan, badge komunitas, dan kustomisasi profil.",
+    desc: "Gunakan KonPoin (KP) hasil membaca untuk gacha border avatar spesial, gelar bangsawan, badge komunitas, dan kustomisasi profil yang memukau.",
     image: "/screenshots/ss_profile.jpg",
     icon: User,
   },
@@ -81,15 +97,15 @@ export default function Screenshots() {
             <span>Tampilan Nyata Aplikasi</span>
           </div>
           <h2 className="text-3xl md:text-5xl font-extrabold tracking-tight mb-4">
-            Dirancang Khusus untuk Kenyamanan Membaca
+            Antarmuka Cantik & Pengalaman Membaca Mulus
           </h2>
           <p className="text-foreground/75 text-base md:text-lg leading-relaxed">
-            Intip pengalaman membaca komik modern dengan antarmuka bertema rubah Citsune yang bersih, halus, dan memanjakan mata.
+            Lihat langsung fitur-fitur unggulan KonMik dengan antarmuka bertema rubah Citsune yang dirancang khusus untuk pecinta manga dan manhwa.
           </p>
         </div>
 
         {/* Feature Nav Tabs */}
-        <div className="flex items-center justify-center gap-2 md:gap-3 flex-wrap max-w-4xl mx-auto mb-12">
+        <div className="flex items-center justify-center gap-2 md:gap-3 flex-wrap max-w-5xl mx-auto mb-12">
           {SCREENSHOTS.map((item, idx) => {
             const Icon = item.icon;
             const isCurrent = idx === activeIndex;
@@ -97,7 +113,7 @@ export default function Screenshots() {
               <button
                 key={item.id}
                 onClick={() => setActiveIndex(idx)}
-                className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs md:text-sm font-semibold transition-all ${
+                className={`flex items-center gap-2 px-3.5 py-2.5 rounded-xl text-xs md:text-sm font-semibold transition-all ${
                   isCurrent
                     ? "bg-primary text-white shadow-[0_0_20px_rgba(255,122,0,0.35)] scale-105"
                     : "bg-card border border-border text-foreground/70 hover:bg-border/40 hover:text-foreground"
@@ -155,13 +171,13 @@ export default function Screenshots() {
               {/* Bullet Features */}
               <div className="space-y-3 pt-2">
                 <div className="p-3.5 rounded-xl bg-background/60 border border-border flex items-center gap-3">
-                  <div className="w-2 h-2 rounded-full bg-primary"></div>
+                  <div className="w-2 h-2 rounded-full bg-primary shrink-0"></div>
                   <span className="text-xs sm:text-sm text-foreground/80">
                     Kombinasi warna oranye rubah ramah di mata untuk membaca malam hari
                   </span>
                 </div>
                 <div className="p-3.5 rounded-xl bg-background/60 border border-border flex items-center gap-3">
-                  <div className="w-2 h-2 rounded-full bg-primary"></div>
+                  <div className="w-2 h-2 rounded-full bg-primary shrink-0"></div>
                   <span className="text-xs sm:text-sm text-foreground/80">
                     Aplikasi ringan, responsif, dan tanpa iklan pop-up yang mengganggu
                   </span>
