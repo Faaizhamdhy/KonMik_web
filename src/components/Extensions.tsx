@@ -27,11 +27,21 @@ export default function Extensions() {
   const [showAdminModal, setShowAdminModal] = useState(false);
   const [showGuide, setShowGuide] = useState(false);
   const [showDevDoc, setShowDevDoc] = useState(false);
+  const [installPrompt, setInstallPrompt] = useState<string | null>(null);
 
   const copyUrl = (id: string, url: string) => {
     navigator.clipboard.writeText(url).catch(() => {});
     setCopiedId(id);
     setTimeout(() => setCopiedId(null), 2200);
+  };
+
+  const handleInstallClick = (e: React.MouseEvent, url: string) => {
+    const deepLink = `konmik://extension/install?url=${encodeURIComponent(url)}`;
+    window.location.href = deepLink;
+    setInstallPrompt("Membuka aplikasi KonMik... Jika tidak terbuka, silakan gunakan 'Salin Link Gist' dan pasang via menu Explore.");
+    setTimeout(() => {
+      setInstallPrompt(null);
+    }, 5000);
   };
 
   return (
@@ -167,12 +177,19 @@ export default function Extensions() {
             <div className="mt-auto relative space-y-2.5">
               <a
                 href={`konmik://extension/install?url=${encodeURIComponent(WEBTOON_URL)}`}
+                onClick={(e) => handleInstallClick(e, WEBTOON_URL)}
                 className="group/btn w-full py-3.5 px-4 bg-[#ff7a00] hover:bg-[#e86e00] text-white font-bold rounded-xl transition-all duration-200 shadow-[0_0_20px_rgba(255,122,0,0.25)] hover:shadow-[0_0_32px_rgba(255,122,0,0.4)] flex items-center justify-center gap-2 text-sm active:scale-[0.98] overflow-hidden relative"
               >
                 <span className="absolute inset-0 translate-x-[-100%] group-hover/btn:translate-x-[100%] transition-transform duration-700 bg-[linear-gradient(90deg,transparent,rgba(255,255,255,0.12),transparent)]" />
                 <Download className="w-4 h-4 relative" aria-hidden="true" />
                 <span className="relative">Pasang di KonMik</span>
               </a>
+
+              {installPrompt && (
+                <div className="p-2.5 rounded-xl bg-amber-500/10 border border-amber-500/30 text-[11px] text-amber-300 leading-tight text-center animate-in fade-in duration-200">
+                  {installPrompt}
+                </div>
+              )}
 
               <button
                 onClick={() => copyUrl("webtoon", WEBTOON_URL)}
