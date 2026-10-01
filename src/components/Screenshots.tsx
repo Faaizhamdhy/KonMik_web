@@ -1,8 +1,21 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
-import { Sparkles, Eye, Trophy, BookOpen, Bot, User, BookMarked, Smartphone, ChevronLeft, ChevronRight } from "lucide-react";
+import {
+  Sparkles,
+  Eye,
+  Trophy,
+  BookOpen,
+  Bot,
+  User,
+  BookMarked,
+  Smartphone,
+  ChevronLeft,
+  ChevronRight,
+  Pause,
+  Play,
+} from "lucide-react";
 
 interface ScreenshotItem {
   id: string;
@@ -72,26 +85,59 @@ const SCREENSHOTS: ScreenshotItem[] = [
   },
 ];
 
+const AUTOPLAY_INTERVAL = 4000; // 4 detik per slide
+
 export default function Screenshots() {
   const [activeIndex, setActiveIndex] = useState(0);
+  const [isPlaying, setIsPlaying] = useState(true);
+  const [isHovered, setIsHovered] = useState(false);
+  const [progress, setProgress] = useState(0);
+
   const active = SCREENSHOTS[activeIndex];
 
   const nextSlide = () => {
     setActiveIndex((prev) => (prev + 1) % SCREENSHOTS.length);
+    setProgress(0);
   };
 
   const prevSlide = () => {
     setActiveIndex((prev) => (prev - 1 + SCREENSHOTS.length) % SCREENSHOTS.length);
+    setProgress(0);
   };
 
+  // Autoplay timer dengan progress bar mulus
+  useEffect(() => {
+    if (!isPlaying || isHovered) return;
+
+    const stepMs = 50;
+    const progressIncrement = (stepMs / AUTOPLAY_INTERVAL) * 100;
+
+    const interval = setInterval(() => {
+      setProgress((prev) => {
+        if (prev >= 100) {
+          setActiveIndex((current) => (current + 1) % SCREENSHOTS.length);
+          return 0;
+        }
+        return prev + progressIncrement;
+      });
+    }, stepMs);
+
+    return () => clearInterval(interval);
+  }, [isPlaying, isHovered]);
+
   return (
-    <section id="screenshots" className="py-24 relative overflow-hidden bg-card/40">
+    <section
+      id="screenshots"
+      className="py-24 relative overflow-hidden bg-card/40"
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+    >
       {/* Background radial glow */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] bg-primary/10 rounded-full blur-[120px] -z-10 pointer-events-none"></div>
 
       <div className="container mx-auto px-4">
         {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-16">
+        <div className="text-center max-w-3xl mx-auto mb-14">
           <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-primary/15 border border-primary/30 text-primary text-xs font-semibold uppercase tracking-wider mb-4">
             <Eye className="w-4 h-4" />
             <span>Tampilan Nyata Aplikasi</span>
@@ -104,16 +150,19 @@ export default function Screenshots() {
           </p>
         </div>
 
-        {/* Feature Nav Tabs */}
-        <div className="flex items-center justify-center gap-2 md:gap-3 flex-wrap max-w-5xl mx-auto mb-12">
+        {/* Feature Nav Tabs with Active Progress Bar */}
+        <div className="flex items-center justify-center gap-2 md:gap-3 flex-wrap max-w-5xl mx-auto mb-10">
           {SCREENSHOTS.map((item, idx) => {
             const Icon = item.icon;
             const isCurrent = idx === activeIndex;
             return (
               <button
                 key={item.id}
-                onClick={() => setActiveIndex(idx)}
-                className={`flex items-center gap-2 px-3.5 py-2.5 rounded-xl text-xs md:text-sm font-semibold transition-all ${
+                onClick={() => {
+                  setActiveIndex(idx);
+                  setProgress(0);
+                }}
+                className={`relative overflow-hidden flex items-center gap-2 px-3.5 py-2.5 rounded-xl text-xs md:text-sm font-semibold transition-all ${
                   isCurrent
                     ? "bg-primary text-white shadow-[0_0_20px_rgba(255,122,0,0.35)] scale-105"
                     : "bg-card border border-border text-foreground/70 hover:bg-border/40 hover:text-foreground"
@@ -121,6 +170,14 @@ export default function Screenshots() {
               >
                 <Icon className={`w-4 h-4 ${isCurrent ? "text-white" : "text-primary"}`} />
                 <span>{item.title}</span>
+
+                {/* Progress bar line for current active tab */}
+                {isCurrent && isPlaying && !isHovered && (
+                  <div
+                    className="absolute bottom-0 left-0 h-1 bg-white/70 transition-all ease-linear"
+                    style={{ width: `${progress}%` }}
+                  />
+                )}
               </button>
             );
           })}
@@ -131,7 +188,7 @@ export default function Screenshots() {
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
             {/* Left Column: Phone Mockup Frame */}
             <div className="lg:col-span-6 flex justify-center relative">
-              <div className="relative w-[280px] sm:w-[320px] aspect-[9/19.5] rounded-[42px] p-3 bg-gradient-to-b from-[#35251b] via-[#211711] to-[#120d0a] shadow-[0_20px_50px_rgba(0,0,0,0.7)] border-4 border-[#4a3426]">
+              <div className="relative w-[280px] sm:w-[320px] aspect-[9/19.5] rounded-[42px] p-3 bg-gradient-to-b from-[#35251b] via-[#211711] to-[#120d0a] shadow-[0_20px_50px_rgba(0,0,0,0.7)] border-4 border-[#4a3426] transition-transform duration-500 hover:scale-[1.02]">
                 {/* Phone speaker / camera notch */}
                 <div className="absolute top-4 left-1/2 -translate-x-1/2 w-24 h-4 bg-black rounded-full z-20 flex items-center justify-center">
                   <div className="w-2.5 h-2.5 rounded-full bg-[#1a1410] mr-2"></div>
@@ -141,22 +198,44 @@ export default function Screenshots() {
                 {/* Screenshot inside phone frame */}
                 <div className="relative w-full h-full rounded-[32px] overflow-hidden bg-black">
                   <Image
+                    key={active.id}
                     src={active.image}
                     alt={active.title}
                     fill
                     sizes="(max-width: 640px) 280px, 320px"
-                    className="object-cover object-top transition-all duration-500"
+                    className="object-cover object-top transition-opacity duration-500 animate-in fade-in"
                     priority
                   />
                 </div>
               </div>
             </div>
 
-            {/* Right Column: Information & Navigation */}
+            {/* Right Column: Information & Controls */}
             <div className="lg:col-span-6 flex flex-col justify-center space-y-6">
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 border border-primary/25 text-primary text-xs font-semibold w-fit">
-                <active.icon className="w-3.5 h-3.5" />
-                <span>{active.title}</span>
+              <div className="flex items-center justify-between">
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 border border-primary/25 text-primary text-xs font-semibold w-fit">
+                  <active.icon className="w-3.5 h-3.5" />
+                  <span>{active.title}</span>
+                </div>
+
+                {/* Autoplay Pause/Play Toggle Button */}
+                <button
+                  onClick={() => setIsPlaying(!isPlaying)}
+                  className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-background border border-border text-foreground/60 hover:text-foreground text-xs font-medium transition-colors"
+                  title={isPlaying ? "Jeda rotasi otomatis" : "Mulai rotasi otomatis"}
+                >
+                  {isPlaying ? (
+                    <>
+                      <Pause className="w-3 h-3 text-primary" />
+                      <span>{isHovered ? "Dijeda (Hover)" : "Otomatis"}</span>
+                    </>
+                  ) : (
+                    <>
+                      <Play className="w-3 h-3 text-green-400" />
+                      <span>Mulai Otomatis</span>
+                    </>
+                  )}
+                </button>
               </div>
 
               <div>
@@ -184,25 +263,47 @@ export default function Screenshots() {
                 </div>
               </div>
 
-              {/* Next/Prev Navigation Buttons */}
-              <div className="flex items-center gap-4 pt-4">
-                <button
-                  onClick={prevSlide}
-                  className="p-3 rounded-xl bg-background border border-border hover:bg-border/40 text-foreground transition-colors"
-                  aria-label="Previous screenshot"
-                >
-                  <ChevronLeft className="w-5 h-5" />
-                </button>
-                <span className="text-sm font-semibold text-foreground/60">
+              {/* Navigation Controls & Progress Dots */}
+              <div className="flex items-center justify-between pt-4 border-t border-border/60">
+                <div className="flex items-center gap-3">
+                  <button
+                    onClick={prevSlide}
+                    className="p-3 rounded-xl bg-background border border-border hover:bg-border/40 text-foreground transition-colors"
+                    aria-label="Previous screenshot"
+                  >
+                    <ChevronLeft className="w-5 h-5" />
+                  </button>
+                  <button
+                    onClick={nextSlide}
+                    className="p-3 rounded-xl bg-background border border-border hover:bg-border/40 text-foreground transition-colors"
+                    aria-label="Next screenshot"
+                  >
+                    <ChevronRight className="w-5 h-5" />
+                  </button>
+                </div>
+
+                {/* Dots indicator */}
+                <div className="flex items-center gap-1.5">
+                  {SCREENSHOTS.map((_, dotIdx) => (
+                    <button
+                      key={dotIdx}
+                      onClick={() => {
+                        setActiveIndex(dotIdx);
+                        setProgress(0);
+                      }}
+                      className={`h-2 rounded-full transition-all ${
+                        dotIdx === activeIndex
+                          ? "w-6 bg-primary"
+                          : "w-2 bg-foreground/20 hover:bg-foreground/40"
+                      }`}
+                      aria-label={`Ke slide ${dotIdx + 1}`}
+                    />
+                  ))}
+                </div>
+
+                <span className="text-sm font-mono font-semibold text-foreground/50">
                   {activeIndex + 1} / {SCREENSHOTS.length}
                 </span>
-                <button
-                  onClick={nextSlide}
-                  className="p-3 rounded-xl bg-background border border-border hover:bg-border/40 text-foreground transition-colors"
-                  aria-label="Next screenshot"
-                >
-                  <ChevronRight className="w-5 h-5" />
-                </button>
               </div>
             </div>
           </div>
