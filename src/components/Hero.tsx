@@ -93,11 +93,11 @@ export default function Hero() {
         </div>
 
         {/* ── Hero Visual: Dual CDN asset card ── */}
-        <div className="relative max-w-4xl mx-auto">
+        <div className="relative max-w-4xl mx-auto pt-8">
           {/* Outer glow */}
           <div className="absolute -inset-4 bg-[radial-gradient(ellipse,rgba(255,122,0,0.12)_0%,transparent_70%)] pointer-events-none" />
 
-          <div className="relative grid grid-cols-1 lg:grid-cols-2 gap-4">
+          <div className="relative grid grid-cols-1 lg:grid-cols-2 gap-4 overflow-visible">
             {/* Left: Citsune mascot card */}
             <div className="gradient-border p-5 sm:p-6 flex items-center gap-5 group hover:shadow-[0_12px_40px_rgba(0,0,0,0.5)] transition-shadow duration-300">
               <div className="relative w-20 h-20 sm:w-24 sm:h-24 shrink-0 rounded-2xl overflow-hidden border-2 border-[rgba(255,122,0,0.4)] shadow-[0_8px_24px_rgba(255,122,0,0.25)] group-hover:scale-105 transition-transform duration-300 bg-[#1a1109] animate-float">
@@ -122,20 +122,27 @@ export default function Hero() {
               </div>
             </div>
 
-            {/* Right: Pose + feature highlights */}
-            <div className="relative overflow-hidden rounded-[24px] bg-[#18120e] border border-[#2a1d14] p-5 sm:p-6 flex items-center gap-5 group hover:border-[rgba(255,122,0,0.3)] transition-all duration-300">
-              <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_right,rgba(255,122,0,0.06),transparent_65%)] pointer-events-none" />
-              {/* Tall container so full character sprite is visible (not cropped) */}
-              <div className="relative w-20 h-32 sm:w-24 sm:h-40 shrink-0 rounded-2xl overflow-hidden border border-[#3d2918] group-hover:scale-105 transition-transform duration-300 bg-[#1a1109]">
+            {/* Right: Pose breaking out of card */}
+            {/* overflow-visible on card so character can bleed outside border */}
+            <div className="relative rounded-[24px] bg-[#18120e] border border-[#2a1d14] hover:border-[rgba(255,122,0,0.35)] transition-all duration-300 group pl-28 sm:pl-32 pr-5 sm:pr-6 py-5 sm:py-6 min-h-[120px] sm:min-h-[140px]">
+              {/* Ambient glow inside card */}
+              <div className="absolute inset-0 rounded-[24px] bg-[radial-gradient(ellipse_at_left,rgba(255,122,0,0.07),transparent_60%)] pointer-events-none" />
+
+              {/* Character — absolutely positioned, overflowing top & bottom outside card */}
+              <div className="absolute left-4 sm:left-5 -top-6 bottom-0 w-20 sm:w-24 pointer-events-none select-none">
+                {/* Soft ground shadow for floating feel */}
+                <div className="absolute bottom-1 left-1/2 -translate-x-1/2 w-14 h-5 bg-[rgba(255,122,0,0.2)] blur-lg rounded-full" />
                 <Image
                   src={`${CDN}/CitsunePose1.png`}
                   alt="Citsune Pose"
                   fill
                   unoptimized
-                  className="object-contain object-bottom"
+                  className="object-contain object-bottom drop-shadow-[0_4px_20px_rgba(255,122,0,0.4)] group-hover:scale-105 transition-transform duration-500"
                 />
               </div>
-              <div className="relative min-w-0 space-y-2.5">
+
+              {/* Feature list */}
+              <div className="relative space-y-2.5">
                 {[
                   "Multi-sumber dengan ekstensi modular JS",
                   "Reader Ultra HD + scroll berbasis rubah",
