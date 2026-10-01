@@ -4,7 +4,23 @@ import Link from "next/link";
 
 const CDN = "https://api.konkon.id/static/assets";
 
-export default function Hero() {
+async function getLatestVersion(): Promise<string> {
+  try {
+    const res = await fetch(
+      "https://api.github.com/repos/Faaizhamdhy/KonMik-Release/releases/latest",
+      { next: { revalidate: 3600 } } // cache 1 jam
+    );
+    if (!res.ok) return "1.6.2";
+    const data = await res.json();
+    // tag_name biasanya "v1.6.2" → strip "v"
+    return (data.tag_name as string).replace(/^v/, "") ?? "1.6.2";
+  } catch {
+    return "1.6.2";
+  }
+}
+
+export default async function Hero() {
+  const version = await getLatestVersion();
   const downloadUrl =
     "https://github.com/Faaizhamdhy/KonMik-Release/releases/latest/download/KonMik.apk";
 
@@ -39,15 +55,15 @@ export default function Hero() {
           fill
           unoptimized
           priority
-          className="object-cover object-center opacity-50 sm:opacity-35"
+          className="object-cover object-center opacity-30 sm:opacity-30"
         />
         {/* Fade bottom — blend into bg */}
         <div className="absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-[#0c0906] via-[#0c0906]/80 to-transparent" />
         {/* Fade sides */}
         <div className="absolute inset-y-0 left-0 w-1/4 bg-gradient-to-r from-[#0c0906] to-transparent" />
         <div className="absolute inset-y-0 right-0 w-1/4 bg-gradient-to-l from-[#0c0906] to-transparent" />
-        {/* Dark overlay — mobile lebih tipis agar gambar terlihat */}
-        <div className="absolute inset-0 bg-[#0c0906]/20 sm:bg-[#0c0906]/35" />
+        {/* Dark overlay — cukup gelap agar teks tetap terbaca */}
+        <div className="absolute inset-0 bg-[#0c0906]/55 sm:bg-[#0c0906]/40" />
       </div>
 
       <div className="container mx-auto px-4 sm:px-6 max-w-6xl pt-16 pb-20 md:pt-24 md:pb-28">
@@ -56,7 +72,7 @@ export default function Hero() {
         <div className="flex justify-center mb-6 sm:mb-8 animate-fade-up">
           <div className="inline-flex items-center gap-2 rounded-full border border-[rgba(255,122,0,0.3)] bg-[rgba(255,122,0,0.08)] px-3.5 sm:px-4 py-1.5 text-xs sm:text-sm font-semibold text-[#ff7a00] backdrop-blur-sm">
             <Sparkles className="w-3.5 h-3.5 shrink-0" aria-hidden="true" />
-            <span>KonMik v1.6.2 &bull; Tema Citsune</span>
+            <span>KonMik v{version}</span>
             <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse shrink-0" />
             <span className="text-[#f5ede4]/70 font-normal hidden sm:inline">Rilis Terbaru</span>
           </div>
@@ -255,7 +271,7 @@ export default function Hero() {
                     className="inline-flex items-center justify-center gap-2 w-full max-w-xs py-3 rounded-xl text-xs font-bold text-white bg-[#ff7a00] hover:bg-[#e86e00] transition-all shadow-[0_0_20px_rgba(255,122,0,0.3)]"
                   >
                     <Download className="w-3.5 h-3.5" />
-                    <span>Download APK v1.6.2 (~31 MB)</span>
+                    <span>Download APK v{version} (~31 MB)</span>
                   </a>
                 </div>
               </div>
