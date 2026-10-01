@@ -311,24 +311,24 @@ export default function Extensions() {
               </button>
 
               <a
-                href="https://gist.github.com/Faaizhamdhy/ef1a3bc0bad4dfa24ceeaf8a0eb1af9b"
+                href="https://github.com/Faaizhamdhy/KonMIk-Extension-"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex-1 sm:flex-none inline-flex items-center justify-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-semibold bg-[#ff7a00] hover:bg-[#e86e00] text-white transition-all shadow-[0_0_15px_rgba(255,122,0,0.3)]"
               >
                 <FileCode className="w-3.5 h-3.5" />
-                <span>Template Gist Resmi</span>
+                <span>Panduan Ekstensi</span>
                 <ExternalLink className="w-3 h-3 opacity-80" />
               </a>
 
               <a
-                href="https://github.com/Faaizhamdhy/KonMik-Release"
+                href="https://github.com/Faaizhamdhy/KonMIk-Extension-"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex-1 sm:flex-none inline-flex items-center justify-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-semibold bg-[#18120e] hover:bg-[#221a13] text-[#a89282] hover:text-[#f5ede4] border border-[#2a1d14] transition-all"
               >
                 <GithubIcon className="w-3.5 h-3.5" />
-                <span>Repo Publik</span>
+                <span>Repo Ekstensi</span>
               </a>
             </div>
           </div>
@@ -372,7 +372,7 @@ export default function Extensions() {
 };`}
                   </pre>
                   <p className="text-[10px] text-[#6b5244] mt-2">
-                    *Buka <a href="https://gist.github.com/Faaizhamdhy/ef1a3bc0bad4dfa24ceeaf8a0eb1af9b" target="_blank" rel="noopener noreferrer" className="text-[#ff7a00] hover:underline">Gist Webtoon Resmi</a> untuk contoh implementasi lengkap.
+                    *Lihat <a href="https://github.com/Faaizhamdhy/KonMIk-Extension-" target="_blank" rel="noopener noreferrer" className="text-[#ff7a00] hover:underline">Repo KonMIk-Extension</a> untuk contoh implementasi lengkap.
                   </p>
                 </div>
               </div>
