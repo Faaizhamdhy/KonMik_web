@@ -5,6 +5,8 @@ import Image from "next/image";
 import { Download, Menu, X, Puzzle, Sparkles, Eye } from "lucide-react";
 import { useState, useEffect } from "react";
 import GithubIcon from "./GithubIcon";
+import DiscordIcon from "./DiscordIcon";
+import WhatsAppIcon from "./WhatsAppIcon";
 
 export default function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -58,17 +60,37 @@ export default function Navbar() {
             <Link
               key={href}
               href={href}
-              className="flex items-center gap-1.5 px-3.5 py-2 rounded-lg text-sm font-medium text-[#a89282] hover:text-[#f5ede4] hover:bg-[#18120e] transition-all duration-150"
+              className="flex items-center gap-1.5 px-3 py-2 rounded-lg text-sm font-medium text-[#a89282] hover:text-[#f5ede4] hover:bg-[#18120e] transition-all duration-150"
             >
               <Icon className="w-3.5 h-3.5 text-[#ff7a00]" aria-hidden="true" />
               {label}
             </Link>
           ))}
           <a
+            href="https://discord.gg/YtuBhqtbvM"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-1.5 px-3 py-2 rounded-lg text-sm font-medium text-[#a89282] hover:text-[#5865F2] hover:bg-[#18120e] transition-all duration-150"
+            title="Join Discord Komunitas"
+          >
+            <DiscordIcon className="w-3.5 h-3.5" aria-hidden="true" />
+            <span className="hidden lg:inline">Discord</span>
+          </a>
+          <a
+            href="https://chat.whatsapp.com/C0yDtiNTcmV05s4jQwPXNA"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-1.5 px-3 py-2 rounded-lg text-sm font-medium text-[#a89282] hover:text-[#25D366] hover:bg-[#18120e] transition-all duration-150"
+            title="Join WhatsApp Komunitas"
+          >
+            <WhatsAppIcon className="w-3.5 h-3.5" aria-hidden="true" />
+            <span className="hidden lg:inline">WhatsApp</span>
+          </a>
+          <a
             href="https://github.com/Faaizhamdhy/KonMik-Release"
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center gap-1.5 px-3.5 py-2 rounded-lg text-sm font-medium text-[#a89282] hover:text-[#f5ede4] hover:bg-[#18120e] transition-all duration-150"
+            className="flex items-center gap-1.5 px-3 py-2 rounded-lg text-sm font-medium text-[#a89282] hover:text-[#f5ede4] hover:bg-[#18120e] transition-all duration-150"
           >
             <GithubIcon className="w-3.5 h-3.5" aria-hidden="true" />
             GitHub
@@ -99,7 +121,7 @@ export default function Navbar() {
       {/* Mobile Drawer */}
       <div
         className={`md:hidden overflow-hidden transition-all duration-300 ease-in-out ${
-          mobileMenuOpen ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
+          mobileMenuOpen ? "max-h-[450px] opacity-100" : "max-h-0 opacity-0"
         }`}
       >
         <div className="border-t border-[#2a1d14] bg-[#0c0906]/95 backdrop-blur-2xl px-4 py-4 space-y-1">
@@ -114,6 +136,26 @@ export default function Navbar() {
               {label}
             </Link>
           ))}
+          <a
+            href="https://discord.gg/YtuBhqtbvM"
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={() => setMobileMenuOpen(false)}
+            className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-[#a89282] hover:text-[#5865F2] hover:bg-[#18120e] transition-all"
+          >
+            <DiscordIcon className="w-4 h-4 text-[#5865F2] shrink-0" aria-hidden="true" />
+            Join Discord Komunitas
+          </a>
+          <a
+            href="https://chat.whatsapp.com/C0yDtiNTcmV05s4jQwPXNA"
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={() => setMobileMenuOpen(false)}
+            className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-[#a89282] hover:text-[#25D366] hover:bg-[#18120e] transition-all"
+          >
+            <WhatsAppIcon className="w-4 h-4 text-[#25D366] shrink-0" aria-hidden="true" />
+            Join WhatsApp Komunitas
+          </a>
           <a
             href="https://github.com/Faaizhamdhy/KonMik-Release"
             target="_blank"

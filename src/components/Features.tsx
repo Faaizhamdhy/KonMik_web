@@ -1,4 +1,6 @@
 import { Trophy, Users, MessagesSquare, Gem, Star, Shield, BookOpen, Zap } from "lucide-react";
+import DiscordIcon from "./DiscordIcon";
+import WhatsAppIcon from "./WhatsAppIcon";
 
 const FEATURES = [
   {
@@ -123,15 +125,42 @@ export default function Features() {
           <h3 className="relative text-xl sm:text-2xl font-bold text-[#f5ede4] mb-3">
             Siap bergabung bersama komunitas KonMik?
           </h3>
-          <p className="relative text-sm text-[#a89282] mb-6 max-w-md mx-auto">
-            Download sekarang dan nikmati pengalaman membaca komik terbaik di Android.
+          <p className="relative text-sm text-[#a89282] mb-8 max-w-lg mx-auto">
+            Nongkrong bareng ribuan pembaca komik lainnya, dapatkan info update tercepat, rekomendasi judul seru, dan obrolan santai langsung di Discord & WhatsApp resmi kami.
           </p>
-          <a
-            href="https://github.com/Faaizhamdhy/KonMik-Release/releases/latest/download/KonMik.apk"
-            className="relative inline-flex items-center gap-2 px-8 py-3.5 rounded-2xl font-bold text-white text-sm bg-[#ff7a00] hover:bg-[#e86e00] transition-all duration-200 shadow-[0_0_28px_rgba(255,122,0,0.4)] hover:shadow-[0_0_40px_rgba(255,122,0,0.55)] active:scale-[0.97]"
-          >
-            Download KonMik APK — Gratis
-          </a>
+
+          {/* Community Buttons */}
+          <div className="relative flex flex-col sm:flex-row items-center justify-center gap-3.5 max-w-xl mx-auto mb-6">
+            <a
+              href="https://discord.gg/YtuBhqtbvM"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="w-full sm:w-auto flex-1 inline-flex items-center justify-center gap-2.5 px-6 py-3.5 rounded-2xl font-bold text-white text-sm bg-[#5865F2] hover:bg-[#4752C4] transition-all duration-200 shadow-[0_0_24px_rgba(88,101,242,0.35)] hover:shadow-[0_0_35px_rgba(88,101,242,0.5)] active:scale-[0.98]"
+            >
+              <DiscordIcon className="w-5 h-5 shrink-0" />
+              <span>Join Discord KonMik</span>
+            </a>
+
+            <a
+              href="https://chat.whatsapp.com/C0yDtiNTcmV05s4jQwPXNA"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="w-full sm:w-auto flex-1 inline-flex items-center justify-center gap-2.5 px-6 py-3.5 rounded-2xl font-bold text-white text-sm bg-[#25D366] hover:bg-[#1ebe5d] transition-all duration-200 shadow-[0_0_24px_rgba(37,211,102,0.35)] hover:shadow-[0_0_35px_rgba(37,211,102,0.5)] active:scale-[0.98]"
+            >
+              <WhatsAppIcon className="w-5 h-5 shrink-0" />
+              <span>Join WhatsApp Komunitas</span>
+            </a>
+          </div>
+
+          <div className="relative pt-2">
+            <a
+              href="https://github.com/Faaizhamdhy/KonMik-Release/releases/latest/download/KonMik.apk"
+              className="inline-flex items-center gap-2 text-xs font-semibold text-[#a89282] hover:text-[#ff7a00] transition-colors"
+            >
+              <Zap className="w-3.5 h-3.5 text-[#ff7a00]" />
+              <span>Atau Download Langsung APK KonMik v1.6.2 (Gratis) &rarr;</span>
+            </a>
+          </div>
         </div>
       </div>
     </section>

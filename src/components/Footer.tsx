@@ -2,6 +2,8 @@ import Link from "next/link";
 import Image from "next/image";
 import { Download, Heart, ExternalLink } from "lucide-react";
 import GithubIcon from "./GithubIcon";
+import DiscordIcon from "./DiscordIcon";
+import WhatsAppIcon from "./WhatsAppIcon";
 
 const NAV_LINKS = [
   { href: "/", label: "Beranda" },
@@ -18,9 +20,15 @@ const APP_LINKS = [
     external: false,
   },
   {
-    href: "https://github.com/Faaizhamdhy/KonMik-Release/releases",
-    label: "Semua Rilis & Changelog",
-    icon: ExternalLink,
+    href: "https://discord.gg/YtuBhqtbvM",
+    label: "Discord Komunitas",
+    icon: DiscordIcon,
+    external: true,
+  },
+  {
+    href: "https://chat.whatsapp.com/C0yDtiNTcmV05s4jQwPXNA",
+    label: "WhatsApp Komunitas",
+    icon: WhatsAppIcon,
     external: true,
   },
   {
