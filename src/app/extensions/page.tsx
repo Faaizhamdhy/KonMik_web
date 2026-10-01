@@ -4,13 +4,13 @@ import Footer from "@/components/Footer";
 import Extensions from "@/components/Extensions";
 
 export const metadata: Metadata = {
-  title: "Katalog Ekstensi Komik KonMik - Webtoon, SoftKomik, DoujinDesu",
+  title: "Katalog Ekstensi Komik KonMik - Line Webtoon & DoujinDesu",
   description:
-    "Koleksi ekstensi resmi & komunitas untuk aplikasi KonMik. Pasang ekstensi Webtoon, SoftKomik, DoujinDesu, KomikIndo, MangaDex, dan Kiryuu hanya dengan 1 klik.",
+    "Koleksi ekstensi modular resmi & komunitas untuk aplikasi KonMik. Pasang ekstensi Webtoon dan DoujinDesu secara mudah langsung di aplikasi.",
   openGraph: {
     title: "Katalog Ekstensi KonMik",
     description:
-      "Pasang sumber komik favoritmu di aplikasi KonMik: Webtoon, DoujinDesu, SoftKomik, KomikIndo, MangaDex.",
+      "Pasang sumber komik favoritmu di aplikasi KonMik dengan mudah melalui katalog ekstensi modular.",
     url: "https://konmik.konkon.id/extensions",
   },
 };

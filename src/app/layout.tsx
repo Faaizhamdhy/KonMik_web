@@ -19,7 +19,7 @@ export const metadata: Metadata = {
     template: "%s | KonMik",
   },
   description:
-    "Download KonMik APK versi terbaru. Platform pembaca komik terlengkap tanpa iklan mengganggu dengan dukungan ekstensi modular (Webtoon, Doujindesu, SoftKomik, KomikIndo), mode baca nyaman, klan, dan komunitas.",
+    "Download KonMik APK versi terbaru. Platform pembaca komik terlengkap tanpa iklan mengganggu dengan dukungan ekstensi modular (Webtoon, DoujinDesu), mode baca nyaman, klan, dan komunitas.",
   keywords: [
     "KonMik",
     "KonMik APK",
@@ -30,8 +30,9 @@ export const metadata: Metadata = {
     "konmik extension",
     "webtoon extension",
     "doujindesu extension",
-    "softkomik extension",
-    "komikindo extension",
+    "komikindo",
+    "shinigami komik",
+    "kiryuu",
   ],
   authors: [{ name: "KonMik Team", url: "https://konmik.konkon.id" }],
   creator: "KonMik",
@@ -100,7 +101,7 @@ export default function RootLayout({
   return (
     <html
       lang="id"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased scroll-smooth`}
+      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased scroll-smooth overflow-x-clip`}
     >
       <head>
         <script
@@ -108,8 +109,10 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
       </head>
-      <body className="min-h-full flex flex-col bg-background text-foreground">
-        {children}
+      <body className="min-h-full flex flex-col bg-background text-foreground overflow-x-clip max-w-full">
+        <div className="flex-1 w-full overflow-x-clip flex flex-col">
+          {children}
+        </div>
       </body>
     </html>
   );

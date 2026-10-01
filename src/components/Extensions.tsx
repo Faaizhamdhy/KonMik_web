@@ -9,7 +9,16 @@ import {
 const WEBTOON_URL =
   "https://gist.githubusercontent.com/Faaizhamdhy/ef1a3bc0bad4dfa24ceeaf8a0eb1af9b/raw/01647278aeffb3805bd7d264114cd465d5f2d477/webtoon.js";
 
-const BUILTIN_SOURCES = ["KomikIndo", "Shinigami", "SoftKomik", "Komikcast"];
+const BUILTIN_SOURCES = [
+  "Shinigami",
+  "Kiryuu",
+  "Komikindo",
+  "Ikiru",
+  "Komiknesia",
+  "Ainz Scans",
+  "VoraToon",
+  "MangaDex",
+];
 
 export default function Extensions() {
   const [copiedId, setCopiedId] = useState<string | null>(null);
@@ -62,14 +71,14 @@ export default function Extensions() {
         {/* Guide Panel */}
         <div
           className={`max-w-4xl mx-auto mb-12 overflow-hidden transition-all duration-300 ease-in-out ${
-            showGuide ? "max-h-[500px] opacity-100" : "max-h-0 opacity-0"
+            showGuide ? "max-h-[550px] opacity-100" : "max-h-0 opacity-0"
           }`}
         >
           <div className="p-5 sm:p-6 rounded-3xl bg-[#18120e] border border-[rgba(255,122,0,0.3)] shadow-[0_8px_32px_rgba(0,0,0,0.3)]">
             <div className="flex items-center justify-between mb-5">
               <div className="flex items-center gap-2 text-[#ff7a00]">
                 <Sparkles className="w-4 h-4" aria-hidden="true" />
-                <span className="font-bold text-sm text-[#f5ede4]">Cara Memasang Ekstensi</span>
+                <span className="font-bold text-sm text-[#f5ede4]">Cara Memasang Ekstensi di KonMik</span>
               </div>
               <button
                 onClick={() => setShowGuide(false)}
@@ -80,26 +89,33 @@ export default function Extensions() {
               </button>
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              {[
-                {
-                  num: "1",
-                  title: "1-Click Install (HP)",
-                  desc: 'Buka website ini dari browser HP Anda, lalu klik tombol "Pasang di KonMik". Aplikasi otomatis terbuka dan memasang ekstensi.',
-                },
-                {
-                  num: "2",
-                  title: "Salin Link Manual",
-                  desc: 'Salin Link Gist → buka KonMik → Profile → Source Settings → klik ikon (+) → tempel URL → klik Simpan.',
-                },
-              ].map(({ num, title, desc }) => (
-                <div key={num} className="p-4 rounded-2xl bg-[#110d09] border border-[#2a1d14]">
-                  <div className="w-7 h-7 rounded-full bg-[rgba(255,122,0,0.15)] text-[#ff7a00] font-bold text-xs flex items-center justify-center mb-3">
-                    {num}
-                  </div>
-                  <p className="font-semibold text-sm text-[#f5ede4] mb-1.5">{title}</p>
-                  <p className="text-xs text-[#a89282] leading-relaxed">{desc}</p>
+              <div className="p-4 rounded-2xl bg-[#110d09] border border-[#2a1d14]">
+                <div className="w-7 h-7 rounded-full bg-[rgba(255,122,0,0.15)] text-[#ff7a00] font-bold text-xs flex items-center justify-center mb-3">
+                  1
                 </div>
-              ))}
+                <p className="font-semibold text-sm text-[#f5ede4] mb-1.5">
+                  1-Click Pasang di HP
+                </p>
+                <p className="text-xs text-[#a89282] leading-relaxed">
+                  Buka website ini dari browser HP Anda, lalu tekan tombol <strong className="text-[#f5ede4]">Pasang di KonMik</strong>. Aplikasi otomatis terbuka dan langsung memasang ekstensi ke daftar sumber.
+                </p>
+              </div>
+
+              <div className="p-4 rounded-2xl bg-[#110d09] border border-[#2a1d14]">
+                <div className="w-7 h-7 rounded-full bg-[rgba(255,122,0,0.15)] text-[#ff7a00] font-bold text-xs flex items-center justify-center mb-3">
+                  2
+                </div>
+                <p className="font-semibold text-sm text-[#f5ede4] mb-1.5">
+                  Manual via Menu Explore
+                </p>
+                <p className="text-xs text-[#a89282] leading-relaxed">
+                  1. Salin link ekstensi via tombol <strong>Salin Link Gist</strong>.<br />
+                  2. Buka aplikasi KonMik, masuk ke halaman <strong>Explore / Jelajah</strong>.<br />
+                  3. Di bagian header atas, tap ikon <strong>Source Settings</strong> (ikon bola dunia sumber aktif).<br />
+                  4. Tap tombol <strong>(+) Pasang Baru / Tambah Ekstensi</strong>.<br />
+                  5. Masukkan link URL lalu simpan.
+                </p>
+              </div>
             </div>
           </div>
         </div>
