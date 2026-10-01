@@ -31,27 +31,26 @@ export default function Hero() {
         />
       </div>
 
-      <div className="container mx-auto px-4 sm:px-6 max-w-6xl pt-16 pb-20 md:pt-24 md:pb-28">
+      {/* ── Banner Showcase — full-width background, fades into hero ── */}
+      <div className="absolute inset-x-0 top-0 -z-10 overflow-hidden pointer-events-none h-[55%] sm:h-[60%]">
+        <Image
+          src="/banner-showcase.jpg"
+          alt=""
+          fill
+          unoptimized
+          priority
+          className="object-cover object-top opacity-30 sm:opacity-35 scale-105"
+        />
+        {/* Fade bottom — blend into bg */}
+        <div className="absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-[#0c0906] via-[#0c0906]/80 to-transparent" />
+        {/* Fade sides */}
+        <div className="absolute inset-y-0 left-0 w-1/4 bg-gradient-to-r from-[#0c0906] to-transparent" />
+        <div className="absolute inset-y-0 right-0 w-1/4 bg-gradient-to-l from-[#0c0906] to-transparent" />
+        {/* Subtle dark overlay so text stays readable */}
+        <div className="absolute inset-0 bg-[#0c0906]/40" />
+      </div>
 
-        {/* ── Manga Showcase Banner (fade-in from bottom) ── */}
-        <div className="relative max-w-5xl mx-auto mb-10 sm:mb-14 animate-fade-up overflow-hidden rounded-2xl sm:rounded-3xl">
-          {/* Fade overlay bottom */}
-          <div className="absolute inset-x-0 bottom-0 h-24 sm:h-32 bg-gradient-to-t from-[#0c0906] via-[#0c0906]/70 to-transparent z-10 pointer-events-none" />
-          {/* Fade overlay sides */}
-          <div className="absolute inset-y-0 left-0 w-10 sm:w-16 bg-gradient-to-r from-[#0c0906] to-transparent z-10 pointer-events-none" />
-          <div className="absolute inset-y-0 right-0 w-10 sm:w-16 bg-gradient-to-l from-[#0c0906] to-transparent z-10 pointer-events-none" />
-          {/* Subtle orange border glow */}
-          <div className="absolute inset-0 rounded-2xl sm:rounded-3xl ring-1 ring-[rgba(255,122,0,0.15)] z-10 pointer-events-none" />
-          <Image
-            src="/banner-showcase.jpg"
-            alt="KonMik — Koleksi Manga, Manhwa & Webtoon"
-            width={1280}
-            height={720}
-            unoptimized
-            className="w-full h-auto object-cover object-center scale-[1.02] hover:scale-[1.04] transition-transform duration-700"
-            priority
-          />
-        </div>
+      <div className="container mx-auto px-4 sm:px-6 max-w-6xl pt-16 pb-20 md:pt-24 md:pb-28">
 
         {/* ── Release Pill Badge ── */}
         <div className="flex justify-center mb-6 sm:mb-8 animate-fade-up">
