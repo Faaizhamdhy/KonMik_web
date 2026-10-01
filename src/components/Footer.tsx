@@ -15,8 +15,8 @@ export default function Footer() {
             <div className="flex items-center gap-2.5">
               <div className="relative w-8 h-8 rounded-lg overflow-hidden border border-primary/40 shadow-sm">
                 <Image
-                  src="https://api.konkon.id/static/assets/icon.jpg"
-                  alt="KonMik Logo"
+                  src="https://api.konkon.id/static/assets/citsune.jpg"
+                  alt="KonMik Citsune Logo"
                   fill
                   unoptimized
                   className="object-cover"

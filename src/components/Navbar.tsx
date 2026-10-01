@@ -17,8 +17,8 @@ export default function Navbar() {
           <Link href="/" className="flex items-center gap-2.5 group">
             <div className="relative w-9 h-9 rounded-xl overflow-hidden border border-primary/40 shadow-[0_0_15px_rgba(255,122,0,0.3)] group-hover:scale-105 transition-transform bg-[#1e1713]">
               <Image
-                src="https://api.konkon.id/static/assets/icon.jpg"
-                alt="KonMik Logo"
+                src="https://api.konkon.id/static/assets/citsune.jpg"
+                alt="KonMik Citsune Logo"
                 fill
                 unoptimized
                 className="object-cover"
