@@ -122,16 +122,17 @@ export default function Hero() {
               </div>
             </div>
 
-            {/* Right: Pose 2 + feature highlights */}
+            {/* Right: Pose + feature highlights */}
             <div className="relative overflow-hidden rounded-[24px] bg-[#18120e] border border-[#2a1d14] p-5 sm:p-6 flex items-center gap-5 group hover:border-[rgba(255,122,0,0.3)] transition-all duration-300">
               <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_right,rgba(255,122,0,0.06),transparent_65%)] pointer-events-none" />
-              <div className="relative w-20 h-20 sm:w-24 sm:h-24 shrink-0 rounded-2xl overflow-hidden border border-[#3d2918] group-hover:scale-105 transition-transform duration-300 bg-[#1a1109]">
+              {/* Tall container so full character sprite is visible (not cropped) */}
+              <div className="relative w-20 h-32 sm:w-24 sm:h-40 shrink-0 rounded-2xl overflow-hidden border border-[#3d2918] group-hover:scale-105 transition-transform duration-300 bg-[#1a1109]">
                 <Image
                   src={`${CDN}/CitsunePose1.png`}
                   alt="Citsune Pose"
                   fill
                   unoptimized
-                  className="object-cover object-top"
+                  className="object-contain object-bottom"
                 />
               </div>
               <div className="relative min-w-0 space-y-2.5">
