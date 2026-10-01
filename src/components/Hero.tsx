@@ -32,22 +32,22 @@ export default function Hero() {
       </div>
 
       {/* ── Banner Showcase — full-width background, fades into hero ── */}
-      <div className="absolute inset-x-0 top-0 -z-10 overflow-hidden pointer-events-none h-[40%] sm:h-[55%] md:h-[60%]">
+      <div className="absolute inset-x-0 top-0 -z-10 overflow-hidden pointer-events-none h-[52%] sm:h-[55%] md:h-[60%]">
         <Image
           src="/banner-showcase.jpg"
           alt=""
           fill
           unoptimized
           priority
-          className="object-cover object-center opacity-25 sm:opacity-30"
+          className="object-cover object-center opacity-50 sm:opacity-35"
         />
         {/* Fade bottom — blend into bg */}
-        <div className="absolute inset-x-0 bottom-0 h-3/4 bg-gradient-to-t from-[#0c0906] via-[#0c0906]/85 to-transparent" />
+        <div className="absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-[#0c0906] via-[#0c0906]/80 to-transparent" />
         {/* Fade sides */}
-        <div className="absolute inset-y-0 left-0 w-1/3 sm:w-1/4 bg-gradient-to-r from-[#0c0906] to-transparent" />
-        <div className="absolute inset-y-0 right-0 w-1/3 sm:w-1/4 bg-gradient-to-l from-[#0c0906] to-transparent" />
-        {/* Dark overlay for text readability */}
-        <div className="absolute inset-0 bg-[#0c0906]/50 sm:bg-[#0c0906]/35" />
+        <div className="absolute inset-y-0 left-0 w-1/4 bg-gradient-to-r from-[#0c0906] to-transparent" />
+        <div className="absolute inset-y-0 right-0 w-1/4 bg-gradient-to-l from-[#0c0906] to-transparent" />
+        {/* Dark overlay — mobile lebih tipis agar gambar terlihat */}
+        <div className="absolute inset-0 bg-[#0c0906]/20 sm:bg-[#0c0906]/35" />
       </div>
 
       <div className="container mx-auto px-4 sm:px-6 max-w-6xl pt-16 pb-20 md:pt-24 md:pb-28">
