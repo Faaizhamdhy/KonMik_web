@@ -32,6 +32,27 @@ export default function Hero() {
       </div>
 
       <div className="container mx-auto px-4 sm:px-6 max-w-6xl pt-16 pb-20 md:pt-24 md:pb-28">
+
+        {/* ── Manga Showcase Banner (fade-in from bottom) ── */}
+        <div className="relative max-w-5xl mx-auto mb-10 sm:mb-14 animate-fade-up overflow-hidden rounded-2xl sm:rounded-3xl">
+          {/* Fade overlay bottom */}
+          <div className="absolute inset-x-0 bottom-0 h-24 sm:h-32 bg-gradient-to-t from-[#0c0906] via-[#0c0906]/70 to-transparent z-10 pointer-events-none" />
+          {/* Fade overlay sides */}
+          <div className="absolute inset-y-0 left-0 w-10 sm:w-16 bg-gradient-to-r from-[#0c0906] to-transparent z-10 pointer-events-none" />
+          <div className="absolute inset-y-0 right-0 w-10 sm:w-16 bg-gradient-to-l from-[#0c0906] to-transparent z-10 pointer-events-none" />
+          {/* Subtle orange border glow */}
+          <div className="absolute inset-0 rounded-2xl sm:rounded-3xl ring-1 ring-[rgba(255,122,0,0.15)] z-10 pointer-events-none" />
+          <Image
+            src="/banner-showcase.jpg"
+            alt="KonMik — Koleksi Manga, Manhwa & Webtoon"
+            width={1280}
+            height={720}
+            unoptimized
+            className="w-full h-auto object-cover object-center scale-[1.02] hover:scale-[1.04] transition-transform duration-700"
+            priority
+          />
+        </div>
+
         {/* ── Release Pill Badge ── */}
         <div className="flex justify-center mb-6 sm:mb-8 animate-fade-up">
           <div className="inline-flex items-center gap-2 rounded-full border border-[rgba(255,122,0,0.3)] bg-[rgba(255,122,0,0.08)] px-3.5 sm:px-4 py-1.5 text-xs sm:text-sm font-semibold text-[#ff7a00] backdrop-blur-sm">
@@ -89,25 +110,6 @@ export default function Hero() {
           ))}
         </div>
 
-        {/* ── Manga Showcase Banner (fade-in from bottom) ── */}
-        <div className="relative max-w-5xl mx-auto mb-10 sm:mb-14 animate-fade-up-delay-4 overflow-hidden rounded-2xl sm:rounded-3xl">
-          {/* Fade overlay bottom */}
-          <div className="absolute inset-x-0 bottom-0 h-24 sm:h-32 bg-gradient-to-t from-[#0c0906] via-[#0c0906]/70 to-transparent z-10 pointer-events-none" />
-          {/* Fade overlay sides */}
-          <div className="absolute inset-y-0 left-0 w-10 sm:w-16 bg-gradient-to-r from-[#0c0906] to-transparent z-10 pointer-events-none" />
-          <div className="absolute inset-y-0 right-0 w-10 sm:w-16 bg-gradient-to-l from-[#0c0906] to-transparent z-10 pointer-events-none" />
-          {/* Subtle orange border glow */}
-          <div className="absolute inset-0 rounded-2xl sm:rounded-3xl ring-1 ring-[rgba(255,122,0,0.15)] z-10 pointer-events-none" />
-          <Image
-            src="/banner-showcase.jpg"
-            alt="KonMik — Koleksi Manga, Manhwa & Webtoon"
-            width={1280}
-            height={720}
-            unoptimized
-            className="w-full h-auto object-cover object-center scale-[1.02] hover:scale-[1.04] transition-transform duration-700"
-            priority
-          />
-        </div>
 
         {/* ══════════════════════════════════════════════════════════════════════
             IMMERSIVE CHARACTER SHOWCASE (POPOUT BREAKTHROUGH CARD)
