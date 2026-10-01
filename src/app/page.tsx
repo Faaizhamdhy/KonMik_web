@@ -1,8 +1,8 @@
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
+import Screenshots from "@/components/Screenshots";
 import Extensions from "@/components/Extensions";
 import Features from "@/components/Features";
-import Trending from "@/components/Trending";
 import Footer from "@/components/Footer";
 
 export default function Home() {
@@ -12,9 +12,9 @@ export default function Home() {
 
       <main className="flex-1">
         <Hero />
+        <Screenshots />
         <Extensions />
         <Features />
-        <Trending />
       </main>
 
       <Footer />
