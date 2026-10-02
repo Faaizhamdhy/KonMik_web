@@ -4,21 +4,24 @@ import Link from "next/link";
 import Image from "next/image";
 import { Download, Menu, X, Puzzle, Sparkles, Eye, Activity } from "lucide-react";
 import { useState, useEffect } from "react";
-import { usePathname } from "next/navigation";
 import GithubIcon from "./GithubIcon";
 import DiscordIcon from "./DiscordIcon";
 import WhatsAppIcon from "./WhatsAppIcon";
 
-export default function Navbar({ version = "1.6.2" }: { version?: string }) {
+export default function Navbar({
+  version = "1.6.2",
+  solid = false,
+}: {
+  version?: string;
+  solid?: boolean;
+}) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const pathname = usePathname();
-  const isHome = pathname === "/";
 
   useEffect(() => {
     const onScroll = () => {
       // Di hero (atas) navbar transparan menyatu dengan banner, setelah discroll baru muncul solid/blur
-      setScrolled(window.scrollY > 50);
+      setScrolled(window.scrollY > 60);
     };
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
@@ -32,7 +35,7 @@ export default function Navbar({ version = "1.6.2" }: { version?: string }) {
     { href: "/#features", label: "Fitur", icon: Sparkles },
   ];
 
-  const showSolidNav = !isHome || scrolled || mobileMenuOpen;
+  const showSolidNav = solid || scrolled || mobileMenuOpen;
 
   return (
     <nav

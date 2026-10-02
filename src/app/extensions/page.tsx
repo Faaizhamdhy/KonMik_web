@@ -21,7 +21,7 @@ export default async function ExtensionsPage() {
 
   return (
     <div className="min-h-screen flex flex-col font-sans">
-      <Navbar version={version} />
+      <Navbar version={version} solid />
       <main className="flex-1 pt-24 sm:pt-28">
         <Extensions />
       </main>
