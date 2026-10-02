@@ -152,7 +152,7 @@ export default function CommunityStats({
         <div className="text-center max-w-3xl mx-auto mb-14">
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[rgba(255,122,0,0.1)] border border-[rgba(255,122,0,0.25)] text-[#ff7a00] text-xs font-semibold uppercase tracking-wider mb-5">
             <Activity className="w-3.5 h-3.5" aria-hidden="true" />
-            Statistik & Komunitas Live
+            Komunitas Pembaca Aktif
           </div>
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight mb-4 text-[#f5ede4]">
             Dipercaya & Dinikmati Oleh{" "}
@@ -183,10 +183,10 @@ export default function CommunityStats({
                 {formatDownload(stats.totalDownload)}
               </div>
               <p className="text-xs font-bold text-[#ff7a00] uppercase tracking-wider mb-2">
-                Total Download APK
+                Total Unduhan
               </p>
               <p className="text-xs text-[#a89282] leading-relaxed">
-                Diunduh dari rilis GitHub Releases resmi KonMik di seluruh Indonesia.
+                Telah diunduh dan dinikmati oleh ribuan pecinta komik di seluruh Indonesia.
               </p>
             </div>
           </div>
@@ -265,10 +265,10 @@ export default function CommunityStats({
                 <span className="text-xs font-semibold text-[#a89282]">pembaca</span>
               </div>
               <p className="text-xs font-bold text-emerald-400 uppercase tracking-wider mb-2">
-                Pembaca Aktif (Ping API)
+                Sedang Membaca
               </p>
               <p className="text-xs text-[#a89282] leading-relaxed">
-                Terhubung real-time dari heartbeat ping server aplikasi backend KonMik (api.konkon.id).
+                Jumlah pembaca yang sedang asyik menikmati komik di aplikasi KonMik saat ini.
               </p>
             </div>
           </div>

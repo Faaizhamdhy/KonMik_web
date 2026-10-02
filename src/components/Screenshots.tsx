@@ -120,6 +120,9 @@ export default function Screenshots() {
   const [hovered, setHovered] = useState(false);
   const [progress, setProgress] = useState(0);
 
+  const [touchStartX, setTouchStartX] = useState<number | null>(null);
+  const [touchStartY, setTouchStartY] = useState<number | null>(null);
+
   const goNext = useCallback(() => {
     setActive((p) => (p + 1) % SCREENSHOTS.length);
     setProgress(0);
@@ -129,6 +132,32 @@ export default function Screenshots() {
     setActive((p) => (p - 1 + SCREENSHOTS.length) % SCREENSHOTS.length);
     setProgress(0);
   }, []);
+
+  // Gesture swipe handler for mobile (HP)
+  const handleTouchStart = (e: React.TouchEvent) => {
+    setTouchStartX(e.targetTouches[0].clientX);
+    setTouchStartY(e.targetTouches[0].clientY);
+  };
+
+  const handleTouchEnd = (e: React.TouchEvent) => {
+    if (touchStartX === null || touchStartY === null) return;
+    const touchEndX = e.changedTouches[0].clientX;
+    const touchEndY = e.changedTouches[0].clientY;
+
+    const diffX = touchStartX - touchEndX;
+    const diffY = touchStartY - touchEndY;
+
+    // Detect horizontal swipe if delta X is greater than delta Y
+    if (Math.abs(diffX) > Math.abs(diffY) && Math.abs(diffX) > 35) {
+      if (diffX > 0) {
+        goNext();
+      } else {
+        goPrev();
+      }
+    }
+    setTouchStartX(null);
+    setTouchStartY(null);
+  };
 
   // Autoplay with smooth progress
   useEffect(() => {
@@ -209,24 +238,39 @@ export default function Screenshots() {
         </div>
 
         {/* Main Showcase */}
-        <div className="glass-card rounded-3xl p-5 sm:p-8 lg:p-10 shadow-[0_20px_60px_rgba(0,0,0,0.5)]">
+        <div
+          onTouchStart={handleTouchStart}
+          onTouchEnd={handleTouchEnd}
+          className="glass-card rounded-3xl p-5 sm:p-8 lg:p-10 shadow-[0_20px_60px_rgba(0,0,0,0.5)] touch-pan-y"
+        >
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-            {/* Phone Mockup */}
-            <div className="lg:col-span-5 flex justify-center">
-              <div className="relative w-[240px] sm:w-[280px] aspect-[9/19.5] rounded-[40px] p-[10px] bg-gradient-to-b from-[#3d2918] via-[#1e150f] to-[#0e0a07] shadow-[0_24px_60px_rgba(0,0,0,0.7),0_0_40px_rgba(255,122,0,0.08)] border-[3px] border-[#4a3426] hover:scale-[1.02] transition-transform duration-500">
+            {/* Phone Mockup with Left & Right Arrow Buttons */}
+            <div className="lg:col-span-5 flex items-center justify-center relative select-none py-2">
+              {/* Tombol < (Kiri) */}
+              <button
+                type="button"
+                onClick={goPrev}
+                aria-label="Screenshot sebelumnya"
+                className="absolute left-0 sm:-left-3 lg:-left-6 top-1/2 -translate-y-1/2 z-30 w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-[#18120e]/95 hover:bg-[#ff7a00] border border-[#3d2918] hover:border-[#ff7a00] text-[#f5ede4] hover:text-white shadow-[0_8px_24px_rgba(0,0,0,0.7)] backdrop-blur-md flex items-center justify-center transition-all duration-200 active:scale-90 hover:scale-110 cursor-pointer"
+              >
+                <ChevronLeft className="w-5 h-5 sm:w-6 sm:h-6" />
+              </button>
+
+              {/* Phone Frame */}
+              <div className="relative w-[230px] sm:w-[275px] aspect-[9/19.5] rounded-[40px] p-[10px] bg-gradient-to-b from-[#3d2918] via-[#1e150f] to-[#0e0a07] shadow-[0_24px_60px_rgba(0,0,0,0.7),0_0_40px_rgba(255,122,0,0.08)] border-[3px] border-[#4a3426] hover:scale-[1.02] transition-transform duration-500 cursor-grab active:cursor-grabbing">
                 {/* Notch */}
                 <div className="absolute top-3 left-1/2 -translate-x-1/2 w-20 h-3.5 bg-black rounded-full z-20 flex items-center justify-center gap-2">
                   <div className="w-2 h-2 rounded-full bg-[#1a1410]" />
                   <div className="w-8 h-1 rounded-full bg-[#2a1e16]" />
                 </div>
                 {/* Screen */}
-                <div className="relative w-full h-full rounded-[30px] overflow-hidden bg-black">
+                <div className="relative w-full h-full rounded-[30px] overflow-hidden bg-black select-none pointer-events-none">
                   <Image
                     key={current.id}
                     src={current.image}
                     alt={current.title}
                     fill
-                    sizes="(max-width: 640px) 240px, 280px"
+                    sizes="(max-width: 640px) 230px, 275px"
                     className="object-cover object-top transition-opacity duration-500 animate-in fade-in"
                     priority
                   />
@@ -234,6 +278,16 @@ export default function Screenshots() {
                 {/* Phone bottom button */}
                 <div className="absolute bottom-2 left-1/2 -translate-x-1/2 w-16 h-1 bg-[#3d2918] rounded-full" />
               </div>
+
+              {/* Tombol > (Kanan) */}
+              <button
+                type="button"
+                onClick={goNext}
+                aria-label="Screenshot berikutnya"
+                className="absolute right-0 sm:-right-3 lg:-right-6 top-1/2 -translate-y-1/2 z-30 w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-[#18120e]/95 hover:bg-[#ff7a00] border border-[#3d2918] hover:border-[#ff7a00] text-[#f5ede4] hover:text-white shadow-[0_8px_24px_rgba(0,0,0,0.7)] backdrop-blur-md flex items-center justify-center transition-all duration-200 active:scale-90 hover:scale-110 cursor-pointer"
+              >
+                <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6" />
+              </button>
             </div>
 
             {/* Info Panel */}
@@ -254,7 +308,7 @@ export default function Screenshots() {
 
                 <button
                   onClick={() => setPlaying((p) => !p)}
-                  className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-[#18120e] border border-[#2a1d14] text-[#a89282] hover:text-[#f5ede4] text-xs font-medium transition-all hover:border-[rgba(255,122,0,0.3)]"
+                  className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-[#18120e] border border-[#2a1d14] text-[#a89282] hover:text-[#f5ede4] text-xs font-medium transition-all hover:border-[rgba(255,122,0,0.3)] cursor-pointer"
                   title={playing ? "Jeda" : "Putar otomatis"}
                 >
                   {playing ? (
@@ -292,22 +346,10 @@ export default function Screenshots() {
               </div>
 
               {/* Navigation controls */}
-              <div className="flex items-center justify-between pt-3 border-t border-[#2a1d14]">
-                <div className="flex items-center gap-2">
-                  <button
-                    onClick={goPrev}
-                    aria-label="Screenshot sebelumnya"
-                    className="p-2.5 rounded-xl bg-[#18120e] border border-[#2a1d14] text-[#a89282] hover:text-[#f5ede4] hover:border-[rgba(255,122,0,0.3)] transition-all active:scale-95"
-                  >
-                    <ChevronLeft className="w-4 h-4" />
-                  </button>
-                  <button
-                    onClick={goNext}
-                    aria-label="Screenshot berikutnya"
-                    className="p-2.5 rounded-xl bg-[#18120e] border border-[#2a1d14] text-[#a89282] hover:text-[#f5ede4] hover:border-[rgba(255,122,0,0.3)] transition-all active:scale-95"
-                  >
-                    <ChevronRight className="w-4 h-4" />
-                  </button>
+              <div className="flex flex-col sm:flex-row items-center justify-between gap-3 pt-3 border-t border-[#2a1d14]">
+                <div className="flex items-center gap-2 text-xs text-[#8d7768]">
+                  <span className="inline-block sm:hidden">👈 Geser layar atau tombol ‹ › 👉</span>
+                  <span className="hidden sm:inline-block">Gunakan tombol ‹ › di sisi gambar</span>
                 </div>
 
                 {/* Dot indicators */}
@@ -318,16 +360,16 @@ export default function Screenshots() {
                       role="tab"
                       aria-selected={i === active}
                       onClick={() => { setActive(i); setProgress(0); }}
-                      className={`rounded-full transition-all duration-200 ${
-                        i === active ? "w-5 h-1.5 bg-[#ff7a00]" : "w-1.5 h-1.5 bg-[#3d2918] hover:bg-[#6b5244]"
+                      className={`rounded-full transition-all duration-200 cursor-pointer ${
+                        i === active ? "w-6 h-1.5 bg-[#ff7a00]" : "w-1.5 h-1.5 bg-[#3d2918] hover:bg-[#6b5244]"
                       }`}
                       aria-label={`Slide ${i + 1}`}
                     />
                   ))}
                 </div>
 
-                <span className="text-xs font-mono text-[#6b5244]">
-                  {active + 1}/{SCREENSHOTS.length}
+                <span className="text-xs font-mono text-[#8d7768] font-bold">
+                  {active + 1} / {SCREENSHOTS.length}
                 </span>
               </div>
             </div>
