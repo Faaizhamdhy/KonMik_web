@@ -7,6 +7,7 @@ import WhatsAppIcon from "./WhatsAppIcon";
 
 const NAV_LINKS = [
   { href: "/", label: "Beranda" },
+  { href: "/#stats", label: "Statistik Komunitas" },
   { href: "/#screenshots", label: "Preview Aplikasi" },
   { href: "/#extensions", label: "Katalog Ekstensi" },
   { href: "/#features", label: "Fitur Unggulan" },

@@ -1,20 +1,42 @@
-import { Download, ChevronRight, Sparkles, Smartphone, ShieldCheck, Zap, Star } from "lucide-react";
+import { Download, ChevronRight, Sparkles, Smartphone, ShieldCheck, Zap, Star, Users } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { getLatestVersion } from "@/lib/version";
+import { getAppStats } from "@/lib/stats";
 
 const CDN = "https://api.konkon.id/static/assets";
 
 export default async function Hero({ version: propVersion }: { version?: string } = {}) {
   const version = propVersion ?? (await getLatestVersion());
+  const appStats = await getAppStats();
   const downloadUrl =
     "https://github.com/Faaizhamdhy/KonMik-Release/releases/latest/download/KonMik.apk";
 
   const stats = [
-    { icon: Smartphone, label: "Android 7.0+",   sub: "ARM64 & 32-bit",    color: "text-[#ff7a00]"    },
-    { icon: ShieldCheck, label: "100% Ad-Free",  sub: "Tanpa pop-up",      color: "text-emerald-400"  },
-    { icon: Zap,         label: "Citsune AI",    sub: "Teman baca cerdas", color: "text-amber-400"    },
-    { icon: Star,        label: "Multi-Source",  sub: "10+ Sumber bawaan", color: "text-purple-400"   },
+    {
+      icon: Download,
+      label: `${(appStats.totalDownload / 1000).toFixed(1)}K+`,
+      sub: "Total Download",
+      color: "text-[#ff7a00]",
+    },
+    {
+      icon: Star,
+      label: `${appStats.avgRating.toFixed(1)} ★`,
+      sub: `${appStats.totalRatings} Ulasan`,
+      color: "text-amber-400",
+    },
+    {
+      icon: Users,
+      label: `${appStats.activeReaders} Online`,
+      sub: "Pembaca Aktif",
+      color: "text-emerald-400",
+    },
+    {
+      icon: ShieldCheck,
+      label: "100% Bebas Iklan",
+      sub: "Tanpa pop-up",
+      color: "text-purple-400",
+    },
   ];
 
   return (
@@ -100,14 +122,15 @@ export default async function Hero({ version: propVersion }: { version?: string 
         {/* ── Stats Badges Grid ── */}
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 sm:gap-3 max-w-2xl mx-auto mb-12 sm:mb-16 animate-fade-up-delay-4">
           {stats.map(({ icon: Icon, label, sub, color }) => (
-            <div
+            <Link
               key={label}
-              className="flex flex-col items-center gap-1 p-2.5 sm:p-3 rounded-xl bg-[#18120e] border border-[#2a1d14] text-center"
+              href="#stats"
+              className="flex flex-col items-center gap-1 p-2.5 sm:p-3 rounded-xl bg-[#18120e] border border-[#2a1d14] hover:border-[rgba(255,122,0,0.35)] hover:bg-[#201711] transition-all text-center group cursor-pointer"
             >
-              <Icon className={`w-4 sm:w-5 h-4 sm:h-5 ${color}`} aria-hidden="true" />
+              <Icon className={`w-4 sm:w-5 h-4 sm:h-5 ${color} group-hover:scale-110 transition-transform`} aria-hidden="true" />
               <span className="text-xs font-semibold text-[#f5ede4]">{label}</span>
               <span className="text-[10px] text-[#a89282]">{sub}</span>
-            </div>
+            </Link>
           ))}
         </div>
 
