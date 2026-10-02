@@ -5,7 +5,7 @@ export async function POST(req: NextRequest) {
     const body = await req.json();
     const rating = Math.min(5, Math.max(1, parseInt(body.rating, 10) || 5));
 
-    const response = await fetch("https://konmik.konkon.id/api/submit_rating.php", {
+    const response = await fetch("https://api.konkon.id/api/submit_rating", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ rating }),

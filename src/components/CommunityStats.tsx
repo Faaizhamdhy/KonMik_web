@@ -5,9 +5,7 @@ import {
   Download,
   Star,
   Users,
-  BookOpen,
   Sparkles,
-  TrendingUp,
   CheckCircle2,
   Heart,
   Activity,
@@ -142,8 +140,8 @@ export default function CommunityStats({
           </p>
         </div>
 
-        {/* 4 Core Stat Cards */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5 mb-10">
+        {/* 3 Core Stat Cards */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-5 mb-10">
           
           {/* Card 1: Total Downloads Tracker */}
           <div className="group relative p-6 rounded-3xl bg-[#18120e] border border-[#2a1d14] hover:border-[rgba(255,122,0,0.4)] transition-all duration-300 hover:shadow-[0_12px_36px_rgba(255,122,0,0.12)] flex flex-col justify-between">
@@ -165,7 +163,7 @@ export default function CommunityStats({
                 Total Download APK
               </p>
               <p className="text-xs text-[#a89282] leading-relaxed">
-                Diunduh dari server resmi & rilis GitHub KonMik di seluruh Indonesia.
+                Diunduh dari rilis GitHub Releases resmi KonMik di seluruh Indonesia.
               </p>
             </div>
           </div>
@@ -247,32 +245,7 @@ export default function CommunityStats({
                 Pembaca Aktif (Ping API)
               </p>
               <p className="text-xs text-[#a89282] leading-relaxed">
-                Terhubung real-time dari heartbeat ping server aplikasi backend KonMik.
-              </p>
-            </div>
-          </div>
-
-          {/* Card 4: Manga & Chapter Library */}
-          <div className="group relative p-6 rounded-3xl bg-[#18120e] border border-[#2a1d14] hover:border-[rgba(96,165,250,0.4)] transition-all duration-300 hover:shadow-[0_12px_36px_rgba(96,165,250,0.12)] flex flex-col justify-between">
-            <div className="flex items-center justify-between mb-4">
-              <div className="w-12 h-12 rounded-2xl bg-blue-500/12 border border-blue-500/25 flex items-center justify-center text-blue-400 group-hover:scale-110 transition-transform duration-200">
-                <BookOpen className="w-6 h-6" />
-              </div>
-              <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[10px] font-bold bg-blue-500/10 text-blue-300 border border-blue-500/20">
-                <TrendingUp className="w-3 h-3" />
-                Update Rutin
-              </span>
-            </div>
-
-            <div>
-              <div className="text-3xl sm:text-4xl font-extrabold text-[#f5ede4] mb-1 font-mono tracking-tight">
-                5,000+
-              </div>
-              <p className="text-xs font-bold text-blue-400 uppercase tracking-wider mb-2">
-                Judul Komik Bawaan
-              </p>
-              <p className="text-xs text-[#a89282] leading-relaxed">
-                Tersedia dari 10+ server terintegrasi dan siap baca tanpa setup rumit.
+                Terhubung real-time dari heartbeat ping server aplikasi backend KonMik (api.konkon.id).
               </p>
             </div>
           </div>

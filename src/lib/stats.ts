@@ -11,10 +11,10 @@ export async function getAppStats(): Promise<AppStats> {
   let avgRating = 4.8;
   let totalRatings = 28;
 
-  // 1. Ambil data dari api/stats.php di konmik.konkon.id
+  // 1. Ambil data dari backend resmi api.konkon.id/api/stats
   try {
-    const res = await fetch("https://konmik.konkon.id/api/stats.php", {
-      next: { revalidate: 30 },
+    const res = await fetch("https://api.konkon.id/api/stats", {
+      next: { revalidate: 15 },
       headers: { "User-Agent": "KonMik-Web/1.0" },
     });
     if (res.ok) {
@@ -24,7 +24,7 @@ export async function getAppStats(): Promise<AppStats> {
         avgRating = parseFloat(String(data.avg_rating).replace(",", ".")) || avgRating;
       }
       if (data.total_ratings) totalRatings = parseInt(data.total_ratings, 10);
-      if (data.active_readers) activeReaders = parseInt(data.active_readers, 10);
+      if (typeof data.active_readers === "number") activeReaders = data.active_readers;
     }
   } catch (err) {
     // silent fallback

@@ -85,7 +85,7 @@ const FEATURES = [
     category: "sources" as const,
     badge: "10+ Server",
     title: "Multi-Source & Switch 1-Klik",
-    tagline: "Koleksi Ribuan Judul Lengkap",
+    tagline: "Dukungan Multi-Sumber Fleksibel",
     desc: "Terhubung ke Shinigami, Komikindo, Kiryuu, MangaDex, Ainz, Ikiru, Luvyaa, dan lainnya. Pindah server seketika jika ada bab yang bermasalah.",
     icon: Layers,
     color: "text-blue-400",
@@ -211,7 +211,7 @@ const FEATURES = [
 const HIGHLIGHTS = [
   { icon: ShieldCheck, label: "100% Bebas Iklan Pop-up", sub: "Baca nyaman tanpa distraksi" },
   { icon: Zap, label: "Bypass DoH Bawaan", sub: "Semua server komik tanpa VPN" },
-  { icon: Layers, label: "10+ Server & Ekstensi JS", sub: "Ribuan judul update tiap hari" },
+  { icon: Layers, label: "10+ Server & Ekstensi JS", sub: "Katalog luas modular & dinamis" },
   { icon: Bot, label: "Asisten Cerdas Citsune", sub: "Rekomendasi & rekap alur bab" },
 ];
 
