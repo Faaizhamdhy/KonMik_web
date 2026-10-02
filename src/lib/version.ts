@@ -2,7 +2,7 @@ export async function getLatestVersion(): Promise<string> {
   try {
     const res = await fetch(
       "https://api.github.com/repos/Faaizhamdhy/KonMik-Release/releases/latest",
-      { next: { revalidate: 3600 } } // cache 1 jam
+      { next: { revalidate: 60 } } // cache 60 detik agar rilis baru cepat tampil otomatis
     );
     if (!res.ok) return "1.6.2";
     const data = await res.json();
