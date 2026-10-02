@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { Download, Menu, X, Puzzle, Sparkles, Eye, Activity, ShieldAlert } from "lucide-react";
+import { Download, Menu, X, Puzzle, Sparkles, Eye, Activity } from "lucide-react";
 import { useState, useEffect } from "react";
 import GithubIcon from "./GithubIcon";
 import DiscordIcon from "./DiscordIcon";
@@ -19,7 +19,6 @@ export default function Navbar({ version = "1.6.2" }: { version?: string }) {
   }, []);
 
   const navLinks = [
-    { href: "/#panduan", label: "Panduan", icon: ShieldAlert },
     { href: "/#stats", label: "Statistik", icon: Activity },
     { href: "/#screenshots", label: "Preview", icon: Eye },
     { href: "/#extensions", label: "Ekstensi", icon: Puzzle },

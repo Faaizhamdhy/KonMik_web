@@ -97,11 +97,11 @@ export default function InstallGuideModal() {
                   <span className="text-[11px] text-[#8d7768]">Buka Pilihan Tersembunyi</span>
                 </div>
 
-                <div className="rounded-xl overflow-hidden border border-[#2a1d14] bg-black/60 mb-4 shadow-md">
+                <div className="rounded-xl overflow-hidden border border-[#2a1d14] bg-black/60 mb-4 shadow-md flex items-center justify-center p-1">
                   <img
                     src="/images/guide/step1_card.jpg"
                     alt="Langkah 1 Play Protect"
-                    className="w-full h-auto object-contain block mx-auto"
+                    className="w-full max-h-[290px] object-contain block mx-auto rounded-lg"
                   />
                 </div>
 
@@ -125,11 +125,11 @@ export default function InstallGuideModal() {
                   <span className="text-[11px] text-red-400 font-bold">⚠️ Jangan Klik Oke!</span>
                 </div>
 
-                <div className="rounded-xl overflow-hidden border border-[#2a1d14] bg-black/60 mb-4 shadow-md">
+                <div className="rounded-xl overflow-hidden border border-[#2a1d14] bg-black/60 mb-4 shadow-md flex items-center justify-center p-1">
                   <img
                     src="/images/guide/step2_card.jpg"
                     alt="Langkah 2 Play Protect"
-                    className="w-full h-auto object-contain block mx-auto"
+                    className="w-full max-h-[290px] object-contain block mx-auto rounded-lg"
                   />
                 </div>
 
@@ -177,15 +177,15 @@ export default function InstallGuideModal() {
 
   return (
     <>
-      {/* Trigger Button with anchor scroll to #panduan */}
+      {/* Trigger Button */}
       <div className="flex items-center gap-2">
         <button
           type="button"
           onClick={() => setIsOpen(true)}
-          className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-semibold text-[#ff7a00] bg-[#ff7a00]/10 border border-[#ff7a00]/30 hover:bg-[#ff7a00]/20 hover:border-[#ff7a00]/50 transition-all cursor-pointer backdrop-blur-sm group shadow-sm active:scale-95"
+          className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-xs sm:text-sm font-semibold text-[#ff7a00] bg-[#ff7a00]/10 border border-[#ff7a00]/30 hover:bg-[#ff7a00]/20 hover:border-[#ff7a00]/50 transition-all cursor-pointer backdrop-blur-sm group shadow-sm active:scale-95"
         >
-          <ShieldAlert className="w-3.5 h-3.5 text-[#ff7a00] group-hover:scale-110 transition-transform" />
-          <span>Panduan Mengatasi &ldquo;Aplikasi Diblokir Play Protect&rdquo;</span>
+          <ShieldAlert className="w-4 h-4 text-[#ff7a00] group-hover:scale-110 transition-transform" />
+          <span>Panduan Melewati Peringatan Play Protect (&ldquo;Aplikasi Diblokir&rdquo;)</span>
         </button>
       </div>
 
