@@ -14,6 +14,9 @@ import {
   MessageSquare,
   Quote,
   Smartphone,
+  ChevronDown,
+  ChevronUp,
+  SlidersHorizontal,
 } from "lucide-react";
 import { AppStats, UserReview } from "@/lib/stats";
 
@@ -33,6 +36,10 @@ export default function CommunityStats({
     }
   );
   const [reviews, setReviews] = useState<UserReview[]>(initialReviews ?? []);
+
+  // Filter & Pagination State
+  const [selectedRating, setSelectedRating] = useState<number | null>(null);
+  const [showAllReviews, setShowAllReviews] = useState(false);
 
   const [hoverRating, setHoverRating] = useState<number | null>(null);
   const [userRating, setUserRating] = useState<number | null>(null);
@@ -138,6 +145,26 @@ export default function CommunityStats({
   };
 
   const activeStarDisplay = hoverRating ?? userRating ?? Math.round(stats.avgRating);
+
+  // Filter reviews by selected rating
+  const filteredReviews = selectedRating === null
+    ? reviews
+    : reviews.filter((r) => Math.round(r.rating) === selectedRating);
+
+  const INITIAL_LIMIT = 4;
+  const displayedReviews = showAllReviews
+    ? filteredReviews
+    : filteredReviews.slice(0, INITIAL_LIMIT);
+
+  // Rating counts for filter chips
+  const ratingCounts = {
+    all: reviews.length,
+    5: reviews.filter((r) => Math.round(r.rating) === 5).length,
+    4: reviews.filter((r) => Math.round(r.rating) === 4).length,
+    3: reviews.filter((r) => Math.round(r.rating) === 3).length,
+    2: reviews.filter((r) => Math.round(r.rating) === 2).length,
+    1: reviews.filter((r) => Math.round(r.rating) === 1).length,
+  };
 
   return (
     <section id="stats" className="py-20 relative overflow-hidden section-glow">
@@ -341,86 +368,181 @@ export default function CommunityStats({
               </p>
             </div>
 
-            {/* Reviews Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
-              {reviews.map((rev, idx) => (
-                <div
-                  key={`${rev.username}-${idx}`}
-                  className="group relative p-5 rounded-2xl bg-[#140e0a] border border-[#2a1d14] hover:border-[rgba(255,122,0,0.35)] transition-all duration-300 hover:shadow-[0_8px_24px_rgba(255,122,0,0.08)] flex flex-col justify-between"
+            {/* Filter Rating Chips */}
+            <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-2.5 mb-8">
+              <button
+                type="button"
+                onClick={() => {
+                  setSelectedRating(null);
+                  setShowAllReviews(false);
+                }}
+                className={`inline-flex items-center gap-2 px-4 py-2 rounded-full text-xs font-semibold transition-all cursor-pointer ${
+                  selectedRating === null
+                    ? "bg-[#ff7a00] text-white shadow-[0_2px_14px_rgba(255,122,0,0.35)] scale-105"
+                    : "bg-[#140e0a] text-[#a89282] border border-[#2a1d14] hover:border-[#ff7a00]/40 hover:text-[#f5ede4]"
+                }`}
+              >
+                <span>Semua Ulasan</span>
+                <span className="px-1.5 py-0.5 rounded-full bg-black/25 text-[10px] font-mono">
+                  {ratingCounts.all}
+                </span>
+              </button>
+
+              {[5, 4, 3, 2, 1].map((stars) => {
+                const count = ratingCounts[stars as keyof typeof ratingCounts] || 0;
+                if (count === 0 && selectedRating !== stars) return null;
+                const isSelected = selectedRating === stars;
+                return (
+                  <button
+                    key={stars}
+                    type="button"
+                    onClick={() => {
+                      setSelectedRating(isSelected ? null : stars);
+                      setShowAllReviews(false);
+                    }}
+                    className={`inline-flex items-center gap-1.5 px-3.5 py-2 rounded-full text-xs font-semibold transition-all cursor-pointer ${
+                      isSelected
+                        ? "bg-[#ff7a00] text-white shadow-[0_2px_14px_rgba(255,122,0,0.35)] scale-105"
+                        : "bg-[#140e0a] text-[#a89282] border border-[#2a1d14] hover:border-[#ff7a00]/40 hover:text-[#f5ede4]"
+                    }`}
+                  >
+                    <span className="text-amber-400">★</span>
+                    <span>{stars} Bintang</span>
+                    <span className="px-1.5 py-0.5 rounded-full bg-black/25 text-[10px] font-mono">
+                      {count}
+                    </span>
+                  </button>
+                );
+              })}
+            </div>
+
+            {/* Empty State when Filter has 0 reviews */}
+            {filteredReviews.length === 0 ? (
+              <div className="text-center py-12 px-4 rounded-2xl bg-[#140e0a] border border-[#2a1d14] max-w-md mx-auto">
+                <div className="w-12 h-12 rounded-full bg-[#ff7a00]/10 border border-[#ff7a00]/20 flex items-center justify-center text-[#ff7a00] mx-auto mb-3">
+                  <Star className="w-6 h-6 text-[#ff7a00]/60" />
+                </div>
+                <h4 className="text-base font-bold text-[#f5ede4] mb-1">
+                  Belum Ada Ulasan {selectedRating} Bintang
+                </h4>
+                <p className="text-xs text-[#a89282] mb-4">
+                  Belum ada pembaca yang memberikan rating ini. Jadilah yang pertama memberikan ulasan!
+                </p>
+                <button
+                  type="button"
+                  onClick={() => setSelectedRating(null)}
+                  className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-[#251912] hover:bg-[#2f1f17] text-xs font-semibold text-[#f5ede4] border border-[#ff7a00]/30 transition-all cursor-pointer"
                 >
-                  {/* Card Header: Avatar, Name, Handle, Stars */}
-                  <div>
-                    <div className="flex items-start justify-between gap-3 mb-3">
-                      <div className="flex items-center gap-3 min-w-0">
-                        {/* Profile Picture with letter fallback */}
-                        <div className="relative w-11 h-11 rounded-2xl overflow-hidden border-2 border-[#ff7a00]/30 bg-[#251912] flex items-center justify-center shrink-0 shadow-sm">
-                          <span className="text-sm font-bold text-[#ff7a00] select-none">
-                            {(rev.display_name || rev.username || "K").charAt(0).toUpperCase()}
+                  Tampilkan Semua Ulasan
+                </button>
+              </div>
+            ) : (
+              <>
+                {/* Reviews Grid */}
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
+                  {displayedReviews.map((rev, idx) => (
+                    <div
+                      key={`${rev.username}-${idx}`}
+                      className="group relative p-5 rounded-2xl bg-[#140e0a] border border-[#2a1d14] hover:border-[rgba(255,122,0,0.35)] transition-all duration-300 hover:shadow-[0_8px_24px_rgba(255,122,0,0.08)] flex flex-col justify-between"
+                    >
+                      {/* Card Header: Avatar, Name, Handle, Stars */}
+                      <div>
+                        <div className="flex items-start justify-between gap-3 mb-3">
+                          <div className="flex items-center gap-3 min-w-0">
+                            {/* Profile Picture with letter fallback */}
+                            <div className="relative w-11 h-11 rounded-2xl overflow-hidden border-2 border-[#ff7a00]/30 bg-[#251912] flex items-center justify-center shrink-0 shadow-sm">
+                              <span className="text-sm font-bold text-[#ff7a00] select-none">
+                                {(rev.display_name || rev.username || "K").charAt(0).toUpperCase()}
+                              </span>
+                              {rev.profile_url ? (
+                                <img
+                                  src={rev.profile_url}
+                                  alt={rev.display_name || rev.username}
+                                  className="absolute inset-0 w-full h-full object-cover"
+                                  onError={(e) => {
+                                    (e.currentTarget as HTMLElement).style.display = "none";
+                                  }}
+                                />
+                              ) : null}
+                            </div>
+
+                            <div className="min-w-0">
+                              <h4 className="text-sm font-bold text-[#f5ede4] truncate leading-tight group-hover:text-[#ff7a00] transition-colors">
+                                {rev.display_name || rev.username}
+                              </h4>
+                              <p className="text-xs text-[#8d7768] truncate font-mono">
+                                @{rev.username}
+                              </p>
+                            </div>
+                          </div>
+
+                          <span className="inline-flex px-2 py-0.5 rounded-md text-[10px] font-bold bg-[#ff7a00]/10 text-[#ff7a00] border border-[#ff7a00]/25 shrink-0 capitalize">
+                            {rev.role || "Reader"}
                           </span>
-                          {rev.profile_url ? (
-                            <img
-                              src={rev.profile_url}
-                              alt={rev.display_name || rev.username}
-                              className="absolute inset-0 w-full h-full object-cover"
-                              onError={(e) => {
-                                (e.currentTarget as HTMLElement).style.display = "none";
-                              }}
-                            />
-                          ) : null}
                         </div>
 
-                        <div className="min-w-0">
-                          <h4 className="text-sm font-bold text-[#f5ede4] truncate leading-tight group-hover:text-[#ff7a00] transition-colors">
-                            {rev.display_name || rev.username}
-                          </h4>
-                          <p className="text-xs text-[#8d7768] truncate font-mono">
-                            @{rev.username}
+                        {/* Star Rating Display */}
+                        <div className="flex items-center gap-1 mb-3">
+                          {[1, 2, 3, 4, 5].map((star) => (
+                            <Star
+                              key={star}
+                              className={`w-3.5 h-3.5 ${
+                                star <= rev.rating
+                                  ? "text-amber-400 fill-amber-400"
+                                  : "text-[#3d2918] fill-transparent"
+                              }`}
+                            />
+                          ))}
+                          <span className="text-xs font-semibold text-amber-400 ml-1 font-mono">
+                            {rev.rating}.0
+                          </span>
+                        </div>
+
+                        {/* Review Text */}
+                        <div className="relative">
+                          <Quote className="w-5 h-5 text-[#ff7a00]/20 mb-1 -scale-x-100" />
+                          <p className="text-[#d8c3b2] text-xs sm:text-sm leading-relaxed italic line-clamp-4">
+                            &ldquo;{rev.review_text}&rdquo;
                           </p>
                         </div>
                       </div>
 
-                      <span className="inline-flex px-2 py-0.5 rounded-md text-[10px] font-bold bg-[#ff7a00]/10 text-[#ff7a00] border border-[#ff7a00]/25 shrink-0 capitalize">
-                        {rev.role || "Reader"}
-                      </span>
+                      {/* Card Footer: Device tag & Date */}
+                      <div className="mt-4 pt-3 border-t border-[#22160e] flex items-center justify-between text-[11px] text-[#8d7768]">
+                        <span className="inline-flex items-center gap-1.5 font-medium">
+                          <Smartphone className="w-3.5 h-3.5 text-[#ff7a00]" />
+                          Aplikasi KonMik
+                        </span>
+                        <span className="text-[#715c4f]">{rev.date || "Terverifikasi"}</span>
+                      </div>
                     </div>
-
-                    {/* Star Rating Display */}
-                    <div className="flex items-center gap-1 mb-3">
-                      {[1, 2, 3, 4, 5].map((star) => (
-                        <Star
-                          key={star}
-                          className={`w-3.5 h-3.5 ${
-                            star <= rev.rating
-                              ? "text-amber-400 fill-amber-400"
-                              : "text-[#3d2918] fill-transparent"
-                          }`}
-                        />
-                      ))}
-                      <span className="text-xs font-semibold text-amber-400 ml-1 font-mono">
-                        {rev.rating}.0
-                      </span>
-                    </div>
-
-                    {/* Review Text */}
-                    <div className="relative">
-                      <Quote className="w-5 h-5 text-[#ff7a00]/20 mb-1 -scale-x-100" />
-                      <p className="text-[#d8c3b2] text-xs sm:text-sm leading-relaxed italic line-clamp-4">
-                        &ldquo;{rev.review_text}&rdquo;
-                      </p>
-                    </div>
-                  </div>
-
-                  {/* Card Footer: Device tag & Date */}
-                  <div className="mt-4 pt-3 border-t border-[#22160e] flex items-center justify-between text-[11px] text-[#8d7768]">
-                    <span className="inline-flex items-center gap-1.5 font-medium">
-                      <Smartphone className="w-3.5 h-3.5 text-[#ff7a00]" />
-                      Aplikasi KonMik
-                    </span>
-                    <span className="text-[#715c4f]">{rev.date || "Terverifikasi"}</span>
-                  </div>
+                  ))}
                 </div>
-              ))}
-            </div>
+
+                {/* Show All / Show Less Toggle Button */}
+                {filteredReviews.length > INITIAL_LIMIT && (
+                  <div className="mt-8 flex justify-center">
+                    <button
+                      type="button"
+                      onClick={() => setShowAllReviews(!showAllReviews)}
+                      className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-[#140e0a] border border-[#ff7a00]/30 hover:border-[#ff7a00] text-[#f5ede4] hover:text-[#ff7a00] font-semibold text-xs sm:text-sm transition-all shadow-sm active:scale-95 cursor-pointer"
+                    >
+                      {showAllReviews ? (
+                        <>
+                          <ChevronUp className="w-4 h-4 text-[#ff7a00]" />
+                          <span>Tampilkan Lebih Sedikit (4 Ulasan)</span>
+                        </>
+                      ) : (
+                        <>
+                          <ChevronDown className="w-4 h-4 text-[#ff7a00]" />
+                          <span>Lihat Semua Ulasan ({filteredReviews.length})</span>
+                        </>
+                      )}
+                    </button>
+                  </div>
+                )}
+              </>
+            )}
 
             {/* Bottom Callout: How to leave a review */}
             <div className="mt-8 p-5 sm:p-6 rounded-2xl bg-gradient-to-r from-[#1c120a] to-[#140e0a] border border-[#ff7a00]/25 flex flex-col sm:flex-row items-center justify-between gap-4">

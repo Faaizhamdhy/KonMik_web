@@ -1,6 +1,7 @@
 import { Download, ChevronRight, Sparkles, Smartphone, ShieldCheck, Zap, Star, Users } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import InstallGuideModal from "@/components/InstallGuideModal";
 import { getLatestVersion } from "@/lib/version";
 import { getAppStats } from "@/lib/stats";
 
@@ -101,7 +102,7 @@ export default async function Hero({ version: propVersion }: { version?: string 
         </p>
 
         {/* ── Call To Action Buttons ── */}
-        <div className="flex flex-col sm:flex-row justify-center items-stretch sm:items-center gap-3 max-w-xs sm:max-w-none mx-auto mb-8 sm:mb-10 animate-fade-up-delay-3">
+        <div className="flex flex-col sm:flex-row justify-center items-stretch sm:items-center gap-3 max-w-xs sm:max-w-none mx-auto mb-3.5 sm:mb-4 animate-fade-up-delay-3">
           <a
             href={downloadUrl}
             className="group relative inline-flex items-center justify-center gap-2.5 px-7 sm:px-8 py-3.5 sm:py-4 rounded-2xl font-bold text-white text-sm sm:text-base bg-[#ff7a00] hover:bg-[#e86e00] transition-all duration-200 shadow-[0_0_32px_rgba(255,122,0,0.4)] hover:shadow-[0_0_48px_rgba(255,122,0,0.55)] active:scale-[0.97] overflow-hidden"
@@ -117,6 +118,11 @@ export default async function Hero({ version: propVersion }: { version?: string 
             Preview Aplikasi
             <ChevronRight className="w-4 h-4 text-[#6b5244] shrink-0" aria-hidden="true" />
           </Link>
+        </div>
+
+        {/* ── Install Guide & Play Protect Helper ── */}
+        <div className="flex justify-center mb-8 sm:mb-10 animate-fade-up-delay-3">
+          <InstallGuideModal />
         </div>
 
         {/* ── Stats Badges Grid ── */}
