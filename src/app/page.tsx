@@ -6,12 +6,13 @@ import Extensions from "@/components/Extensions";
 import Features from "@/components/Features";
 import Footer from "@/components/Footer";
 import { getLatestVersion } from "@/lib/version";
-import { getAppStats } from "@/lib/stats";
+import { getAppStats, getPublicReviews } from "@/lib/stats";
 
 export default async function Home() {
-  const [version, stats] = await Promise.all([
+  const [version, stats, reviews] = await Promise.all([
     getLatestVersion(),
     getAppStats(),
+    getPublicReviews(),
   ]);
 
   return (
@@ -20,7 +21,7 @@ export default async function Home() {
 
       <main className="flex-1">
         <Hero version={version} />
-        <CommunityStats initialStats={stats} />
+        <CommunityStats initialStats={stats} initialReviews={reviews} />
         <Screenshots />
         <Extensions />
         <Features version={version} />

@@ -5,9 +5,16 @@ export async function POST(req: NextRequest) {
     const body = await req.json();
     const rating = Math.min(5, Math.max(1, parseInt(body.rating, 10) || 5));
 
+    const clientIp = req.headers.get("x-forwarded-for")?.split(",")[0].trim() || req.headers.get("x-real-ip") || "";
+
+    const headers: Record<string, string> = { "Content-Type": "application/json" };
+    if (clientIp) {
+      headers["X-Forwarded-For"] = clientIp;
+    }
+
     const response = await fetch("https://api.konkon.id/api/submit_rating", {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers,
       body: JSON.stringify({ rating }),
     });
 
