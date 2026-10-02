@@ -5,13 +5,13 @@ import Extensions from "@/components/Extensions";
 import { getLatestVersion } from "@/lib/version";
 
 export const metadata: Metadata = {
-  title: "Katalog Ekstensi Komik KonMik - Line Webtoon & DoujinDesu",
+  title: "Katalog Ekstensi Modular KonMik - Pasang Sumber Komik Bebas",
   description:
-    "Koleksi ekstensi modular resmi & komunitas untuk aplikasi KonMik. Pasang ekstensi Webtoon dan DoujinDesu secara mudah langsung di aplikasi.",
+    "Koleksi panduan dan format ekstensi modular JavaScript untuk aplikasi KonMik. Pasang dan kembangkan sumber komik secara mandiri dan fleksibel.",
   openGraph: {
-    title: "Katalog Ekstensi KonMik",
+    title: "Katalog Ekstensi Modular KonMik",
     description:
-      "Pasang sumber komik favoritmu di aplikasi KonMik dengan mudah melalui katalog ekstensi modular.",
+      "Pasang sumber komik tambahan di aplikasi KonMik dengan mudah melalui katalog ekstensi modular JavaScript.",
     url: "https://konmik.konkon.id/extensions",
   },
 };

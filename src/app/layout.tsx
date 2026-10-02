@@ -19,7 +19,7 @@ export const metadata: Metadata = {
     template: "%s | KonMik",
   },
   description:
-    "Download KonMik APK versi terbaru. Platform pembaca komik terlengkap tanpa iklan mengganggu dengan dukungan ekstensi modular (Webtoon, DoujinDesu), mode baca nyaman, klan, dan komunitas.",
+    "Download KonMik APK versi terbaru. Platform pembaca komik terlengkap tanpa iklan mengganggu dengan dukungan ekstensi modular JavaScript, mode baca nyaman, klan, dan komunitas.",
   keywords: [
     "KonMik",
     "KonMik APK",
@@ -28,8 +28,7 @@ export const metadata: Metadata = {
     "aplikasi baca manhwa",
     "komik indonesia",
     "konmik extension",
-    "webtoon extension",
-    "doujindesu extension",
+    "ekstensi komik",
     "komikindo",
     "shinigami komik",
     "kiryuu",

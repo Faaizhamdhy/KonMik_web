@@ -66,16 +66,16 @@ export default async function Hero({ version: propVersion }: { version?: string 
 
         {/* ── Main Headline ── */}
         <h1 className="text-center text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tight leading-[1.12] mb-5 sm:mb-6 max-w-4xl mx-auto animate-fade-up-delay-1 px-2">
-          Baca Manga, Manhwa &{" "}
+          Baca Ribuan Manga, Manhwa &{" "}
           <br className="hidden sm:block" />
-          Webtoon <span className="shimmer-text">Bebas Iklan</span>
+          Komik <span className="shimmer-text">Bebas Iklan</span>
         </h1>
 
         {/* ── Subtitle ── */}
         <p className="text-center text-sm sm:text-base md:text-xl text-[#a89282] mb-8 sm:mb-10 max-w-2xl mx-auto leading-relaxed animate-fade-up-delay-2 px-2">
-          Platform baca komik bertema rubah{" "}
-          <strong className="text-[#f5ede4] font-semibold">Citsune</strong>{" "}
-          dengan ribuan judul bawaan, ekstensi modular, klan komunitas, dan teman AI cerdas.
+          Platform baca komik modern tanpa gangguan iklan, didampingi asisten AI pintar{" "}
+          <strong className="text-[#f5ede4] font-semibold">Citsune</strong>,{" "}
+          ribuan judul bawaan, ekstensi modular, dan komunitas klan yang seru.
         </p>
 
         {/* ── Call To Action Buttons ── */}
@@ -142,15 +142,15 @@ export default async function Hero({ version: propVersion }: { version?: string 
                     />
                   </div>
                   <div>
-                    <span className="text-[11px] font-bold uppercase tracking-widest text-[#ff7a00]">Maskot Resmi KonMik</span>
+                    <span className="text-[11px] font-bold uppercase tracking-widest text-[#ff7a00]">Asisten AI Resmi KonMik</span>
                     <h3 className="text-2xl font-extrabold text-[#f5ede4]">
-                      Temui Citsune, Adik Rubahmu!
+                      Temui Citsune, Teman Bacamu!
                     </h3>
                   </div>
                 </div>
 
                 <p className="text-sm text-[#a89282] leading-relaxed">
-                  Butuh rekomendasi komik seru tanpa drama? Mau rekap alur bab sebelumnya? Citsune hadir langsung di dalam aplikasi untuk memandu petualangan membacamu setiap hari.
+                  Butuh rekomendasi komik seru tanpa bingung mencari? Mau rekap alur bab sebelumnya? Citsune hadir langsung di dalam aplikasi untuk memandu petualangan membacamu setiap hari.
                 </p>
 
                 {/* 4 Feature Pills */}
@@ -225,15 +225,15 @@ export default async function Hero({ version: propVersion }: { version?: string 
               <div className="relative z-10 space-y-4 w-full px-2">
                 <div>
                   <div className="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-[rgba(255,122,0,0.12)] border border-[rgba(255,122,0,0.3)] text-[10px] font-bold uppercase tracking-wider text-[#ff7a00] mb-2.5">
-                    Maskot Resmi KonMik
+                    Asisten AI Resmi KonMik
                   </div>
                   <h3 className="text-xl sm:text-2xl font-extrabold text-[#f5ede4]">
-                    Temui Citsune, Adik Rubahmu!
+                    Temui Citsune, Teman Bacamu!
                   </h3>
                 </div>
 
                 <p className="text-xs sm:text-sm text-[#a89282] max-w-md mx-auto leading-relaxed">
-                  Adik rubah cerdas yang setia menemani petualangan membacamu. Siap beri rekomendasi komik seru dan rekap alur bab kapan saja!
+                  Asisten cerdas yang setia menemani petualangan membacamu. Siap beri rekomendasi komik seru dan rekap alur bab kapan saja!
                 </p>
 
                 {/* 4 Feature Pills on Mobile */}

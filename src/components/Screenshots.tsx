@@ -23,13 +23,13 @@ const SCREENSHOTS: ScreenshotItem[] = [
     id: "home",
     title: "Beranda Interaktif",
     tagline: "Eksplorasi Ribuan Komik Tanpa Batas",
-    desc: "Pintu gerbang utama untuk menemukan update terbaru, judul trending terpanas, filter genre lengkap, serta navigasi bertelinga rubah khas Citsune yang cepat dan responsif.",
+    desc: "Pintu gerbang utama untuk menemukan update terbaru, judul trending terpanas, filter genre lengkap, serta navigasi intuitif yang cepat dan responsif.",
     image: "/screenshots/ss_home.jpg",
     icon: Sparkles,
     accent: "#ff7a00",
     highlights: [
       "Rekomendasi judul harian & update komik terkini",
-      "Navigasi rubah Citsune yang cepat & ringan",
+      "Navigasi intuitif yang cepat & ringan",
     ],
   },
   {
@@ -49,7 +49,7 @@ const SCREENSHOTS: ScreenshotItem[] = [
     id: "reader",
     title: "Mode Baca Ultra HD",
     tagline: "Pengalaman Membaca Mulus Tanpa Jeda",
-    desc: "Nikmati transisi bab otomatis (Infinite Scroll) tanpa jeda loading, mode Webtoon vertikal atau Manga horizontal (RTL/LTR), invert color ramah mata malam, serta indikator jam & baterai.",
+    desc: "Nikmati transisi bab otomatis (Infinite Scroll) tanpa jeda loading, mode gulir vertikal atau Manga horizontal (RTL/LTR), invert color ramah mata malam, serta indikator jam & baterai.",
     image: "/screenshots/ss_reader.jpg",
     icon: Smartphone,
     accent: "#a855f7",
@@ -61,7 +61,7 @@ const SCREENSHOTS: ScreenshotItem[] = [
   {
     id: "citsune",
     title: "Asisten AI Citsune",
-    tagline: "Adik Rubah Cerdas Teman Bacamu",
+    tagline: "Teman Cerdas Pendamping Bacamu",
     desc: "Karakter AI interaktif yang selalu setia menemani petualanganmu. Minta rekomendasi komik seru sesuai suasana hatimu, tanyakan rekap alur bab cerita sebelumnya, atau sekadar ngobrol santai.",
     image: "/screenshots/ss_citsune.jpg",
     icon: Bot,
@@ -173,7 +173,7 @@ export default function Screenshots() {
             <span className="shimmer-text">Pengalaman Mulus</span>
           </h2>
           <p className="text-[#a89282] text-base md:text-lg leading-relaxed">
-            Lihat fitur-fitur unggulan KonMik dengan UI bertema rubah Citsune yang dirancang untuk pecinta manga & manhwa.
+            Jelajahi antarmuka modern dan fitur-fitur unggulan KonMik yang dirancang khusus untuk kenyamanan membaca manga & manhwa.
           </p>
         </div>
 

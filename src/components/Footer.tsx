@@ -76,8 +76,8 @@ export default function Footer({ version = "1.6.2" }: { version?: string }) {
             </Link>
 
             <p className="text-sm text-[#a89282] max-w-xs leading-relaxed">
-              Platform pembaca komik, manga, manhwa, dan webtoon gratis untuk Android bertema rubah{" "}
-              <strong className="text-[#f5ede4] font-semibold">Citsune</strong> — tanpa iklan pop-up mengganggu.
+              Platform pembaca komik, manga, dan manhwa gratis untuk Android didampingi asisten AI{" "}
+              <strong className="text-[#f5ede4] font-semibold">Citsune</strong> — 100% tanpa iklan pop-up mengganggu.
             </p>
 
             {/* Download CTA */}
@@ -140,7 +140,7 @@ export default function Footer({ version = "1.6.2" }: { version?: string }) {
         {/* Bottom bar */}
         <div className="flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-[#6b5244]">
           <p>
-            &copy; {year} KonMik &bull; Dikembangkan bersama Citsune untuk pembaca komik Indonesia.
+            &copy; {year} KonMik &bull; Dibuat untuk seluruh penikmat komik di Indonesia.
           </p>
           <p className="flex items-center gap-1.5">
             Dibuat dengan
