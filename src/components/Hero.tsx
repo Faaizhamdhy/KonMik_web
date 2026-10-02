@@ -162,7 +162,7 @@ export default async function Hero({ version: propVersion }: { version?: string 
                 <div className="flex items-center gap-3">
                   <div className="relative w-12 h-12 rounded-2xl overflow-hidden border-2 border-[rgba(255,122,0,0.5)] shadow-[0_0_16px_rgba(255,122,0,0.35)] bg-[#1a1109] shrink-0 animate-float">
                     <Image
-                      src={`${CDN}/citsune.jpg`}
+                      src="/citsune.jpg"
                       alt="Citsune mascot logo"
                       fill
                       unoptimized
