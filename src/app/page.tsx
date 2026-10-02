@@ -1,5 +1,6 @@
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
+import InstallGuideSection from "@/components/InstallGuideSection";
 import CommunityStats from "@/components/CommunityStats";
 import Screenshots from "@/components/Screenshots";
 import Extensions from "@/components/Extensions";
@@ -21,6 +22,7 @@ export default async function Home() {
 
       <main className="flex-1">
         <Hero version={version} />
+        <InstallGuideSection />
         <CommunityStats initialStats={stats} initialReviews={reviews} />
         <Screenshots />
         <Extensions />
