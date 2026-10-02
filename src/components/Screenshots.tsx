@@ -15,71 +15,100 @@ interface ScreenshotItem {
   image: string;
   icon: typeof Sparkles;
   accent: string;
+  highlights: [string, string];
 }
 
 const SCREENSHOTS: ScreenshotItem[] = [
   {
-    id: "reader",
-    title: "Mode Baca Ultra HD",
-    tagline: "Pengalaman Membaca Terbaik",
-    desc: "Mendukung resolusi Ultra HD, progress status baterai, estimasi waktu baca, kontrol scroll bertelinga rubah, dan asisten mini Citsune yang setia menemani.",
-    image: "/screenshots/ss_reader.jpg",
-    icon: Smartphone,
+    id: "home",
+    title: "Beranda Interaktif",
+    tagline: "Eksplorasi Ribuan Komik Tanpa Batas",
+    desc: "Pintu gerbang utama untuk menemukan update terbaru, judul trending terpanas, filter genre lengkap, serta navigasi bertelinga rubah khas Citsune yang cepat dan responsif.",
+    image: "/screenshots/ss_home.jpg",
+    icon: Sparkles,
     accent: "#ff7a00",
+    highlights: [
+      "Rekomendasi judul harian & update komik terkini",
+      "Navigasi rubah Citsune yang cepat & ringan",
+    ],
   },
   {
     id: "detail",
     title: "Detail Komik",
-    tagline: "Informasi Lengkap & Multi-Source",
-    desc: "Lengkap dengan rating, total bab, ganti sumber komik secara instan, unduh chapter, pelacak progres membaca, dan tombol Mulai Membaca bertelinga rubah.",
+    tagline: "Informasi Lengkap & Ganti Sumber Instan",
+    desc: "Lihat sinopsis, rating, dan ratusan bab. Pindah server sumber baca secara instan jika ada bab macet, tandai progres baca otomatis, dan unduh chapter untuk dibaca nanti.",
     image: "/screenshots/ss_detail.jpg",
     icon: BookMarked,
     accent: "#f59e0b",
+    highlights: [
+      "Pindah server sumber komik 1-klik tanpa repot",
+      "Tandai bab selesai & simpan ke folder kustom",
+    ],
   },
   {
-    id: "home",
-    title: "Beranda Interaktif",
-    tagline: "Navigasi Rubah Menggemaskan",
-    desc: "Dilengkapi navigasi bertelinga rubah khas Citsune, filter genre, carousel komik terpopuler, dan mini audio player chapter.",
-    image: "/screenshots/ss_home.jpg",
-    icon: Sparkles,
-    accent: "#a78bfa",
+    id: "reader",
+    title: "Mode Baca Ultra HD",
+    tagline: "Pengalaman Membaca Mulus Tanpa Jeda",
+    desc: "Nikmati transisi bab otomatis (Infinite Scroll) tanpa jeda loading, mode Webtoon vertikal atau Manga horizontal (RTL/LTR), invert color ramah mata malam, serta indikator jam & baterai.",
+    image: "/screenshots/ss_reader.jpg",
+    icon: Smartphone,
+    accent: "#a855f7",
+    highlights: [
+      "Infinite scroll mengalir mulus tanpa loading antar-bab",
+      "100% bebas pop-up iklan & terintegrasi DoH Cloudflare",
+    ],
   },
   {
     id: "citsune",
-    title: "Citsune AI",
-    tagline: "Teman Baca Cerdas Pribadimu",
-    desc: "Ngobrol santai dengan adik rubah Citsune untuk minta rekomendasi komik seru, rekap alur cerita bab sebelumnya, atau roasting menit bacamu.",
+    title: "Asisten AI Citsune",
+    tagline: "Adik Rubah Cerdas Teman Bacamu",
+    desc: "Karakter AI interaktif yang selalu setia menemani petualanganmu. Minta rekomendasi komik seru sesuai suasana hatimu, tanyakan rekap alur bab cerita sebelumnya, atau sekadar ngobrol santai.",
     image: "/screenshots/ss_citsune.jpg",
     icon: Bot,
     accent: "#34d399",
+    highlights: [
+      "Rekomendasi komik pintar berbasis minat & mood",
+      "Rekap jalan cerita bab sebelumnya dalam sekejap",
+    ],
   },
   {
     id: "collection",
-    title: "Koleksi & Rak",
-    tagline: "Manajemen Bacaan Rapi & Fleksibel",
-    desc: "Kelompokkan komik ke dalam grup/rak custom, sinkronisasi otomatis ke cloud, lacak riwayat baca, dan unduh chapter untuk dibaca offline.",
+    title: "Koleksi & Offline",
+    tagline: "Rak Pribadi Rapi & Bebas Kuota",
+    desc: "Kelompokkan manga favorit ke dalam folder custom, sinkronisasi otomatis riwayat baca ke akun cloud, serta nikmati chapter yang sudah diunduh kapan saja tanpa koneksi internet (dukungan CBZ).",
     image: "/screenshots/ss_collection.jpg",
     icon: BookOpen,
     accent: "#60a5fa",
+    highlights: [
+      "Sinkronisasi riwayat & bookmark otomatis ke cloud",
+      "Mode baca offline & dukungan file format CBZ",
+    ],
   },
   {
     id: "leaderboard",
     title: "Papan Peringkat",
-    tagline: "Bersaing dengan Seluruh Pembaca",
-    desc: "Pamerkan jam terbang dan jumlah bab yang kamu selesaikan. Raih peringkat teratas mingguan, bulanan, atau selamanya dengan border avatar bercahaya.",
+    tagline: "Adu Dedikasi & Kembangkan Klanmu",
+    desc: "Pamerkan jam terbang dan total bab yang kamu selesaikan di tangga Leaderboard mingguan, bulanan, dan sepanjang masa. Pertahankan streak harian dan donasikan poin untuk menaikkan reputasi klan.",
     image: "/screenshots/ss_leaderboard.jpg",
     icon: Trophy,
     accent: "#fbbf24",
+    highlights: [
+      "Leaderboard jam terbang & total bab terbaca",
+      "Sistem level klan & persaingan streak harian",
+    ],
   },
   {
     id: "profile",
     title: "Profil & Gacha",
     tagline: "Ekspresikan Identitas Komunitasmu",
-    desc: "Gunakan KonPoin hasil membaca untuk gacha border avatar spesial, gelar bangsawan, badge komunitas, dan kustomisasi profil yang memukau.",
+    desc: "Raih KonPoin gratis setiap kali kamu membaca komik. Putar gacha untuk mengoleksi border avatar animasi bercahaya, badge kehormatan, dan kustomisasi banner profil yang memukau.",
     image: "/screenshots/ss_profile.jpg",
     icon: User,
-    accent: "#f472b6",
+    accent: "#ec4899",
+    highlights: [
+      "Koleksi border avatar animasi bercahaya & glow",
+      "KonPoin gratis otomatis dari setiap bab bacaan",
+    ],
   },
 ];
 
@@ -248,15 +277,15 @@ export default function Screenshots() {
 
               {/* Highlight pills */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
-                {[
-                  "Warna oranye rubah ramah di mata untuk membaca malam",
-                  "Aplikasi ringan, responsif, tanpa iklan pop-up",
-                ].map((t) => (
+                {current.highlights.map((t) => (
                   <div
                     key={t}
                     className="flex items-center gap-2.5 p-3 rounded-xl bg-[#110d09] border border-[#2a1d14]"
                   >
-                    <div className="w-1.5 h-1.5 rounded-full bg-[#ff7a00] shrink-0" />
+                    <div
+                      className="w-1.5 h-1.5 rounded-full shrink-0"
+                      style={{ backgroundColor: current.accent }}
+                    />
                     <span className="text-xs text-[#a89282]">{t}</span>
                   </div>
                 ))}

@@ -21,7 +21,7 @@ export default function Navbar({ version = "1.6.2" }: { version?: string }) {
   const navLinks = [
     { href: "/#screenshots", label: "Preview", icon: Eye },
     { href: "/#extensions", label: "Ekstensi", icon: Puzzle },
-    { href: "/#features", label: "Komunitas", icon: Sparkles },
+    { href: "/#features", label: "Fitur", icon: Sparkles },
   ];
 
   return (

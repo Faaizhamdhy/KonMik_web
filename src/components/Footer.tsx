@@ -9,7 +9,7 @@ const NAV_LINKS = [
   { href: "/", label: "Beranda" },
   { href: "/#screenshots", label: "Preview Aplikasi" },
   { href: "/#extensions", label: "Katalog Ekstensi" },
-  { href: "/#features", label: "Fitur Komunitas" },
+  { href: "/#features", label: "Fitur Unggulan" },
 ];
 
 const getAppLinks = (version: string) => [
