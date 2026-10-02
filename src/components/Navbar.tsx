@@ -4,6 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { Download, Menu, X, Puzzle, Sparkles, Eye, Activity } from "lucide-react";
 import { useState, useEffect } from "react";
+import { usePathname } from "next/navigation";
 import GithubIcon from "./GithubIcon";
 import DiscordIcon from "./DiscordIcon";
 import WhatsAppIcon from "./WhatsAppIcon";
@@ -11,9 +12,15 @@ import WhatsAppIcon from "./WhatsAppIcon";
 export default function Navbar({ version = "1.6.2" }: { version?: string }) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const pathname = usePathname();
+  const isHome = pathname === "/";
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 20);
+    const onScroll = () => {
+      // Di hero (atas) navbar transparan menyatu dengan banner, setelah discroll baru muncul solid/blur
+      setScrolled(window.scrollY > 50);
+    };
+    onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
@@ -25,12 +32,14 @@ export default function Navbar({ version = "1.6.2" }: { version?: string }) {
     { href: "/#features", label: "Fitur", icon: Sparkles },
   ];
 
+  const showSolidNav = !isHome || scrolled || mobileMenuOpen;
+
   return (
     <nav
-      className={`sticky top-0 z-50 w-full transition-all duration-300 ${
-        scrolled
+      className={`fixed top-0 inset-x-0 z-50 w-full transition-all duration-300 ease-in-out ${
+        showSolidNav
           ? "bg-[#0c0906]/90 backdrop-blur-2xl border-b border-[#2a1d14] shadow-[0_4px_24px_rgba(0,0,0,0.4)]"
-          : "bg-transparent border-b border-transparent"
+          : "bg-transparent border-b border-transparent shadow-none"
       }`}
     >
       <div className="container mx-auto px-4 sm:px-6 h-16 flex items-center justify-between max-w-6xl">

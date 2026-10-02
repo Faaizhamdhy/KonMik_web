@@ -75,7 +75,7 @@ export default async function Hero({ version: propVersion }: { version?: string 
         <div className="absolute inset-0 bg-[#0c0906]/35 sm:bg-[#0c0906]/25" />
       </div>
 
-      <div className="container mx-auto px-4 sm:px-6 max-w-6xl pt-14 pb-16 md:pt-20 md:pb-24">
+      <div className="container mx-auto px-4 sm:px-6 max-w-6xl pt-24 sm:pt-28 md:pt-32 pb-16 md:pb-24">
 
         {/* ── Release Pill Badge ── */}
         <div className="flex justify-center mb-5 sm:mb-6 animate-fade-up">

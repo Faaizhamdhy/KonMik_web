@@ -22,7 +22,7 @@ export default async function ExtensionsPage() {
   return (
     <div className="min-h-screen flex flex-col font-sans">
       <Navbar version={version} />
-      <main className="flex-1 pt-8">
+      <main className="flex-1 pt-24 sm:pt-28">
         <Extensions />
       </main>
       <Footer version={version} />
