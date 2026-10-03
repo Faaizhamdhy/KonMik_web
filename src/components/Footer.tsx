@@ -73,7 +73,13 @@ export default function Footer({ version = "1.6.2" }: { version?: string }) {
                   className="object-cover"
                 />
               </div>
-              <span className="font-extrabold text-xl tracking-tight text-[#f5ede4]">KonMik</span>
+              <Image
+                src="/konmik-logo.png"
+                alt="KonMik"
+                width={116}
+                height={30}
+                className="h-8 w-auto object-contain transition-transform duration-200 group-hover:scale-[1.03]"
+              />
             </Link>
 
             <p className="text-sm text-[#a89282] max-w-xs leading-relaxed">

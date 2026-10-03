@@ -57,10 +57,15 @@ export default function Navbar({
               className="object-cover"
             />
           </div>
-          <div className="flex items-baseline gap-1.5">
-            <span className="font-extrabold text-[1.1rem] tracking-tight text-[#f5ede4]">
-              KonMik
-            </span>
+          <div className="flex items-center gap-1.5">
+            <Image
+              src="/konmik-logo.png"
+              alt="KonMik"
+              width={105}
+              height={28}
+              className="h-7 sm:h-8 w-auto object-contain transition-transform duration-200 group-hover:scale-[1.03]"
+              priority
+            />
             <span className="text-[9px] font-bold px-1.5 py-0.5 rounded-full bg-[rgba(255,122,0,0.15)] text-[#ff7a00] border border-[rgba(255,122,0,0.3)] leading-none">
               v{version}
             </span>
