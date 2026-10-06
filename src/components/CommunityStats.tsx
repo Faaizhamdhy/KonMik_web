@@ -40,6 +40,14 @@ export default function CommunityStats({
   // Filter & Pagination State
   const [selectedRating, setSelectedRating] = useState<number | null>(null);
   const [showAllReviews, setShowAllReviews] = useState(false);
+  const [expandedReviews, setExpandedReviews] = useState<Record<string, boolean>>({});
+
+  const toggleReviewExpand = (reviewKey: string) => {
+    setExpandedReviews((prev) => ({
+      ...prev,
+      [reviewKey]: !prev[reviewKey],
+    }));
+  };
 
   const [hoverRating, setHoverRating] = useState<number | null>(null);
   const [userRating, setUserRating] = useState<number | null>(null);
@@ -439,84 +447,116 @@ export default function CommunityStats({
             ) : (
               <>
                 {/* Reviews Grid */}
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
-                  {displayedReviews.map((rev, idx) => (
-                    <div
-                      key={`${rev.username}-${idx}`}
-                      className="group relative p-5 rounded-2xl bg-[#140e0a] border border-[#2a1d14] hover:border-[rgba(255,122,0,0.35)] transition-all duration-300 hover:shadow-[0_8px_24px_rgba(255,122,0,0.08)] flex flex-col justify-between"
-                    >
-                      {/* Card Header: Avatar, Name, Handle, Stars */}
-                      <div>
-                        <div className="flex items-start justify-between gap-3 mb-3">
-                          <div className="flex items-center gap-3 min-w-0">
-                            {/* Profile Picture with letter fallback */}
-                            <div className="relative w-11 h-11 rounded-2xl overflow-hidden border-2 border-[#ff7a00]/30 bg-[#251912] flex items-center justify-center shrink-0 shadow-sm">
-                              <span className="text-sm font-bold text-[#ff7a00] select-none">
-                                {(rev.display_name || rev.username || "K").charAt(0).toUpperCase()}
-                              </span>
-                              {rev.profile_url ? (
-                                <img
-                                  src={rev.profile_url}
-                                  alt={rev.display_name || rev.username}
-                                  className="absolute inset-0 w-full h-full object-cover"
-                                  onError={(e) => {
-                                    (e.currentTarget as HTMLElement).style.display = "none";
-                                  }}
-                                />
-                              ) : null}
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 items-start">
+                  {displayedReviews.map((rev, idx) => {
+                    const cardKey = `${rev.username}-${idx}`;
+                    const isExpanded = !!expandedReviews[cardKey];
+                    const isLong = (rev.review_text || "").length > 110;
+
+                    return (
+                      <div
+                        key={cardKey}
+                        className="group relative p-5 rounded-2xl bg-[#140e0a] border border-[#2a1d14] hover:border-[rgba(255,122,0,0.35)] transition-all duration-300 hover:shadow-[0_8px_24px_rgba(255,122,0,0.08)] flex flex-col justify-between"
+                      >
+                        {/* Card Header: Avatar, Name, Handle, Stars */}
+                        <div>
+                          <div className="flex items-start justify-between gap-3 mb-3">
+                            <div className="flex items-center gap-3 min-w-0">
+                              {/* Profile Picture with letter fallback */}
+                              <div className="relative w-11 h-11 rounded-2xl overflow-hidden border-2 border-[#ff7a00]/30 bg-[#251912] flex items-center justify-center shrink-0 shadow-sm">
+                                <span className="text-sm font-bold text-[#ff7a00] select-none">
+                                  {(rev.display_name || rev.username || "K").charAt(0).toUpperCase()}
+                                </span>
+                                {rev.profile_url ? (
+                                  <img
+                                    src={rev.profile_url}
+                                    alt={rev.display_name || rev.username}
+                                    className="absolute inset-0 w-full h-full object-cover"
+                                    onError={(e) => {
+                                      (e.currentTarget as HTMLElement).style.display = "none";
+                                    }}
+                                  />
+                                ) : null}
+                              </div>
+
+                              <div className="min-w-0">
+                                <h4 className="text-sm font-bold text-[#f5ede4] truncate leading-tight group-hover:text-[#ff7a00] transition-colors">
+                                  {rev.display_name || rev.username}
+                                </h4>
+                                <p className="text-xs text-[#8d7768] truncate font-mono">
+                                  @{rev.username}
+                                </p>
+                              </div>
                             </div>
 
-                            <div className="min-w-0">
-                              <h4 className="text-sm font-bold text-[#f5ede4] truncate leading-tight group-hover:text-[#ff7a00] transition-colors">
-                                {rev.display_name || rev.username}
-                              </h4>
-                              <p className="text-xs text-[#8d7768] truncate font-mono">
-                                @{rev.username}
-                              </p>
-                            </div>
+                            <span className="inline-flex px-2 py-0.5 rounded-md text-[10px] font-bold bg-[#ff7a00]/10 text-[#ff7a00] border border-[#ff7a00]/25 shrink-0 capitalize">
+                              {rev.role || "Reader"}
+                            </span>
                           </div>
 
-                          <span className="inline-flex px-2 py-0.5 rounded-md text-[10px] font-bold bg-[#ff7a00]/10 text-[#ff7a00] border border-[#ff7a00]/25 shrink-0 capitalize">
-                            {rev.role || "Reader"}
-                          </span>
+                          {/* Star Rating Display */}
+                          <div className="flex items-center gap-1 mb-3">
+                            {[1, 2, 3, 4, 5].map((star) => (
+                              <Star
+                                key={star}
+                                className={`w-3.5 h-3.5 ${
+                                  star <= rev.rating
+                                    ? "text-amber-400 fill-amber-400"
+                                    : "text-[#3d2918] fill-transparent"
+                                }`}
+                              />
+                            ))}
+                            <span className="text-xs font-semibold text-amber-400 ml-1 font-mono">
+                              {rev.rating}.0
+                            </span>
+                          </div>
+
+                          {/* Review Text */}
+                          <div className="relative">
+                            <Quote className="w-5 h-5 text-[#ff7a00]/20 mb-1 -scale-x-100" />
+                            <p
+                              className={`text-[#d8c3b2] text-xs sm:text-sm leading-relaxed italic transition-all duration-200 ${
+                                isLong && !isExpanded ? "line-clamp-4 cursor-pointer" : ""
+                              } ${isLong && isExpanded ? "cursor-pointer whitespace-pre-line" : ""}`}
+                              onClick={isLong ? () => toggleReviewExpand(cardKey) : undefined}
+                              title={
+                                isLong
+                                  ? isExpanded
+                                    ? "Klik untuk memperkecil ulasan"
+                                    : "Klik untuk melihat ulasan selengkapnya"
+                                  : undefined
+                              }
+                            >
+                              &ldquo;{rev.review_text}&rdquo;
+                            </p>
+                            {isLong && (
+                              <button
+                                type="button"
+                                onClick={() => toggleReviewExpand(cardKey)}
+                                className="mt-2 inline-flex items-center gap-1 text-[11px] font-bold text-[#ff7a00] hover:text-[#ff9433] transition-colors cursor-pointer select-none"
+                              >
+                                <span>{isExpanded ? "Tutup selengkapnya" : "Lihat selengkapnya"}</span>
+                                {isExpanded ? (
+                                  <ChevronUp className="w-3 h-3" />
+                                ) : (
+                                  <ChevronDown className="w-3 h-3" />
+                                )}
+                              </button>
+                            )}
+                          </div>
                         </div>
 
-                        {/* Star Rating Display */}
-                        <div className="flex items-center gap-1 mb-3">
-                          {[1, 2, 3, 4, 5].map((star) => (
-                            <Star
-                              key={star}
-                              className={`w-3.5 h-3.5 ${
-                                star <= rev.rating
-                                  ? "text-amber-400 fill-amber-400"
-                                  : "text-[#3d2918] fill-transparent"
-                              }`}
-                            />
-                          ))}
-                          <span className="text-xs font-semibold text-amber-400 ml-1 font-mono">
-                            {rev.rating}.0
+                        {/* Card Footer: Device tag & Date */}
+                        <div className="mt-4 pt-3 border-t border-[#22160e] flex items-center justify-between text-[11px] text-[#8d7768]">
+                          <span className="inline-flex items-center gap-1.5 font-medium">
+                            <Smartphone className="w-3.5 h-3.5 text-[#ff7a00]" />
+                            Aplikasi KonMik
                           </span>
-                        </div>
-
-                        {/* Review Text */}
-                        <div className="relative">
-                          <Quote className="w-5 h-5 text-[#ff7a00]/20 mb-1 -scale-x-100" />
-                          <p className="text-[#d8c3b2] text-xs sm:text-sm leading-relaxed italic line-clamp-4">
-                            &ldquo;{rev.review_text}&rdquo;
-                          </p>
+                          <span className="text-[#715c4f]">{rev.date || "Terverifikasi"}</span>
                         </div>
                       </div>
-
-                      {/* Card Footer: Device tag & Date */}
-                      <div className="mt-4 pt-3 border-t border-[#22160e] flex items-center justify-between text-[11px] text-[#8d7768]">
-                        <span className="inline-flex items-center gap-1.5 font-medium">
-                          <Smartphone className="w-3.5 h-3.5 text-[#ff7a00]" />
-                          Aplikasi KonMik
-                        </span>
-                        <span className="text-[#715c4f]">{rev.date || "Terverifikasi"}</span>
-                      </div>
-                    </div>
-                  ))}
+                    );
+                  })}
                 </div>
 
                 {/* Show All / Show Less Toggle Button */}
