@@ -1,3 +1,9 @@
+export const DOWNLOAD_URL_MAIN =
+  "https://github.com/Faaizhamdhy/KonMik-Release/releases/latest/download/KonMik.apk";
+
+export const DOWNLOAD_URL_ARM32 =
+  "https://github.com/Faaizhamdhy/KonMik-Release/releases/latest/download/KonMik-armeabi-v7a.apk";
+
 export async function getLatestVersion(): Promise<string> {
   try {
     const res = await fetch(
@@ -11,3 +17,4 @@ export async function getLatestVersion(): Promise<string> {
     return "1.6.2";
   }
 }
+

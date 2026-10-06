@@ -6,7 +6,11 @@ export default function DownloadTracker() {
   useEffect(() => {
     const handleDownloadClick = (e: MouseEvent) => {
       const target = (e.target as HTMLElement).closest("a");
-      if (target && target.href && target.href.includes("KonMik.apk")) {
+      if (
+        target &&
+        target.href &&
+        (target.href.includes("KonMik.apk") || target.href.includes("KonMik-armeabi-v7a.apk"))
+      ) {
         try {
           if (navigator.sendBeacon) {
             navigator.sendBeacon("https://api.konkon.id/api/track_download");

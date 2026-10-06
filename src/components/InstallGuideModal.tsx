@@ -9,7 +9,9 @@ import {
   Download,
   AlertTriangle,
   Info,
+  Smartphone,
 } from "lucide-react";
+import { DOWNLOAD_URL_MAIN, DOWNLOAD_URL_ARM32 } from "@/lib/version";
 
 export default function InstallGuideModal() {
   const [isOpen, setIsOpen] = useState(false);
@@ -145,6 +147,29 @@ export default function InstallGuideModal() {
               </div>
             </div>
           </div>
+
+          {/* Card Solusi Kompatibilitas ARM 32-bit */}
+          <div className="p-3.5 sm:p-4 rounded-2xl bg-[#1c130c] border border-amber-500/30 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 text-xs sm:text-sm">
+            <div className="flex items-start gap-3">
+              <Smartphone className="w-5 h-5 text-amber-400 shrink-0 mt-0.5" />
+              <div>
+                <strong className="text-[#f5ede4] block font-bold">
+                  HP Tidak Kompatibel atau Muncul &ldquo;Aplikasi Tidak Terpasang&rdquo;?
+                </strong>
+                <p className="text-[#a89282] text-xs leading-relaxed mt-0.5">
+                  Jika versi utama gagal dipasang pada perangkat Android tertentu (tipe lama atau OS 32-bit), silakan unduh versi khusus <strong>ARM 32-bit (armeabi-v7a)</strong>.
+                </p>
+              </div>
+            </div>
+            <a
+              href={DOWNLOAD_URL_ARM32}
+              onClick={() => setIsOpen(false)}
+              className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-bold text-amber-300 bg-amber-500/15 border border-amber-500/30 hover:bg-amber-500/25 transition-all shrink-0 cursor-pointer self-stretch sm:self-auto justify-center"
+            >
+              <Download className="w-3.5 h-3.5" />
+              <span>Download ARM 32-bit</span>
+            </a>
+          </div>
         </div>
 
         {/* Footer */}
@@ -153,21 +178,29 @@ export default function InstallGuideModal() {
             Aplikasi KonMik aman &bull; 100% bebas iklan &bull; Tidak meminta izin berbahaya
           </span>
 
-          <div className="flex items-center gap-2.5 w-full sm:w-auto">
+          <div className="flex flex-wrap items-center gap-2 w-full sm:w-auto">
             <button
               type="button"
               onClick={() => setIsOpen(false)}
-              className="flex-1 sm:flex-none px-4 py-2.5 rounded-xl bg-[#22160e] hover:bg-[#2d1c12] text-[#f5ede4] font-semibold text-xs sm:text-sm transition-colors cursor-pointer"
+              className="px-4 py-2.5 rounded-xl bg-[#22160e] hover:bg-[#2d1c12] text-[#f5ede4] font-semibold text-xs sm:text-sm transition-colors cursor-pointer"
             >
               Tutup
             </button>
             <a
-              href="https://github.com/Faaizhamdhy/KonMik-Release/releases/latest/download/KonMik.apk"
+              href={DOWNLOAD_URL_ARM32}
+              onClick={() => setIsOpen(false)}
+              className="flex-1 sm:flex-none inline-flex items-center justify-center gap-1.5 px-3.5 py-2.5 rounded-xl bg-[#18120e] hover:bg-[#221710] border border-[#2a1d14] hover:border-[rgba(255,122,0,0.4)] text-[#f5ede4] font-semibold text-xs sm:text-sm transition-all cursor-pointer"
+            >
+              <Download className="w-3.5 h-3.5 text-[#ff7a00]" />
+              <span>Unduh Versi 32-bit</span>
+            </a>
+            <a
+              href={DOWNLOAD_URL_MAIN}
               onClick={() => setIsOpen(false)}
               className="flex-1 sm:flex-none inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl bg-[#ff7a00] hover:bg-[#e06b00] text-white font-bold text-xs sm:text-sm transition-all shadow-[0_4px_16px_rgba(255,122,0,0.35)] cursor-pointer"
             >
               <Download className="w-4 h-4" />
-              <span>Unduh APK Sekarang</span>
+              <span>Unduh APK Utama (64-bit)</span>
             </a>
           </div>
         </div>

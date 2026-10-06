@@ -2,8 +2,9 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { Download, Menu, X, Puzzle, Sparkles, Eye, Activity } from "lucide-react";
+import { Download, Menu, X, Puzzle, Sparkles, Eye, Activity, ChevronDown } from "lucide-react";
 import { useState, useEffect } from "react";
+import { DOWNLOAD_URL_MAIN, DOWNLOAD_URL_ARM32 } from "@/lib/version";
 import GithubIcon from "./GithubIcon";
 import DiscordIcon from "./DiscordIcon";
 import WhatsAppIcon from "./WhatsAppIcon";
@@ -16,6 +17,7 @@ export default function Navbar({
   solid?: boolean;
 }) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [downloadMenuOpen, setDownloadMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
@@ -117,13 +119,65 @@ export default function Navbar({
 
         {/* Right Actions */}
         <div className="flex items-center gap-2">
-          <a
-            href="https://github.com/Faaizhamdhy/KonMik-Release/releases/latest/download/KonMik.apk"
-            className="hidden sm:inline-flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold bg-[#ff7a00] hover:bg-[#e86e00] text-white transition-all duration-200 shadow-[0_0_20px_rgba(255,122,0,0.35)] hover:shadow-[0_0_28px_rgba(255,122,0,0.5)] active:scale-[0.97]"
-          >
-            <Download className="w-3.5 h-3.5" aria-hidden="true" />
-            Unduh APK
-          </a>
+          {/* Desktop Dual Download Dropdown */}
+          <div className="relative hidden sm:block group">
+            <div className="flex items-center rounded-xl bg-[#ff7a00] shadow-[0_0_20px_rgba(255,122,0,0.35)] hover:shadow-[0_0_28px_rgba(255,122,0,0.5)] transition-all overflow-hidden">
+              <a
+                href={DOWNLOAD_URL_MAIN}
+                className="inline-flex items-center gap-2 px-3.5 py-2 text-xs font-bold text-white hover:bg-[#e86e00] transition-colors active:scale-[0.98]"
+              >
+                <Download className="w-3.5 h-3.5" aria-hidden="true" />
+                Unduh APK
+              </a>
+              <button
+                type="button"
+                onClick={() => setDownloadMenuOpen(!downloadMenuOpen)}
+                className="px-2 py-2 border-l border-white/20 text-white hover:bg-[#e86e00] transition-colors cursor-pointer"
+                aria-label="Pilih Versi APK"
+              >
+                <ChevronDown className="w-3.5 h-3.5" />
+              </button>
+            </div>
+
+            {/* Dropdown Menu (Hover & Click) */}
+            <div
+              className={`absolute right-0 mt-2 w-64 p-2 rounded-2xl bg-[#140e0a]/95 backdrop-blur-xl border border-[#2a1d14] shadow-2xl transition-all duration-200 z-50 ${
+                downloadMenuOpen
+                  ? "opacity-100 visible"
+                  : "opacity-0 invisible group-hover:opacity-100 group-hover:visible"
+              }`}
+            >
+              <div className="text-[10px] uppercase font-bold text-[#6b5244] px-2.5 py-1">
+                Pilih Versi Android
+              </div>
+              <a
+                href={DOWNLOAD_URL_MAIN}
+                onClick={() => setDownloadMenuOpen(false)}
+                className="flex items-start gap-2.5 p-2 rounded-xl hover:bg-[#20150e] transition-colors group/item"
+              >
+                <Download className="w-4 h-4 text-[#ff7a00] shrink-0 mt-0.5" />
+                <div>
+                  <div className="text-xs font-bold text-[#f5ede4] group-hover/item:text-[#ff7a00] transition-colors">
+                    Versi Utama (64-bit)
+                  </div>
+                  <div className="text-[10px] text-[#a89282]">Rekomendasi untuk kebanyakan HP</div>
+                </div>
+              </a>
+              <a
+                href={DOWNLOAD_URL_ARM32}
+                onClick={() => setDownloadMenuOpen(false)}
+                className="flex items-start gap-2.5 p-2 rounded-xl hover:bg-[#20150e] transition-colors group/item"
+              >
+                <Download className="w-4 h-4 text-amber-400 shrink-0 mt-0.5" />
+                <div>
+                  <div className="text-xs font-bold text-[#f5ede4] group-hover/item:text-amber-400 transition-colors">
+                    Versi ARM 32-bit
+                  </div>
+                  <div className="text-[10px] text-[#a89282]">Untuk HP lama / tidak kompatibel</div>
+                </div>
+              </a>
+            </div>
+          </div>
 
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
@@ -139,7 +193,7 @@ export default function Navbar({
       {/* Mobile Drawer */}
       <div
         className={`md:hidden overflow-hidden transition-all duration-300 ease-in-out ${
-          mobileMenuOpen ? "max-h-[450px] opacity-100" : "max-h-0 opacity-0"
+          mobileMenuOpen ? "max-h-[520px] opacity-100" : "max-h-0 opacity-0"
         }`}
       >
         <div className="border-t border-[#2a1d14] bg-[#0c0906]/95 backdrop-blur-2xl px-4 py-4 space-y-1">
@@ -184,13 +238,22 @@ export default function Navbar({
             <GithubIcon className="w-4 h-4 shrink-0" aria-hidden="true" />
             GitHub Repository
           </a>
-          <div className="pt-2 pb-1">
+          <div className="pt-2 pb-1 space-y-2">
             <a
-              href="https://github.com/Faaizhamdhy/KonMik-Release/releases/latest/download/KonMik.apk"
+              href={DOWNLOAD_URL_MAIN}
+              onClick={() => setMobileMenuOpen(false)}
               className="flex items-center justify-center gap-2 w-full py-3 rounded-xl text-sm font-bold bg-[#ff7a00] hover:bg-[#e86e00] text-white transition-all shadow-[0_0_20px_rgba(255,122,0,0.3)] active:scale-[0.98]"
             >
               <Download className="w-4 h-4" aria-hidden="true" />
-              Download APK v{version} (~31 MB)
+              Download APK Utama (64-bit)
+            </a>
+            <a
+              href={DOWNLOAD_URL_ARM32}
+              onClick={() => setMobileMenuOpen(false)}
+              className="flex items-center justify-center gap-2 w-full py-2.5 rounded-xl text-xs font-semibold bg-[#18120e] border border-[#2a1d14] hover:border-[rgba(255,122,0,0.35)] text-[#f5ede4] hover:bg-[#221a13] transition-all"
+            >
+              <Download className="w-3.5 h-3.5 text-[#ff7a00]" aria-hidden="true" />
+              Download Versi 32-bit (HP Lama)
             </a>
           </div>
         </div>

@@ -4,6 +4,7 @@ import { Download, Heart, ExternalLink } from "lucide-react";
 import GithubIcon from "./GithubIcon";
 import DiscordIcon from "./DiscordIcon";
 import WhatsAppIcon from "./WhatsAppIcon";
+import { DOWNLOAD_URL_MAIN, DOWNLOAD_URL_ARM32 } from "@/lib/version";
 
 const NAV_LINKS = [
   { href: "/", label: "Beranda" },
@@ -15,8 +16,14 @@ const NAV_LINKS = [
 
 const getAppLinks = (version: string) => [
   {
-    href: "https://github.com/Faaizhamdhy/KonMik-Release/releases/latest/download/KonMik.apk",
-    label: `Download APK (v${version})`,
+    href: DOWNLOAD_URL_MAIN,
+    label: `Download APK Utama (v${version} • 64-bit)`,
+    icon: Download,
+    external: false,
+  },
+  {
+    href: DOWNLOAD_URL_ARM32,
+    label: "Download KonMik-armeabi-v7a.apk (ARM 32-bit)",
     icon: Download,
     external: false,
   },
@@ -88,13 +95,22 @@ export default function Footer({ version = "1.6.2" }: { version?: string }) {
             </p>
 
             {/* Download CTA */}
-            <a
-              href="https://github.com/Faaizhamdhy/KonMik-Release/releases/latest/download/KonMik.apk"
-              className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs font-bold text-white bg-[#ff7a00] hover:bg-[#e86e00] transition-all duration-200 shadow-[0_0_16px_rgba(255,122,0,0.3)] hover:shadow-[0_0_24px_rgba(255,122,0,0.45)] active:scale-[0.97]"
-            >
-              <Download className="w-3.5 h-3.5" aria-hidden="true" />
-              Download APK v{version} (~31 MB)
-            </a>
+            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2">
+              <a
+                href={DOWNLOAD_URL_MAIN}
+                className="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl text-xs font-bold text-white bg-[#ff7a00] hover:bg-[#e86e00] transition-all duration-200 shadow-[0_0_16px_rgba(255,122,0,0.3)] hover:shadow-[0_0_24px_rgba(255,122,0,0.45)] active:scale-[0.97]"
+              >
+                <Download className="w-3.5 h-3.5" aria-hidden="true" />
+                Download APK v{version} (Utama 64-bit)
+              </a>
+              <a
+                href={DOWNLOAD_URL_ARM32}
+                className="inline-flex items-center justify-center gap-2 px-3.5 py-2.5 rounded-xl text-xs font-semibold text-[#f5ede4] bg-[#18120e] border border-[#2a1d14] hover:border-[rgba(255,122,0,0.4)] hover:bg-[#221a13] transition-all duration-200"
+              >
+                <Download className="w-3.5 h-3.5 text-[#ff7a00]" aria-hidden="true" />
+                Versi ARM 32-bit (HP Lama)
+              </a>
+            </div>
 
             <div className="pt-1">
               <span className="text-[10px] px-2.5 py-1 rounded-md bg-[#18120e] border border-[#2a1d14] text-[#6b5244]">

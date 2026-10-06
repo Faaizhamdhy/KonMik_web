@@ -21,6 +21,7 @@ import {
 } from "lucide-react";
 import DiscordIcon from "./DiscordIcon";
 import WhatsAppIcon from "./WhatsAppIcon";
+import { DOWNLOAD_URL_MAIN, DOWNLOAD_URL_ARM32 } from "@/lib/version";
 
 type CategoryKey = "all" | "reader" | "sources" | "community";
 
@@ -372,13 +373,21 @@ export default function Features({ version = "1.6.2" }: { version?: string }) {
             </a>
           </div>
 
-          <div className="relative pt-2">
+          <div className="relative pt-2 flex flex-wrap items-center justify-center gap-3 text-xs font-semibold">
             <a
-              href="https://github.com/Faaizhamdhy/KonMik-Release/releases/latest/download/KonMik.apk"
-              className="inline-flex items-center gap-2 text-xs font-semibold text-[#a89282] hover:text-[#ff7a00] transition-colors"
+              href={DOWNLOAD_URL_MAIN}
+              className="inline-flex items-center gap-1.5 text-[#a89282] hover:text-[#ff7a00] transition-colors"
             >
               <Zap className="w-3.5 h-3.5 text-[#ff7a00]" />
-              <span>Atau Download Langsung APK KonMik v{version} (Gratis & Bebas Iklan) &rarr;</span>
+              <span>Download APK Utama v{version} (64-bit) &rarr;</span>
+            </a>
+            <span className="text-[#423126] hidden sm:inline">&bull;</span>
+            <a
+              href={DOWNLOAD_URL_ARM32}
+              className="inline-flex items-center gap-1.5 text-[#a89282] hover:text-[#ff7a00] transition-colors"
+            >
+              <Download className="w-3.5 h-3.5 text-[#ff7a00]" />
+              <span>Download KonMik-armeabi-v7a.apk (ARM 32-bit) &rarr;</span>
             </a>
           </div>
         </div>

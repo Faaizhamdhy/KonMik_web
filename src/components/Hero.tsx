@@ -2,7 +2,7 @@ import { Download, ChevronRight, Sparkles, Smartphone, ShieldCheck, Zap, Star, U
 import Image from "next/image";
 import Link from "next/link";
 import InstallGuideModal from "@/components/InstallGuideModal";
-import { getLatestVersion } from "@/lib/version";
+import { getLatestVersion, DOWNLOAD_URL_MAIN, DOWNLOAD_URL_ARM32 } from "@/lib/version";
 import { getAppStats } from "@/lib/stats";
 
 const CDN = "https://api.konkon.id/static/assets";
@@ -10,8 +10,8 @@ const CDN = "https://api.konkon.id/static/assets";
 export default async function Hero({ version: propVersion }: { version?: string } = {}) {
   const version = propVersion ?? (await getLatestVersion());
   const appStats = await getAppStats();
-  const downloadUrl =
-    "https://github.com/Faaizhamdhy/KonMik-Release/releases/latest/download/KonMik.apk";
+  const downloadUrl = DOWNLOAD_URL_MAIN;
+  const downloadArm32Url = DOWNLOAD_URL_ARM32;
 
   const stats = [
     {
@@ -41,7 +41,7 @@ export default async function Hero({ version: propVersion }: { version?: string 
   ];
 
   return (
-    <section className="relative overflow-x-clip w-full">
+    <section id="download" className="relative overflow-x-clip w-full">
       {/* ── Background layers — strictly clipped inside overflow-hidden to prevent horizontal mobile scrolling ── */}
       <div className="absolute inset-0 -z-20 overflow-hidden pointer-events-none">
         <div className="absolute inset-0 bg-[#0c0906]" />
@@ -102,27 +102,48 @@ export default async function Hero({ version: propVersion }: { version?: string 
         </p>
 
         {/* ── Call To Action Buttons ── */}
-        <div className="flex flex-col sm:flex-row justify-center items-stretch sm:items-center gap-3 max-w-xs sm:max-w-none mx-auto mb-3.5 sm:mb-4 animate-fade-up-delay-3">
+        <div className="flex flex-col sm:flex-row justify-center items-stretch sm:items-center gap-3 max-w-md sm:max-w-none mx-auto mb-3 sm:mb-3.5 animate-fade-up-delay-3">
+          {/* Main Download (64-bit) */}
           <a
             href={downloadUrl}
-            className="group relative inline-flex items-center justify-center gap-2.5 px-7 sm:px-8 py-3.5 sm:py-4 rounded-2xl font-bold text-white text-sm sm:text-base bg-[#ff7a00] hover:bg-[#e86e00] transition-all duration-200 shadow-[0_0_32px_rgba(255,122,0,0.4)] hover:shadow-[0_0_48px_rgba(255,122,0,0.55)] active:scale-[0.97] overflow-hidden"
+            className="group relative inline-flex items-center justify-center gap-3 px-6 sm:px-7 py-3.5 sm:py-4 rounded-2xl font-bold text-white text-sm sm:text-base bg-[#ff7a00] hover:bg-[#e86e00] transition-all duration-200 shadow-[0_0_32px_rgba(255,122,0,0.4)] hover:shadow-[0_0_48px_rgba(255,122,0,0.55)] active:scale-[0.97] overflow-hidden"
           >
             <span className="absolute inset-0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700 bg-[linear-gradient(90deg,transparent,rgba(255,255,255,0.15),transparent)]" />
             <Download className="w-5 h-5 group-hover:translate-y-0.5 transition-transform duration-200 relative shrink-0" aria-hidden="true" />
-            <span className="relative">Download KonMik APK</span>
+            <div className="flex flex-col items-start text-left sm:items-center sm:text-center leading-tight">
+              <span className="relative">Download KonMik APK</span>
+              <span className="text-[11px] font-normal text-white/80">Versi Utama (64-bit &bull; ~31 MB)</span>
+            </div>
           </a>
+
+          {/* Alternative Download (ARM 32-bit) */}
+          <a
+            href={downloadArm32Url}
+            className="group relative inline-flex items-center justify-center gap-3 px-5 sm:px-6 py-3.5 sm:py-4 rounded-2xl font-semibold text-[#f5ede4] text-sm sm:text-base bg-[#18120e] border border-[rgba(255,122,0,0.35)] hover:border-[#ff7a00] hover:bg-[#22160e] transition-all duration-200 shadow-[0_0_20px_rgba(0,0,0,0.4)] hover:shadow-[0_0_24px_rgba(255,122,0,0.2)] active:scale-[0.97]"
+          >
+            <Download className="w-5 h-5 text-[#ff7a00] group-hover:translate-y-0.5 transition-transform duration-200 shrink-0" aria-hidden="true" />
+            <div className="flex flex-col items-start text-left sm:items-center sm:text-center leading-tight">
+              <span className="relative font-bold text-[#f5ede4]">Download Versi 32-bit</span>
+              <span className="text-[11px] font-normal text-[#a89282]">ARM 32-bit &bull; HP Lama</span>
+            </div>
+          </a>
+
+          {/* Preview Aplikasi */}
           <Link
             href="#screenshots"
-            className="inline-flex items-center justify-center gap-2 px-6 sm:px-7 py-3.5 sm:py-4 rounded-2xl font-semibold text-[#f5ede4] text-sm sm:text-base bg-[#18120e] border border-[#2a1d14] hover:border-[rgba(255,122,0,0.4)] hover:bg-[#221a13] transition-all duration-200"
+            className="inline-flex items-center justify-center gap-2 px-5 sm:px-6 py-3.5 sm:py-4 rounded-2xl font-semibold text-[#a89282] hover:text-[#f5ede4] text-sm bg-[#120c08] border border-[#2a1d14] hover:border-[rgba(255,122,0,0.4)] hover:bg-[#1a110a] transition-all duration-200"
           >
-            Preview Aplikasi
+            Preview
             <ChevronRight className="w-4 h-4 text-[#6b5244] shrink-0" aria-hidden="true" />
           </Link>
         </div>
 
         {/* ── Install Guide & Play Protect Helper ── */}
-        <div className="flex justify-center mb-8 sm:mb-10 animate-fade-up-delay-3">
+        <div className="flex flex-col items-center justify-center gap-2 mb-8 sm:mb-10 animate-fade-up-delay-3">
           <InstallGuideModal />
+          <p className="text-[11px] text-[#8d7768] text-center px-4 max-w-md">
+            💡 <em>Pilih <strong>Versi 32-bit</strong> jika HP Anda muncul peringatan &ldquo;Aplikasi tidak kompatibel&rdquo; atau &ldquo;Tidak dapat memasang paket&rdquo;.</em>
+          </p>
         </div>
 
         {/* ── Stats Badges Grid ── */}
@@ -196,13 +217,20 @@ export default async function Hero({ version: propVersion }: { version?: string 
                   ))}
                 </div>
 
-                <div className="pt-2">
+                <div className="pt-2 flex flex-wrap items-center gap-2.5">
                   <a
                     href={downloadUrl}
                     className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-xs font-bold text-white bg-[#ff7a00] hover:bg-[#e86e00] transition-all shadow-[0_0_20px_rgba(255,122,0,0.3)] active:scale-[0.98]"
                   >
                     <Download className="w-3.5 h-3.5" />
-                    <span>Download APK &bull; Gratis</span>
+                    <span>Download APK (Utama 64-bit)</span>
+                  </a>
+                  <a
+                    href={downloadArm32Url}
+                    className="inline-flex items-center gap-1.5 px-3.5 py-2.5 rounded-xl text-xs font-semibold text-[#f5ede4] bg-[#18120e] border border-[#2a1d14] hover:border-[rgba(255,122,0,0.4)] hover:bg-[#221a13] transition-all"
+                  >
+                    <Download className="w-3.5 h-3.5 text-[#ff7a00]" />
+                    <span>Versi ARM 32-bit</span>
                   </a>
                 </div>
               </div>
@@ -279,13 +307,20 @@ export default async function Hero({ version: propVersion }: { version?: string 
                   ))}
                 </div>
 
-                <div className="pt-2">
+                <div className="pt-2 flex flex-col gap-2 w-full max-w-xs mx-auto">
                   <a
                     href={downloadUrl}
-                    className="inline-flex items-center justify-center gap-2 w-full max-w-xs py-3 rounded-xl text-xs font-bold text-white bg-[#ff7a00] hover:bg-[#e86e00] transition-all shadow-[0_0_20px_rgba(255,122,0,0.3)]"
+                    className="inline-flex items-center justify-center gap-2 w-full py-3 rounded-xl text-xs font-bold text-white bg-[#ff7a00] hover:bg-[#e86e00] transition-all shadow-[0_0_20px_rgba(255,122,0,0.3)]"
                   >
                     <Download className="w-3.5 h-3.5" />
-                    <span>Download APK v{version} (~31 MB)</span>
+                    <span>Download APK Utama (64-bit)</span>
+                  </a>
+                  <a
+                    href={downloadArm32Url}
+                    className="inline-flex items-center justify-center gap-2 w-full py-2.5 rounded-xl text-xs font-semibold text-[#f5ede4] bg-[#18120e] border border-[#2a1d14] hover:bg-[#221a13] transition-all"
+                  >
+                    <Download className="w-3.5 h-3.5 text-[#ff7a00]" />
+                    <span>Download Versi 32-bit (HP Lama)</span>
                   </a>
                 </div>
               </div>
