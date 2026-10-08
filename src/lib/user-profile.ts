@@ -373,3 +373,31 @@ export async function getFullUserProfile(username: string): Promise<FullUserProf
     return null;
   }
 }
+
+export async function verifySessionToken(token: string): Promise<{ valid: boolean; minutes?: number; message?: string }> {
+  if (!token || !token.trim()) {
+    return { valid: false, message: "Token kosong" };
+  }
+
+  try {
+    const res = await fetch("https://api.konkon.id/api/check_status", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token.trim()}`,
+        "User-Agent": "KonMikWeb/1.0",
+      },
+      body: JSON.stringify({ token: token.trim() }),
+      next: { revalidate: 0 },
+    });
+
+    if (res.ok) {
+      const data = await res.json();
+      return { valid: data.status === "success", minutes: data.minutes_reading };
+    }
+    return { valid: false, message: "Token tidak valid atau telah kedaluwarsa" };
+  } catch (err) {
+    return { valid: false, message: "Gagal memeriksa status sesi ke server" };
+  }
+}
+
