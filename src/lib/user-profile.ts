@@ -253,7 +253,7 @@ export async function getFullUserProfile(username: string): Promise<FullUserProf
       }
     }
 
-    // Parse clan details if clan_id exists
+    // Parse clan details if clan_id or clan_tag exists
     let clanDetails: ClanDetails | null = null;
     const clanId = statsData.clan_id ? Number(statsData.clan_id) : null;
     if (clanId) {
@@ -270,6 +270,31 @@ export async function getFullUserProfile(username: string): Promise<FullUserProf
         }
       } catch {
         // ignore clan error
+      }
+    }
+
+    if (!clanDetails && (statsData.clan_tag || clanId)) {
+      clanDetails = {
+        id: clanId || 0,
+        name: statsData.clan_tag ? `Clan ${statsData.clan_tag}` : "Clan",
+        tag: statsData.clan_tag || "",
+        level: Number(statsData.clan_level || 1),
+        rank: Number(statsData.clan_rank || 0),
+        color_hex: statsData.clan_color || "#ff7a00",
+        icon_id: statsData.clan_icon || "",
+        equipped_shape: statsData.clan_shape || "c_rect",
+        total_kp: 0,
+        total_reading_minutes: 0,
+      };
+    } else if (clanDetails) {
+      if (!clanDetails.icon_id && statsData.clan_icon) {
+        clanDetails.icon_id = statsData.clan_icon;
+      }
+      if (!clanDetails.color_hex && statsData.clan_color) {
+        clanDetails.color_hex = statsData.clan_color;
+      }
+      if (!clanDetails.tag && statsData.clan_tag) {
+        clanDetails.tag = statsData.clan_tag;
       }
     }
 

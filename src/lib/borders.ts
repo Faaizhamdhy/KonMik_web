@@ -400,11 +400,12 @@ export function getRoleBadgeInfo(role: string): {
         icon: "🎨",
       };
     case "premium":
+    case "vip":
       return {
-        label: "PREMIUM VIP",
-        badgeClass: "bg-cyan-500/20 text-cyan-300 shadow-[0_0_12px_rgba(6,182,212,0.3)]",
-        borderClass: "border-cyan-400/50",
-        icon: "💎",
+        label: "PREMIUM",
+        badgeClass: "bg-amber-400/15 text-amber-300 shadow-[0_0_14px_rgba(251,191,36,0.25)]",
+        borderClass: "border-amber-400/50",
+        icon: "👑",
       };
     default:
       return {

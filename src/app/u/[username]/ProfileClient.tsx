@@ -59,11 +59,19 @@ export default function ProfileClient({ profile }: ProfileClientProps) {
 
   // Open in KonMik mobile app deep link
   const handleOpenApp = () => {
-    const deepLink = `konmik://user/${encodeURIComponent(profile.username)}`;
-    window.location.href = deepLink;
-    setTimeout(() => {
-      // Fallback hint after 1.5s if app didn't intercept
-    }, 1500);
+    const encodedUser = encodeURIComponent(profile.username);
+    const isAndroid = typeof navigator !== "undefined" && /android/i.test(navigator.userAgent);
+
+    if (isAndroid) {
+      // Android Intent URI: Chrome Android natively recognizes intent: URI to invoke application com.konmik
+      const intentUrl = `intent://profile?u=${encodedUser}#Intent;scheme=konmik;package=com.konmik;end`;
+      window.location.href = intentUrl;
+      setTimeout(() => {
+        window.location.href = `konmik://profile?u=${encodedUser}`;
+      }, 500);
+    } else {
+      window.location.href = `konmik://profile?u=${encodedUser}`;
+    }
   };
 
   // Calculate highest reading day for chart height scaling
@@ -75,59 +83,40 @@ export default function ProfileClient({ profile }: ProfileClientProps) {
   return (
     <div className="w-full">
       {/* ═════════════════════════════════════════════════════════════════════
-          1. HERO HEADER: BANNER + AVATAR + IDENTITY
+          1. HERO HEADER: BANNER BACKGROUND + ROUND AVATAR + IDENTITY
           ═════════════════════════════════════════════════════════════════════ */}
-      <div className="relative rounded-3xl overflow-hidden bg-[#120d09] border border-[#2a1d14] shadow-2xl mb-8">
-        {/* Banner Area */}
-        <div className="relative h-48 sm:h-64 md:h-72 w-full overflow-hidden bg-[#1a110a]">
+      <div className="relative rounded-3xl overflow-hidden bg-[#100a06] border border-[#2a1d14] shadow-2xl mb-8">
+        {/* Full-bleed Edge-to-edge Backdrop Banner */}
+        <div className="absolute inset-x-0 top-0 h-60 sm:h-72 md:h-80 w-full overflow-hidden select-none pointer-events-none">
           {profile.bannerUrl ? (
             <img
               src={profile.bannerUrl}
-              alt="Banner"
-              className="w-full h-full object-cover object-center select-none"
+              alt="Banner Background"
+              className="w-full h-full object-cover object-center"
             />
           ) : (
-            <div className="w-full h-full bg-gradient-to-r from-[#20150e] via-[#2d1b11] to-[#1a0f08]" />
+            <div className="w-full h-full bg-gradient-to-b from-[#2a170c] via-[#1a0f08] to-[#100a06]" />
           )}
 
-          {/* Banner Effect Overlay */}
-          {bannerEffect && (
-            <div
-              className="absolute inset-0 pointer-events-none mix-blend-screen opacity-70 animate-pulse"
-              style={{ background: bannerEffect.gradientCss }}
-            />
-          )}
-
-          {/* Banner Dark Vignette Gradients */}
-          <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-[#120d09] via-[#120d09]/70 to-transparent" />
-          <div className="absolute inset-0 bg-black/25 pointer-events-none" />
-
-          {/* Top-Right Banner Effect Badge */}
-          {bannerEffect && (
-            <div className="absolute top-4 right-4 z-10">
-              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-black/60 backdrop-blur-md border border-white/20 text-[#f5ede4] shadow-lg">
-                <Sparkles className="w-3.5 h-3.5 text-[#ff7a00]" />
-                {bannerEffect.name}
-              </span>
-            </div>
-          )}
+          {/* Fade-to-bottom effect like a backdrop background: transparent at top, melts into card background at bottom */}
+          <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-[#100a06]/65 to-[#100a06]" />
         </div>
 
-        {/* Profile Identity Bar */}
-        <div className="relative px-5 sm:px-8 pb-6 sm:pb-8 pt-0 -mt-16 sm:-mt-20 z-20">
+        {/* Profile Content Layer */}
+        <div className="relative z-10 pt-28 sm:pt-36 md:pt-44 px-5 sm:px-8 pb-6 sm:pb-7">
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
             {/* Avatar & Main Info */}
-            <div className="flex flex-col sm:flex-row items-center sm:items-end gap-5 text-center sm:text-left">
-              {/* Avatar with Equipped Border */}
-              <div className="relative shrink-0 group">
+            <div className="flex flex-col sm:flex-row items-center sm:items-end gap-5 sm:gap-6 text-center sm:text-left">
+              {/* Circular Avatar with Alternative Elegant Border Ring */}
+              <div className="relative shrink-0 flex flex-col items-center group">
                 <div
-                  className="relative w-28 h-28 sm:w-32 sm:h-32 rounded-3xl p-1 flex items-center justify-center transition-transform duration-300 group-hover:scale-105"
+                  className="relative w-28 h-28 sm:w-36 sm:h-36 rounded-full p-1 sm:p-1.5 flex items-center justify-center transition-transform duration-300 group-hover:scale-105 shadow-2xl"
                   style={{
-                    background: border ? border.gradientCss : "linear-gradient(135deg, #2a1d14, #422d20)",
-                    boxShadow: border ? border.glowCss : "0 0 15px rgba(0,0,0,0.5)",
+                    background: border ? border.gradientCss : "linear-gradient(135deg, #3d2a1d, #251810)",
+                    boxShadow: border ? border.glowCss : "0 0 20px rgba(0,0,0,0.6)",
                   }}
                 >
-                  <div className="w-full h-full rounded-[20px] overflow-hidden bg-[#140e0a] relative">
+                  <div className="w-full h-full rounded-full overflow-hidden bg-[#140e0a] border-2 border-[#100a06] relative shadow-inner">
                     {profile.profileUrl ? (
                       <img
                         src={profile.profileUrl}
@@ -135,26 +124,31 @@ export default function ProfileClient({ profile }: ProfileClientProps) {
                         className="w-full h-full object-cover"
                       />
                     ) : (
-                      <div className="w-full h-full flex items-center justify-center text-3xl font-extrabold text-[#ff7a00] bg-[#1a110a]">
+                      <div className="w-full h-full flex items-center justify-center text-3xl sm:text-4xl font-extrabold text-[#ff7a00] bg-[#1a110a]">
                         {profile.displayName.charAt(0).toUpperCase()}
                       </div>
                     )}
                   </div>
                 </div>
 
-                {/* Rarity Tag over Avatar */}
+                {/* Clean Alternative Cosmetic Border Badge */}
                 {border && (
-                  <span className="absolute -bottom-2 left-1/2 -translate-x-1/2 px-2.5 py-0.5 rounded-full text-[10px] font-extrabold uppercase tracking-wider bg-[#0c0906] border border-white/20 text-[#ff7a00] shadow-md">
-                    {border.rarity}
-                  </span>
+                  <div className="mt-2 inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-[#140e0a]/90 backdrop-blur-md border border-white/15 text-[#d8c3b2] shadow-md">
+                    <span
+                      className="w-2 h-2 rounded-full shrink-0"
+                      style={{ backgroundColor: border.colors[0] || "#ff7a00" }}
+                    />
+                    <span className="truncate max-w-[130px]">{border.name}</span>
+                    <span className="text-[10px] text-[#ff7a00] font-extrabold">({border.rarity})</span>
+                  </div>
                 )}
               </div>
 
               {/* Name, Username, Role, Clan Tag */}
-              <div className="space-y-1.5 min-w-0">
+              <div className="space-y-2 min-w-0 pb-1">
                 <div className="flex flex-wrap items-center justify-center sm:justify-start gap-2.5">
                   <h1
-                    className="text-2xl sm:text-3xl font-extrabold tracking-tight truncate max-w-sm sm:max-w-md drop-shadow-sm"
+                    className="text-2xl sm:text-3xl font-extrabold tracking-tight truncate max-w-sm sm:max-w-md drop-shadow-md"
                     style={{
                       color: profile.customNameColor || "#f5ede4",
                     }}
@@ -162,7 +156,7 @@ export default function ProfileClient({ profile }: ProfileClientProps) {
                     {profile.displayName}
                   </h1>
 
-                  {/* Role Badge */}
+                  {/* Role Badge (Premium is Yellow, label is PREMIUM) */}
                   <span
                     className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-xl text-xs font-extrabold border ${roleBadge.borderClass} ${roleBadge.badgeClass}`}
                   >
@@ -170,24 +164,35 @@ export default function ProfileClient({ profile }: ProfileClientProps) {
                     <span>{roleBadge.label}</span>
                   </span>
 
-                  {/* Clan Tag Pill */}
+                  {/* Clan Tag Pill with CDN Clan Icon */}
                   {profile.clan && (
                     <span
-                      className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-xl text-xs font-bold border"
+                      className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-xl text-xs font-bold border shadow-sm"
                       style={{
-                        borderColor: profile.clan.color_hex || "#5AC8FA",
-                        backgroundColor: `${profile.clan.color_hex || "#5AC8FA"}15`,
-                        color: profile.clan.color_hex || "#5AC8FA",
+                        borderColor: profile.clan.color_hex ? `${profile.clan.color_hex}60` : "#ff7a0060",
+                        backgroundColor: profile.clan.color_hex ? `${profile.clan.color_hex}15` : "#ff7a0015",
+                        color: profile.clan.color_hex || "#ff7a00",
                       }}
-                      title={`Klan: ${profile.clan.name} (Peringkat #${profile.clan.rank})`}
+                      title={`Klan: ${profile.clan.name} (Peringkat #${profile.clan.rank || "-"})`}
                     >
-                      <Shield className="w-3 h-3" />
-                      <span>[{profile.clan.tag}]</span>
+                      {profile.clan.icon_id ? (
+                        <img
+                          src={`https://api.konkon.id/static/assets/icon/clan/${profile.clan.icon_id}.png`}
+                          alt={profile.clan.tag}
+                          className="w-3.5 h-3.5 object-contain shrink-0"
+                          onError={(e) => {
+                            (e.currentTarget as HTMLElement).style.display = "none";
+                          }}
+                        />
+                      ) : (
+                        <Shield className="w-3 h-3 shrink-0" />
+                      )}
+                      <span>[{profile.clan.tag.toUpperCase()}]</span>
                     </span>
                   )}
                 </div>
 
-                {/* Handle & TikTok badge */}
+                {/* Handle & TikTok badge & Join Date */}
                 <div className="flex flex-wrap items-center justify-center sm:justify-start gap-3 text-xs sm:text-sm text-[#a89282]">
                   <span className="font-mono text-[#d8c3b2]">@{profile.username}</span>
                   {profile.isTiktokCreator && (
@@ -210,7 +215,7 @@ export default function ProfileClient({ profile }: ProfileClientProps) {
                 </div>
 
                 {/* Selected & Custom Badges */}
-                <div className="flex flex-wrap items-center justify-center sm:justify-start gap-1.5 pt-1.5">
+                <div className="flex flex-wrap items-center justify-center sm:justify-start gap-1.5 pt-1">
                   {profile.customTags.map((tag) => (
                     <span
                       key={tag.id}
@@ -349,7 +354,11 @@ export default function ProfileClient({ profile }: ProfileClientProps) {
         {/* KonPoin */}
         <div className="p-4 rounded-2xl bg-[#140e0a] border border-[#2a1d14] hover:border-[#ff7a00]/40 transition-all">
           <div className="flex items-center gap-2 text-xs text-[#a89282] mb-1">
-            <Coins className="w-4 h-4 text-amber-400" />
+            <img
+              src="https://api.konkon.id/static/assets/konpoin.png"
+              alt="KP"
+              className="w-4 h-4 object-contain inline-block shrink-0"
+            />
             <span>KonPoin</span>
           </div>
           <div className="text-lg sm:text-xl font-extrabold text-[#f5ede4]">
@@ -625,13 +634,13 @@ export default function ProfileClient({ profile }: ProfileClientProps) {
                     className="p-4 rounded-2xl bg-[#1a110a] border border-[#2a1d14] flex items-center gap-3.5 hover:border-[#ff7a00]/40 transition-all"
                   >
                     <div
-                      className="w-12 h-12 rounded-2xl p-0.5 shrink-0"
+                      className="w-12 h-12 rounded-full p-1 shrink-0 flex items-center justify-center shadow-md"
                       style={{
                         background: b.gradientCss,
                         boxShadow: b.glowCss,
                       }}
                     >
-                      <div className="w-full h-full rounded-[14px] bg-[#140e0a] flex items-center justify-center text-xs font-bold text-[#ff7a00]">
+                      <div className="w-full h-full rounded-full bg-[#140e0a] border border-[#100a06] flex items-center justify-center text-xs font-bold text-[#ff7a00]">
                         ★
                       </div>
                     </div>
@@ -822,21 +831,34 @@ export default function ProfileClient({ profile }: ProfileClientProps) {
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-[#22160e] pb-5">
             <div className="flex items-center gap-4">
               <div
-                className="w-16 h-16 rounded-2xl flex items-center justify-center text-2xl font-extrabold border-2"
+                className="w-16 h-16 rounded-2xl flex items-center justify-center p-2.5 shrink-0 border-2"
                 style={{
-                  borderColor: profile.clan.color_hex || "#5AC8FA",
-                  backgroundColor: `${profile.clan.color_hex || "#5AC8FA"}20`,
-                  color: profile.clan.color_hex || "#5AC8FA",
+                  borderColor: profile.clan.color_hex || "#ff7a00",
+                  backgroundColor: `${profile.clan.color_hex || "#ff7a00"}18`,
                 }}
               >
-                [{profile.clan.tag}]
+                {profile.clan.icon_id ? (
+                  <img
+                    src={`https://api.konkon.id/static/assets/icon/clan/${profile.clan.icon_id}.png`}
+                    alt={profile.clan.name}
+                    className="w-11 h-11 object-contain"
+                    onError={(e) => {
+                      (e.currentTarget as HTMLElement).style.display = "none";
+                    }}
+                  />
+                ) : (
+                  <Shield
+                    className="w-8 h-8"
+                    style={{ color: profile.clan.color_hex || "#ff7a00" }}
+                  />
+                )}
               </div>
               <div>
                 <h3 className="text-xl font-extrabold text-[#f5ede4]">{profile.clan.name}</h3>
                 <div className="flex items-center gap-2 text-xs text-[#a89282] mt-0.5">
                   <span>Level {profile.clan.level}</span>
                   <span>&bull;</span>
-                  <span className="text-[#ff7a00] font-bold">Peringkat #{profile.clan.rank} Clan</span>
+                  <span className="text-[#ff7a00] font-bold">Peringkat #{profile.clan.rank || "-"} Klan</span>
                 </div>
               </div>
             </div>
@@ -844,7 +866,14 @@ export default function ProfileClient({ profile }: ProfileClientProps) {
             <div className="flex items-center gap-3">
               <div className="px-4 py-2 rounded-xl bg-[#1a110a] border border-[#2a1d14] text-xs">
                 <span className="text-[#a89282] block text-[10px]">Total Bank KP</span>
-                <strong className="text-amber-400 font-extrabold">{formatNum(profile.clan.total_kp)} KP</strong>
+                <span className="inline-flex items-center gap-1.5 text-amber-400 font-extrabold">
+                  <img
+                    src="https://api.konkon.id/static/assets/konpoin.png"
+                    alt="KP"
+                    className="w-3.5 h-3.5 object-contain inline-block"
+                  />
+                  <span>{formatNum(profile.clan.total_kp)} KP</span>
+                </span>
               </div>
               <div className="px-4 py-2 rounded-xl bg-[#1a110a] border border-[#2a1d14] text-xs">
                 <span className="text-[#a89282] block text-[10px]">Total Menit Membaca</span>
