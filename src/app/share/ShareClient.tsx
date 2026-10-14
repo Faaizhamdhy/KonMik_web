@@ -28,17 +28,29 @@ export default function ShareClient({
 
   useEffect(() => {
     if (typeof window !== "undefined") {
-      const search = window.location.search;
-      const appLink = "konmik://share" + search;
+      let appLink = "";
+      if (source && id) {
+        const params = new URLSearchParams({
+          source,
+          id,
+          endpoint: endpoint || "",
+          title: title || "",
+          cover: cover || "",
+        });
+        appLink = `konmik://share?${params.toString()}`;
+      } else {
+        const search = window.location.search;
+        appLink = "konmik://share" + search;
+      }
       setDeepLink(appLink);
 
       // Attempt automatic redirect on mobile devices to open KonMik app directly
       const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
-      if (isMobile) {
+      if (isMobile && appLink) {
         window.location.href = appLink;
       }
     }
-  }, []);
+  }, [source, id, endpoint, title, cover]);
 
   return (
     <div className="min-h-screen bg-[#0c0906] text-[#f5ede4] flex flex-col items-center justify-center p-4 selection:bg-[#ff7a00] selection:text-white relative overflow-hidden">
