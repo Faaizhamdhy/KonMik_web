@@ -1,11 +1,10 @@
-import { Download, ChevronRight, Sparkles, Smartphone, ShieldCheck, Zap, Star, Users } from "lucide-react";
+import { Download, ChevronRight, Sparkles, ShieldCheck, Star, Users } from "lucide-react";
 import Image from "next/image";
+import CitsunePose from "@/components/CitsunePose";
 import Link from "next/link";
 import InstallGuideModal from "@/components/InstallGuideModal";
 import { getLatestVersion, DOWNLOAD_URL_MAIN, DOWNLOAD_URL_ARM32 } from "@/lib/version";
 import { getAppStats } from "@/lib/stats";
-
-const CDN = "https://api.konkon.id/static/assets";
 
 export default async function Hero({ version: propVersion }: { version?: string } = {}) {
   const version = propVersion ?? (await getLatestVersion());
@@ -241,17 +240,8 @@ export default async function Hero({ version: propVersion }: { version?: string 
                 <div className="absolute -top-24 bottom-0 w-64 xl:w-72 pointer-events-none select-none">
                   {/* Glowing ground stage ellipse under feet */}
                   <div className="absolute bottom-2 left-1/2 -translate-x-1/2 w-44 h-10 bg-[rgba(255,122,0,0.35)] blur-2xl rounded-full" />
-                  {/* Character image with rich lighting drop shadow */}
-                  <Image
-                    src={`${CDN}/CitsunePose1.png`}
-                    alt="Citsune Character"
-                    fill
-                    unoptimized
-                    className="object-contain object-bottom transition-transform duration-500 hover:scale-105"
-                    style={{
-                      filter: "drop-shadow(0 10px 30px rgba(255, 122, 0, 0.55))",
-                    }}
-                  />
+                  {/* Lightweight character artwork and CSS accents */}
+                  <CitsunePose />
                 </div>
               </div>
             </div>
@@ -264,16 +254,7 @@ export default async function Hero({ version: propVersion }: { version?: string 
                 {/* Stage floor glow */}
                 <div className="absolute bottom-2 left-1/2 -translate-x-1/2 w-40 h-8 bg-[rgba(255,122,0,0.35)] blur-xl rounded-full" />
                 <div className="relative w-full h-full">
-                  <Image
-                    src={`${CDN}/CitsunePose1.png`}
-                    alt="Citsune Character"
-                    fill
-                    unoptimized
-                    className="object-contain object-bottom"
-                    style={{
-                      filter: "drop-shadow(0 10px 24px rgba(255, 122, 0, 0.55))",
-                    }}
-                  />
+                  <CitsunePose />
                 </div>
               </div>
 
