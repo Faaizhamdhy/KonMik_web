@@ -3,7 +3,7 @@ import Image from "next/image";
 import CitsunePose from "@/components/CitsunePose";
 import Link from "next/link";
 import InstallGuideModal from "@/components/InstallGuideModal";
-import { getLatestVersion, DOWNLOAD_URL_MAIN, DOWNLOAD_URL_ARM32 } from "@/lib/version";
+import { getLatestVersion, DOWNLOAD_URL_MAIN, DOWNLOAD_URL_ARM32, DOWNLOAD_URL_UNIVERSAL } from "@/lib/version";
 import { getAppStats } from "@/lib/stats";
 
 export default async function Hero({ version: propVersion }: { version?: string } = {}) {
@@ -11,6 +11,7 @@ export default async function Hero({ version: propVersion }: { version?: string 
   const appStats = await getAppStats();
   const downloadUrl = DOWNLOAD_URL_MAIN;
   const downloadArm32Url = DOWNLOAD_URL_ARM32;
+  const downloadUniversalUrl = DOWNLOAD_URL_UNIVERSAL;
 
   const stats = [
     {
@@ -101,7 +102,7 @@ export default async function Hero({ version: propVersion }: { version?: string 
         </p>
 
         {/* ── Call To Action Buttons ── */}
-        <div className="flex flex-col sm:flex-row justify-center items-stretch sm:items-center gap-3 max-w-md sm:max-w-none mx-auto mb-3 sm:mb-3.5 animate-fade-up-delay-3">
+        <div className="flex flex-col sm:flex-row flex-wrap justify-center items-stretch sm:items-center gap-3 max-w-md sm:max-w-4xl mx-auto mb-3 sm:mb-3.5 animate-fade-up-delay-3">
           {/* Main Download (64-bit) */}
           <a
             href={downloadUrl}
@@ -111,19 +112,31 @@ export default async function Hero({ version: propVersion }: { version?: string 
             <Download className="w-5 h-5 group-hover:translate-y-0.5 transition-transform duration-200 relative shrink-0" aria-hidden="true" />
             <div className="flex flex-col items-start text-left sm:items-center sm:text-center leading-tight">
               <span className="relative">Download KonMik APK</span>
-              <span className="text-[11px] font-normal text-white/80">Versi Utama (64-bit &bull; ~31 MB)</span>
+              <span className="text-[11px] font-normal text-white/80">Versi Utama (64-bit &bull; ~37 MB)</span>
             </div>
           </a>
 
           {/* Alternative Download (ARM 32-bit) */}
           <a
             href={downloadArm32Url}
-            className="group relative inline-flex items-center justify-center gap-3 px-5 sm:px-6 py-3.5 sm:py-4 rounded-2xl font-semibold text-[#f5ede4] text-sm sm:text-base bg-[#18120e] border border-[rgba(255,122,0,0.35)] hover:border-[#ff7a00] hover:bg-[#22160e] transition-all duration-200 shadow-[0_0_20px_rgba(0,0,0,0.4)] hover:shadow-[0_0_24px_rgba(255,122,0,0.2)] active:scale-[0.97]"
+            className="group relative inline-flex items-center justify-center gap-2.5 px-5 sm:px-6 py-3.5 sm:py-4 rounded-2xl font-semibold text-[#f5ede4] text-sm sm:text-base bg-[#18120e] border border-[rgba(255,122,0,0.35)] hover:border-[#ff7a00] hover:bg-[#22160e] transition-all duration-200 shadow-[0_0_20px_rgba(0,0,0,0.4)] hover:shadow-[0_0_24px_rgba(255,122,0,0.2)] active:scale-[0.97]"
           >
-            <Download className="w-5 h-5 text-[#ff7a00] group-hover:translate-y-0.5 transition-transform duration-200 shrink-0" aria-hidden="true" />
+            <Download className="w-5 h-5 text-amber-400 group-hover:translate-y-0.5 transition-transform duration-200 shrink-0" aria-hidden="true" />
             <div className="flex flex-col items-start text-left sm:items-center sm:text-center leading-tight">
-              <span className="relative font-bold text-[#f5ede4]">Download Versi 32-bit</span>
-              <span className="text-[11px] font-normal text-[#a89282]">ARM 32-bit &bull; HP Lama</span>
+              <span className="relative font-bold text-[#f5ede4]">Versi 32-bit</span>
+              <span className="text-[11px] font-normal text-[#a89282]">ARM 32-bit &bull; HP Lama (~36 MB)</span>
+            </div>
+          </a>
+
+          {/* Universal Download (Anti-Gagal) */}
+          <a
+            href={downloadUniversalUrl}
+            className="group relative inline-flex items-center justify-center gap-2.5 px-5 sm:px-6 py-3.5 sm:py-4 rounded-2xl font-semibold text-[#f5ede4] text-sm sm:text-base bg-[#18120e] border border-purple-500/35 hover:border-purple-400 hover:bg-[#201426] transition-all duration-200 shadow-[0_0_20px_rgba(0,0,0,0.4)] hover:shadow-[0_0_24px_rgba(168,85,247,0.2)] active:scale-[0.97]"
+          >
+            <Download className="w-5 h-5 text-purple-400 group-hover:translate-y-0.5 transition-transform duration-200 shrink-0" aria-hidden="true" />
+            <div className="flex flex-col items-start text-left sm:items-center sm:text-center leading-tight">
+              <span className="relative font-bold text-[#f5ede4]">Versi Universal</span>
+              <span className="text-[11px] font-normal text-[#a89282]">Semua HP &bull; Anti-Gagal (~99 MB)</span>
             </div>
           </a>
 
@@ -140,8 +153,8 @@ export default async function Hero({ version: propVersion }: { version?: string 
         {/* ── Install Guide & Play Protect Helper ── */}
         <div className="flex flex-col items-center justify-center gap-2 mb-8 sm:mb-10 animate-fade-up-delay-3">
           <InstallGuideModal />
-          <p className="text-[11px] text-[#8d7768] text-center px-4 max-w-md">
-            💡 <em>Pilih <strong>Versi 32-bit</strong> jika HP Anda muncul peringatan &ldquo;Aplikasi tidak kompatibel&rdquo; atau &ldquo;Tidak dapat memasang paket&rdquo;.</em>
+          <p className="text-[11px] text-[#8d7768] text-center px-4 max-w-lg leading-relaxed">
+            💡 <em>Pilih <strong>Versi 32-bit</strong> untuk HP Android lama, atau <strong>Versi Universal</strong> sebagai alternatif terakhir jika muncul peringatan &ldquo;Aplikasi tidak kompatibel&rdquo; (ukuran lebih besar ~99 MB).</em>
           </p>
         </div>
 
@@ -228,8 +241,15 @@ export default async function Hero({ version: propVersion }: { version?: string 
                     href={downloadArm32Url}
                     className="inline-flex items-center gap-1.5 px-3.5 py-2.5 rounded-xl text-xs font-semibold text-[#f5ede4] bg-[#18120e] border border-[#2a1d14] hover:border-[rgba(255,122,0,0.4)] hover:bg-[#221a13] transition-all"
                   >
-                    <Download className="w-3.5 h-3.5 text-[#ff7a00]" />
+                    <Download className="w-3.5 h-3.5 text-amber-400" />
                     <span>Versi ARM 32-bit</span>
+                  </a>
+                  <a
+                    href={downloadUniversalUrl}
+                    className="inline-flex items-center gap-1.5 px-3.5 py-2.5 rounded-xl text-xs font-semibold text-[#f5ede4] bg-[#18120e] border border-purple-500/30 hover:border-purple-400 hover:bg-[#221426] transition-all"
+                  >
+                    <Download className="w-3.5 h-3.5 text-purple-400" />
+                    <span>Versi Universal (~99 MB)</span>
                   </a>
                 </div>
               </div>
@@ -300,8 +320,15 @@ export default async function Hero({ version: propVersion }: { version?: string 
                     href={downloadArm32Url}
                     className="inline-flex items-center justify-center gap-2 w-full py-2.5 rounded-xl text-xs font-semibold text-[#f5ede4] bg-[#18120e] border border-[#2a1d14] hover:bg-[#221a13] transition-all"
                   >
-                    <Download className="w-3.5 h-3.5 text-[#ff7a00]" />
+                    <Download className="w-3.5 h-3.5 text-amber-400" />
                     <span>Download Versi 32-bit (HP Lama)</span>
+                  </a>
+                  <a
+                    href={downloadUniversalUrl}
+                    className="inline-flex items-center justify-center gap-2 w-full py-2.5 rounded-xl text-xs font-semibold text-[#f5ede4] bg-[#18120e] border border-purple-500/30 hover:bg-[#221426] transition-all"
+                  >
+                    <Download className="w-3.5 h-3.5 text-purple-400" />
+                    <span>Download Versi Universal (~99 MB)</span>
                   </a>
                 </div>
               </div>

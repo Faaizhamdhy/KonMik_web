@@ -4,6 +4,9 @@ export const DOWNLOAD_URL_MAIN =
 export const DOWNLOAD_URL_ARM32 =
   "https://github.com/Faaizhamdhy/KonMik-Release/releases/latest/download/KonMik-armeabi-v7a.apk";
 
+export const DOWNLOAD_URL_UNIVERSAL =
+  "https://github.com/Faaizhamdhy/KonMik-Release/releases/latest/download/KonMik-Universal.apk";
+
 export async function getLatestVersion(): Promise<string> {
   try {
     const res = await fetch(

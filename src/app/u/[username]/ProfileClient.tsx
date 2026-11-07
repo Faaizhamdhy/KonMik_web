@@ -31,6 +31,7 @@ import {
 } from "lucide-react";
 import { FullUserProfile } from "@/lib/user-profile";
 import { getBorderInfo, getBannerEffectInfo, getRoleBadgeInfo } from "@/lib/borders";
+import { DOWNLOAD_URL_MAIN } from "@/lib/version";
 
 interface ProfileClientProps {
   profile: FullUserProfile;
@@ -916,7 +917,7 @@ export default function ProfileClient({ profile }: ProfileClientProps) {
         </div>
 
         <a
-          href="https://github.com/Faaizhamdhy/KonMik-Release/releases/latest/download/KonMik.apk"
+          href={DOWNLOAD_URL_MAIN}
           className="inline-flex items-center gap-2 px-6 py-3.5 rounded-2xl font-bold text-white text-sm bg-[#ff7a00] hover:bg-[#e86e00] transition-all shadow-[0_0_24px_rgba(255,122,0,0.4)] active:scale-[0.98] shrink-0"
         >
           <Download className="w-4 h-4" />

@@ -4,7 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { Download, Menu, X, Puzzle, Sparkles, Eye, Activity, ChevronDown, Cpu } from "lucide-react";
 import { useState, useEffect } from "react";
-import { DOWNLOAD_URL_MAIN, DOWNLOAD_URL_ARM32 } from "@/lib/version";
+import { DOWNLOAD_URL_MAIN, DOWNLOAD_URL_ARM32, DOWNLOAD_URL_UNIVERSAL } from "@/lib/version";
 import GithubIcon from "./GithubIcon";
 import DiscordIcon from "./DiscordIcon";
 import WhatsAppIcon from "./WhatsAppIcon";
@@ -177,6 +177,19 @@ export default function Navbar({
                   <div className="text-[10px] text-[#a89282]">Untuk HP lama / tidak kompatibel</div>
                 </div>
               </a>
+              <a
+                href={DOWNLOAD_URL_UNIVERSAL}
+                onClick={() => setDownloadMenuOpen(false)}
+                className="flex items-start gap-2.5 p-2 rounded-xl hover:bg-[#20150e] transition-colors group/item border-t border-[#2a1d14]/60 mt-1 pt-2"
+              >
+                <Download className="w-4 h-4 text-purple-400 shrink-0 mt-0.5" />
+                <div>
+                  <div className="text-xs font-bold text-[#f5ede4] group-hover/item:text-purple-400 transition-colors">
+                    Versi Universal (Anti-Gagal)
+                  </div>
+                  <div className="text-[10px] text-[#a89282]">Semua arsitektur HP & emulator (~99 MB)</div>
+                </div>
+              </a>
             </div>
           </div>
 
@@ -253,8 +266,16 @@ export default function Navbar({
               onClick={() => setMobileMenuOpen(false)}
               className="flex items-center justify-center gap-2 w-full py-2.5 rounded-xl text-xs font-semibold bg-[#18120e] border border-[#2a1d14] hover:border-[rgba(255,122,0,0.35)] text-[#f5ede4] hover:bg-[#221a13] transition-all"
             >
-              <Download className="w-3.5 h-3.5 text-[#ff7a00]" aria-hidden="true" />
+              <Download className="w-3.5 h-3.5 text-amber-400" aria-hidden="true" />
               Download Versi 32-bit (HP Lama)
+            </a>
+            <a
+              href={DOWNLOAD_URL_UNIVERSAL}
+              onClick={() => setMobileMenuOpen(false)}
+              className="flex items-center justify-center gap-2 w-full py-2.5 rounded-xl text-xs font-semibold bg-[#18120e] border border-purple-500/30 hover:border-purple-400 text-[#f5ede4] hover:bg-[#221426] transition-all"
+            >
+              <Download className="w-3.5 h-3.5 text-purple-400" aria-hidden="true" />
+              Download Versi Universal (~99 MB)
             </a>
           </div>
         </div>

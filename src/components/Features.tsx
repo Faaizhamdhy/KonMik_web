@@ -21,7 +21,7 @@ import {
 } from "lucide-react";
 import DiscordIcon from "./DiscordIcon";
 import WhatsAppIcon from "./WhatsAppIcon";
-import { DOWNLOAD_URL_MAIN, DOWNLOAD_URL_ARM32 } from "@/lib/version";
+import { DOWNLOAD_URL_MAIN, DOWNLOAD_URL_ARM32, DOWNLOAD_URL_UNIVERSAL } from "@/lib/version";
 
 type CategoryKey = "all" | "reader" | "sources" | "community";
 
@@ -386,8 +386,16 @@ export default function Features({ version = "1.6.2" }: { version?: string }) {
               href={DOWNLOAD_URL_ARM32}
               className="inline-flex items-center gap-1.5 text-[#a89282] hover:text-[#ff7a00] transition-colors"
             >
-              <Download className="w-3.5 h-3.5 text-[#ff7a00]" />
-              <span>Download KonMik-armeabi-v7a.apk (ARM 32-bit) &rarr;</span>
+              <Download className="w-3.5 h-3.5 text-amber-400" />
+              <span>Download Versi ARM 32-bit &rarr;</span>
+            </a>
+            <span className="text-[#423126] hidden sm:inline">&bull;</span>
+            <a
+              href={DOWNLOAD_URL_UNIVERSAL}
+              className="inline-flex items-center gap-1.5 text-[#a89282] hover:text-purple-400 transition-colors"
+            >
+              <Download className="w-3.5 h-3.5 text-purple-400" />
+              <span>Download Versi Universal (~99 MB) &rarr;</span>
             </a>
           </div>
         </div>

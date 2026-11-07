@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { Download, ExternalLink, ArrowLeft, BookOpen, Sparkles } from "lucide-react";
-import { DOWNLOAD_URL_MAIN, DOWNLOAD_URL_ARM32 } from "@/lib/version";
+import { DOWNLOAD_URL_MAIN, DOWNLOAD_URL_ARM32, DOWNLOAD_URL_UNIVERSAL } from "@/lib/version";
 
 interface ShareClientProps {
   title: string;
@@ -120,6 +120,14 @@ export default function ShareClient({
           >
             <Download className="w-3.5 h-3.5 text-[#ff7a00]" />
             <span>Download Versi ARM 32-bit (HP Lama)</span>
+          </a>
+
+          <a
+            href={DOWNLOAD_URL_UNIVERSAL}
+            className="w-full py-2.5 px-4 bg-[#110d09]/70 hover:bg-[#221a13] border border-purple-500/30 hover:border-purple-500/60 text-[#a89282] hover:text-[#f5ede4] font-medium rounded-xl transition-all flex items-center justify-center gap-2 text-xs"
+          >
+            <Download className="w-3.5 h-3.5 text-purple-400" />
+            <span>Download Versi Universal (Semua HP • ~99 MB)</span>
           </a>
 
           <Link
