@@ -88,7 +88,7 @@ export default function Navbar({
             </Link>
           ))}
           <a
-            href="https://discord.gg/YtuBhqtbvM"
+            href="https://discord.gg/DYD7PtzQrd"
             target="_blank"
             rel="noopener noreferrer"
             className="flex items-center gap-1.5 px-3 py-2 rounded-lg text-sm font-medium text-[#a89282] hover:text-[#5865F2] hover:bg-[#18120e] transition-all duration-150"
@@ -223,7 +223,7 @@ export default function Navbar({
             </Link>
           ))}
           <a
-            href="https://discord.gg/YtuBhqtbvM"
+            href="https://discord.gg/DYD7PtzQrd"
             target="_blank"
             rel="noopener noreferrer"
             onClick={() => setMobileMenuOpen(false)}

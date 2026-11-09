@@ -34,7 +34,7 @@ const getAppLinks = (version: string) => [
     external: false,
   },
   {
-    href: "https://discord.gg/YtuBhqtbvM",
+    href: "https://discord.gg/DYD7PtzQrd",
     label: "Discord Komunitas",
     icon: DiscordIcon,
     external: true,

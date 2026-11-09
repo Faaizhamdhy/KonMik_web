@@ -353,7 +353,7 @@ export default function Features({ version = "1.6.2" }: { version?: string }) {
           {/* Community Buttons */}
           <div className="relative flex flex-col sm:flex-row items-center justify-center gap-3.5 max-w-xl mx-auto mb-6">
             <a
-              href="https://discord.gg/YtuBhqtbvM"
+              href="https://discord.gg/DYD7PtzQrd"
               target="_blank"
               rel="noopener noreferrer"
               className="w-full sm:w-auto flex-1 inline-flex items-center justify-center gap-2.5 px-6 py-3.5 rounded-2xl font-bold text-white text-sm bg-[#5865F2] hover:bg-[#4752C4] transition-all duration-200 shadow-[0_0_24px_rgba(88,101,242,0.35)] hover:shadow-[0_0_35px_rgba(88,101,242,0.5)] active:scale-[0.98]"
