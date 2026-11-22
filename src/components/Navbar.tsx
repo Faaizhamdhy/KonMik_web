@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { Download, Menu, X, Puzzle, Sparkles, Eye, Activity, ChevronDown, Cpu } from "lucide-react";
+import { Download, Menu, X, Puzzle, Sparkles, Eye, Activity, ChevronDown } from "lucide-react";
 import { useState, useEffect } from "react";
 import { DOWNLOAD_URL_MAIN, DOWNLOAD_URL_ARM32, DOWNLOAD_URL_UNIVERSAL } from "@/lib/version";
 import GithubIcon from "./GithubIcon";
@@ -35,7 +35,6 @@ export default function Navbar({
     { href: "/#screenshots", label: "Preview", icon: Eye },
     { href: "/#extensions", label: "Ekstensi", icon: Puzzle },
     { href: "/#features", label: "Fitur", icon: Sparkles },
-    { href: "/matrix", label: "Matrix", icon: Cpu },
   ];
 
   const showSolidNav = solid || scrolled || mobileMenuOpen;

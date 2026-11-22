@@ -12,6 +12,8 @@ const NAV_LINKS = [
   { href: "/#screenshots", label: "Preview Aplikasi" },
   { href: "/#extensions", label: "Katalog Ekstensi" },
   { href: "/#features", label: "Fitur Unggulan" },
+  { href: "/privacy-policy", label: "Kebijakan Privasi" },
+  { href: "/delete-account", label: "Hapus Akun" },
 ];
 
 const getAppLinks = (version: string) => [
@@ -175,10 +177,26 @@ export default function Footer({ version = "1.6.2" }: { version?: string }) {
 
         {/* Bottom bar */}
         <div className="flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-[#6b5244]">
-          <p>
-            &copy; {year} KonMik &bull; Dibuat untuk seluruh penikmat komik di Indonesia.
-          </p>
-          <p className="flex items-center gap-1.5">
+          <div className="flex flex-wrap items-center justify-center sm:justify-start gap-x-3 gap-y-1">
+            <p>
+              &copy; {year} KonMik &bull; Dibuat untuk seluruh penikmat komik di Indonesia.
+            </p>
+            <span className="hidden sm:inline">&bull;</span>
+            <Link
+              href="/privacy-policy"
+              className="text-[#a89282] hover:text-[#ff7a00] transition-colors underline-offset-2 hover:underline"
+            >
+              Kebijakan Privasi
+            </Link>
+            <span>&bull;</span>
+            <Link
+              href="/delete-account"
+              className="text-[#a89282] hover:text-[#ff7a00] transition-colors underline-offset-2 hover:underline"
+            >
+              Hapus Akun
+            </Link>
+          </div>
+          <p className="flex items-center gap-1.5 shrink-0">
             Dibuat dengan
             <Heart className="w-3 h-3 text-[#ff7a00] fill-[#ff7a00]" aria-hidden="true" />
             &bull; 100% Bebas Iklan Pop-up
